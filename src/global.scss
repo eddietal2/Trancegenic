@@ -26,6 +26,22 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 // Ionic
+ion-grid {
+    padding: 0;
+}
 ion-toolbar {
     --background: #fff;
+}
+
+// 
+* {
+    margin: 0;
+}
+.desktop-page-header {
+    margin-top: 3em;
+    font-size: 2.3em;
+}
+.page-content-wrapper {
+    background: #999;
+    height: 600px;
 }

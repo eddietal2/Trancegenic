@@ -1,0 +1,23 @@
+#header-wrapper {
+    background: #e1e9ee;
+    height: 80vh;
+}
+
+#about-wrapper,
+#products-wrapper,
+#blogs-wrapper
+ {
+    margin: 5em auto;
+    height: 100vh;
+}
+
+ion-footer {
+    background: #888;
+    height: 60vh;
+}
+@media screen and (max-width: 600px) {
+    ion-footer {
+        background: #888;
+        height: 70vh;
+    }
+}

@@ -1,0 +1,33 @@
+// Toolbar
+#logo {
+    height: 44px;
+    position: relative;
+    font-weight: 600;
+    color: var(--ion-color-primary);
+}
+
+#nav-wrapper {
+    padding-top: 0.5em; 
+    height: 60px;
+    // position: fixed;
+    // width: 100%;
+    // z-index: 9999;
+
+    a {
+        font-size: 0.9em;
+        color: #999;
+        padding: 0.6em 0.4em;
+        text-decoration: none;
+    }
+    .active-link {
+        color: var(--ion-color-primary);
+        font-weight: 600;
+    }
+    #desktop-cart-icon {
+        margin-right: 4px;
+    }
+}
+
+ion-toolbar {
+    box-shadow: 1px 4px 10px #4c4c4c33;
+}
