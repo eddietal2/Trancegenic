@@ -1,6 +1,18 @@
 <ion-header class="ion-hide-lg-up">
   <ion-toolbar>
-    <ion-title>Profile</ion-title>
+    <ion-buttons slot="start">
+        <ion-button id="top-bar-logo"  (click)="onClick()">
+            Icon
+        </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+        <ion-button id="login-button" (click)="login()">
+            Log in
+        </ion-button>
+        <ion-button id="logout-button" (click)="login()">
+            Log out
+        </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

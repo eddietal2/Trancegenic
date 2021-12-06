@@ -1,6 +1,45 @@
 #header-wrapper {
     background: #e1e9ee;
-    height: 80vh;
+    height: auto;
+
+    #top-bar {
+        height: 56px;
+        position: fixed;
+        z-index: 9;
+        width: 100%;
+        transition: 0.2s;
+        transition-timing-function: ease-in-out;
+        -moz-transition-timing-function: ease-in-out;
+        -webkit-transition-timing-function: ease-in-out;
+        -o-transition-timing-function: ease-in-out;
+        -ms-transition-timing-function: ease-in-out;
+    }
+    ion-toolbar {
+        position: fixed;
+        width: 100%;
+        padding: 0 0.5em;
+        --background: none;
+    }
+    #login-button {
+        background: #008BFF;
+        --color: white;
+        border-radius: 5px;
+    }
+    #logout-button {
+        background: #750f29;
+        --color: white;
+        border-radius: 5px;
+    }
+    #top-bar-logo {
+        
+    }
+
+    #header-background-photo {
+        background-image: url('../../../assets/placeholders/landing-page-header.png');
+        height: 50vh;
+        background-attachment: fixed;
+        background-size: contain;
+    }
 }
 
 #about-wrapper,
@@ -11,10 +50,15 @@
     height: 100vh;
 }
 
+// Ion-Elements
 ion-footer {
     background: #888;
     height: 60vh;
 }
+
+
+
+// Media Queries
 @media screen and (max-width: 600px) {
     ion-footer {
         background: #888;
