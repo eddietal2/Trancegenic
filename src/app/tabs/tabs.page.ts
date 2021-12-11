@@ -21,12 +21,22 @@ export class TabsPage implements OnInit {
         if (data.url == '/cart') {          
           cartIcon.style.color = '#3171e0';
         } 
+        if (data.url == '/products' || data.url == '/blog' || data.url == '/profile') {
+          let navWrapper = document.getElementById('nav-wrapper');
+          navWrapper.style.background = "#fff";
+
+        }
         else {
+          let navWrapper = document.getElementById('nav-wrapper');
           cartIcon.style.color = '#999';
+          navWrapper.style.background = "#none";
         }
       }
     })
   }
+
+
+  
 
 
 

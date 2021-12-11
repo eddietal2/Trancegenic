@@ -1,12 +1,12 @@
 <ion-content scrollEvents="true" (ionScroll)="scrollPosition($event)">
-<ion-grid>
+    <ion-grid>
     <!-- Header -->
     <ion-row id="header-wrapper" class="ion-justify-content-center">
-        <div id="top-bar">
+        <div id="top-bar" class="ion-hide-lg-up">
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <ion-button id="top-bar-logo"  (click)="onClick()">
-                        Icon
+                        <img height="35" id="logo"  src="../../assets/placeholders/placeholder-logo.svg">
                     </ion-button>
                 </ion-buttons>
                 <ion-buttons slot="end">
@@ -23,21 +23,38 @@
             
         </ion-col>
     </ion-row>
-    <!-- About -->
-    <ion-row id="about-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">About Section</ion-col>
-    </ion-row>
     <!-- Latest Products -->
     <ion-row id="products-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">Latest Products</ion-col>
+        <!-- Desktop Products -->
+        <ion-col class="ion-hide-lg-down" size-xs="11" size-sm="10" size-md="8">
+            
+        </ion-col>
+        <!-- Mobile Products -->
+        <ion-col class="ion-hide-lg-up" size-xs="11" size-sm="10" size-md="8">
+            <h2>Latest Products</h2>
+            <swiper
+                [slidesPerView]="3"
+                [spaceBetween]="50"
+                (swiper)="onSwiper($event)"
+                (slideChange)="onSlideChange()"
+                >
+                <ng-template swiperSlide>Slide 1</ng-template>
+                <ng-template swiperSlide>Slide 2</ng-template>
+                <ng-template swiperSlide>Slide 3</ng-template>
+            </swiper>
+        </ion-col>
     </ion-row>
     <!-- Latests Blogs -->
     <ion-row id="blogs-wrapper" class="ion-justify-content-center">
         <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">Latest Blogs</ion-col>
     </ion-row>
+    <!-- About -->
+    <ion-row id="about-wrapper" class="ion-justify-content-center">
+        <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">About Section</ion-col>
+    </ion-row>
     <!-- Header -->
-    <ion-footer class="ion-justify-content-center">
+    <!-- <ion-footer class="ion-justify-content-center">
         <p>Footer</p>
-    </ion-footer>
-</ion-grid>
+    </ion-footer> -->
+    </ion-grid>
 </ion-content>

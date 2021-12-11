@@ -1,9 +1,10 @@
 #header-wrapper {
-    background: #e1e9ee;
+    background-image: linear-gradient(#3C3E89, #6265E4);
     height: auto;
 
     #top-bar {
         height: 56px;
+        background: none;
         position: fixed;
         z-index: 9;
         width: 100%;
@@ -35,10 +36,17 @@
     }
 
     #header-background-photo {
-        background-image: url('../../../assets/placeholders/landing-page-header.png');
+        background-image: linear-gradient(#222428b3, #ffffff00), url('https://s3.amazonaws.com/gazelle.cdn.yolocare.com/sites/376/2018/07/16160435/yolo-1900x1000-4.jpg');
         height: 50vh;
         background-attachment: fixed;
-        background-size: contain;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    @media screen and (min-width: 996px) {
+        #header-background-photo {        
+            height: 95vh;
+        }
     }
 }
 
@@ -46,8 +54,15 @@
 #products-wrapper,
 #blogs-wrapper
  {
-    margin: 5em auto;
+    margin: 0em auto;
     height: 100vh;
+    background: #008BFF;
+}
+
+// Swiper
+.swiper {
+    width: 600px;
+    height: 300px;
 }
 
 // Ion-Elements
@@ -55,8 +70,6 @@ ion-footer {
     background: #888;
     height: 60vh;
 }
-
-
 
 // Media Queries
 @media screen and (max-width: 600px) {

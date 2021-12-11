@@ -2,32 +2,46 @@
 #logo {
     height: 44px;
     position: relative;
+    bottom: 7px;
     font-weight: 600;
     color: var(--ion-color-primary);
 }
 
 #nav-wrapper {
-    padding-top: 0.5em; 
+    padding: 1em 6em 0 6em; 
     height: 60px;
+    background: none;
+    transition: 0.5s;
+    position: fixed;
+    width: 100%;
+    top: 0;
     // position: fixed;
     // width: 100%;
     // z-index: 9999;
 
     a {
         font-size: 0.9em;
+        font-weight: 400;
         color: #999;
         padding: 0.6em 0.4em;
         text-decoration: none;
     }
     .active-link {
         color: var(--ion-color-primary);
-        font-weight: 600;
+        font-weight: 400;
     }
     #desktop-cart-icon {
         margin-right: 4px;
+        position: relative;
+        top: 4px;
+    }
+    ion-badge {
+        position: relative;
+        top: 3px;
     }
 }
 
 ion-toolbar {
+    --background: none;
     box-shadow: 1px 4px 10px #4c4c4c33;
 }

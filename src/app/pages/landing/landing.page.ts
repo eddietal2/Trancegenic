@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
+import SwiperCore, { SwiperOptions } from 'swiper';
+import 'swiper/scss';
 
 
 @Component({
@@ -9,30 +11,70 @@ import { ProductsService } from 'src/app/services/products/products.service';
   styleUrls: ['./landing.page.scss'],
 })
 export class LandingPage implements OnInit {
+  config: SwiperOptions = {
+    slidesPerView: 3,
+    spaceBetween: 50,
+    navigation: true,
+    pagination: { clickable: true },
+    scrollbar: { draggable: true },
+  };
+  
 
   constructor(
     private productsService: ProductsService,
     private router: Router
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit() {
-    let topBar = document.getElementById('top-bar-logo');
   }
-  scrollPosition(e) {
+
+  scrollPosition(e: any) {
     let scrollTop = e.detail.scrollTop;
 
     // When user has scrolled passed Header
     if(scrollTop > 330) {
+
       let toolbarBackground = document.getElementById('top-bar');
+      let navWrapper = document.getElementById('nav-wrapper');
+      let links = document.getElementsByTagName('a');
+      
+      navWrapper.style.background = "#fff"
+      navWrapper.style.boxShadow = "1px 1px 10px #cec7c7"
       toolbarBackground.style.background = "#fff"
+      
+      for (let i = 0; i < links.length; i++) {
+        if(links[i].classList.value != 'active-link') {
+          links[i].style.color = '#999';
+        }
+      }
     } 
 
     // When user has scrolled back to Header
     else {
       let toolbarBackground = document.getElementById('top-bar');
-      toolbarBackground.style.background = "none"
+      let navWrapper = document.getElementById('nav-wrapper');
+      let links = document.getElementsByTagName('a');
+
+      toolbarBackground.style.background = "none"      
+      navWrapper.style.background = "none"      
+      navWrapper.style.boxShadow = "none"
+
+
+      for (let i = 0; i < links.length; i++) {
+        if(links[i].classList.value != 'active-link') {
+          links[i].style.color = 'white';
+        }
+      }
     }
     // console.log('Scroll Position: ' + scrollTop)
+  }
+  onSwiper(swiper) {
+    console.log(swiper);
+  }
+  onSlideChange() {
+    console.log('slide change');
   }
   login() {
     this.router.navigateByUrl('/login')
