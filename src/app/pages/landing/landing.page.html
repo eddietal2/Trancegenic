@@ -19,42 +19,155 @@
                 </ion-buttons>
             </ion-toolbar>
         </div>
-        <ion-col id="header-background-photo" size="12">
-            
+        <ion-col class="ion-align-items-center" id="header-background-photo" size="12">
+            <div id="welcome-popup">
+                <h1>Welcome to [Name of Site]!</h1>
+                <ion-searchbar></ion-searchbar>
+                <ion-button (click)="onClick()">
+                    <ion-icon slot="start" name="Play"></ion-icon>
+                    Play Audio
+                </ion-button>
+            </div>
         </ion-col>
     </ion-row>
+
+    <!-- Intro -->
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="intro-section" size-xs="12" size-sm="11" size-md="8" size-lg="9">
+            <h1>Why Hypnosis?</h1>
+            <p id="why-hypnosis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!</p>
+        </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="intro-section" size-xs="11" size-sm="11" size-md="8" size-lg="3">
+            <div class="intro-inner-card">
+                <div class="intro-icon"></div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, </p>
+            </div>
+        </ion-col>
+        <ion-col class="intro-section" size-xs="11" size-sm="11" size-md="8" size-lg="3">
+            <div class="intro-inner-card">
+                <div class="intro-icon"></div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, </p>
+            </div>
+        </ion-col>
+        <ion-col class="intro-section" size-xs="11" size-sm="11" size-md="8" size-lg="3">
+            <div class="intro-inner-card">
+                <div class="intro-icon"></div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, </p>
+            </div>
+        </ion-col>
+    </ion-row>
+
     <!-- Latest Products -->
+    <!-- Header -->
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-hide-lg-down" size-lg="9">
+            <h2>
+                <ion-icon slot="start" name="pricetag"></ion-icon>
+                Latest Products
+                <span class="file-type">MP3</span>
+                <span class="file-type">MP3</span>
+                <span class="file-type">MP3</span>
+            </h2>
+        </ion-col>
+    </ion-row>
+    <!-- Products -->
     <ion-row id="products-wrapper" class="ion-justify-content-center">
         <!-- Desktop Products -->
-        <ion-col class="ion-hide-lg-down" size-xs="11" size-sm="10" size-md="8">
+        <ion-col class="ion-hide-lg-down desktop-product" size-lg="3">
+            
+        </ion-col>
+        <ion-col class="ion-hide-lg-down desktop-product" size-lg="3">
+            
+        </ion-col>
+        <ion-col class="ion-hide-lg-down desktop-product" size-lg="3">
             
         </ion-col>
         <!-- Mobile Products -->
-        <ion-col class="ion-hide-lg-up" size-xs="11" size-sm="10" size-md="8">
-            <h2>Latest Products</h2>
-            <swiper
-                [slidesPerView]="3"
-                [spaceBetween]="50"
-                (swiper)="onSwiper($event)"
-                (slideChange)="onSlideChange()"
-                >
+        <ion-col class="ion-hide-lg-up" size-xs="12" size-sm="12" size-md="12">
+            <h2>
+                <ion-icon slot="start" name="pricetag"></ion-icon>
+                Latest Products
+                <span class="file-type">MP3</span>
+                <span class="file-type">MP3</span>
+                <span class="file-type">MP3</span>
+            </h2>
+            <swiper 
+                [config]="config" 
+                (swiper)="onSwiper($event)">
                 <ng-template swiperSlide>Slide 1</ng-template>
-                <ng-template swiperSlide>Slide 2</ng-template>
-                <ng-template swiperSlide>Slide 3</ng-template>
-            </swiper>
+                <ng-template swiperSlide>Slide 1</ng-template>
+                <ng-template swiperSlide>Slide 4</ng-template>
+              </swiper>
         </ion-col>
     </ion-row>
-    <!-- Latests Blogs -->
-    <ion-row id="blogs-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">Latest Blogs</ion-col>
+    <!-- Bottom Toolbar -->
+    <ion-row class="ion-justify-content-center">
+        <ion-col size-lg="9">
+            <ion-toolbar>
+                <ion-buttons slot="end">
+                    <ion-button (click)="gotToProductsPage()">
+                        <ion-icon slot="start" name="add"></ion-icon>
+                        View All 
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-col>
     </ion-row>
-    <!-- About -->
-    <ion-row id="about-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">About Section</ion-col>
-    </ion-row>
+
+    <!-- Latest Blogs -->
     <!-- Header -->
-    <!-- <ion-footer class="ion-justify-content-center">
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-hide-lg-down" size-lg="9">
+            <h2>
+                <ion-icon slot="start" name="document"></ion-icon>
+                Latest Blogs
+            </h2>
+        </ion-col>
+    </ion-row>
+    <!-- Blogs -->
+    <ion-row id="blogs-wrapper" class="ion-justify-content-center">
+        <!-- Desktop Blogs -->
+         <ion-col class="ion-hide-lg-down desktop-product" size-lg="3">
+            
+        </ion-col>
+        <ion-col class="ion-hide-lg-down desktop-product" size-lg="3">
+            
+        </ion-col>
+        <ion-col class="ion-hide-lg-down desktop-product" size-lg="3">
+            
+        </ion-col>
+        <!-- Mobile Blogs -->
+        <ion-col class="ion-hide-lg-up" size-xs="12" size-sm="12" size-md="12">
+            <h2>
+                <ion-icon slot="start" name="pricetag"></ion-icon>
+                Latest Blogs</h2>
+            <swiper 
+                [config]="config"
+                (swiper)="onSwiper($event)">
+                <ng-template swiperSlide>Slide 1</ng-template>
+                <ng-template swiperSlide>Slide 1</ng-template>
+                <ng-template swiperSlide>Slide 4</ng-template>
+              </swiper>
+        </ion-col>
+    </ion-row>
+    <!-- Bottom Toolbar -->
+    <ion-row class="ion-justify-content-center">
+        <ion-col size-lg="9">
+            <ion-toolbar>
+                <ion-buttons slot="end">
+                    <ion-button (click)="gotToProductsPage()">
+                        <ion-icon slot="start" name="add"></ion-icon>
+                        View All 
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-col>
+    </ion-row>
+
+    <ion-footer class="ion-justify-content-center">
         <p>Footer</p>
-    </ion-footer> -->
+    </ion-footer>
     </ion-grid>
 </ion-content>

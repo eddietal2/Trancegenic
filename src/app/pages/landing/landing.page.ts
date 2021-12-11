@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
-import SwiperCore, { SwiperOptions } from 'swiper';
-import 'swiper/scss';
+import Swiper, { SwiperOptions } from 'swiper';
 
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
   styleUrls: ['./landing.page.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LandingPage implements OnInit {
   config: SwiperOptions = {
-    slidesPerView: 3,
+    slidesPerView: 1.25,
     spaceBetween: 50,
     navigation: true,
     pagination: { clickable: true },
@@ -29,7 +29,6 @@ export class LandingPage implements OnInit {
 
   ngOnInit() {
   }
-
   scrollPosition(e: any) {
     let scrollTop = e.detail.scrollTop;
 
@@ -79,10 +78,10 @@ export class LandingPage implements OnInit {
   login() {
     this.router.navigateByUrl('/login')
   }
-  getLatestProducts() {
+  gotToProductsPage() {
 
   }
-  getLatestBlogs() {
+  gotToBlogsPage() {
     
   }
   goToContactPage() {
