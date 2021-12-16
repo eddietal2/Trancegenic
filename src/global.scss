@@ -37,11 +37,50 @@ ion-toolbar {
 * {
     margin: 0;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Signika', sans-serif;
+}
+
+p {
+    font-family: 'Arial', sans-serif;
+}
+
+.row-margin {
+    margin: 2em auto;
+}
+
 .desktop-page-header {
     margin-top: 3em;
     font-size: 2.3em;
 }
 .page-content-wrapper {
-    background: #999;
+    // background: #999;
     height: 600px;
 }
+.validation-error-message {
+    color: red;
+}
+.static-alert-yellow {
+   background: #fff3ad; 
+   border-left: 6px solid #ffd900;
+   padding: 0.5em;
+}
+.static-alert-red {
+
+}
+.static-alert-blue {
+
+}
+
+// Media Queries
+@media screen and (min-width: 996px) {
+    .shadow-desktop {
+        box-shadow: 1px 1px 20px #d4d4d4;
+    }
+    .row-margin {
+        margin: 5em auto;
+    }
+    
+}
+

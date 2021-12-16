@@ -18,6 +18,7 @@ export class LandingPage implements OnInit {
     pagination: { clickable: true },
     scrollbar: { draggable: true },
   };
+  hypIllustration: HTMLElement;
   
 
   constructor(
@@ -28,9 +29,15 @@ export class LandingPage implements OnInit {
   }
 
   ngOnInit() {
+        this.hypIllustration = document.getElementById('hyp-illustration');
+        console.log('\nHypnosis Illustration Scrolltop: ');
+        console.log(this.hypIllustration.scrollTop);
   }
+
+  // General
   scrollPosition(e: any) {
     let scrollTop = e.detail.scrollTop;
+
 
     // When user has scrolled passed Header
     if(scrollTop > 330) {
@@ -69,22 +76,32 @@ export class LandingPage implements OnInit {
     }
     // console.log('Scroll Position: ' + scrollTop)
   }
+  // Header
+  playHeaderAudio() {
+  }
+
+  // Intro
+  hypAnimationTrigger() {
+    
+  }
+  // Products
+  // Blogs
+  // Footer
   onSwiper(swiper) {
-    console.log(swiper);
+    // console.log(swiper);
   }
   onSlideChange() {
-    console.log('slide change');
   }
   login() {
     this.router.navigateByUrl('/login')
   }
-  gotToProductsPage() {
-
+  goToProductsPage() {
+    this.router.navigateByUrl("/products");
   }
-  gotToBlogsPage() {
-    
+  goToBlogsPage() {
+    this.router.navigateByUrl("/blog");
   }
   goToContactPage() {
-    
+    this.router.navigateByUrl("/contact");
   }
 }

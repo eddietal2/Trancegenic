@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'products',
     loadChildren: () => import('./pages/products/products.module').then( m => m.ProductsPageModule)
+  },
+  {
+    path: 'download-app',
+    loadChildren: () => import('./pages/download-app/download-app.module').then( m => m.DownloadAppPageModule)
   }
 ];
 @NgModule({

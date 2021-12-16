@@ -1,9 +1,74 @@
 <ion-header class="ion-hide-lg-up">
   <ion-toolbar>
-    <ion-title>contact</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Contact Us</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col id="header" 
+            size="12">
+      <!-- Either Icon or Background Photo -->
+    </ion-col>
+    <ion-col class="ion-text-center"
+             size-xs="11" size-sm="10" size-md="8" size-lg="6" size-xl="5">
+      <h2>Have a question or concern?</h2>
+      <p class="static-alert-yellow">
+        You need to fill out the enter form before you can send a message.
+      </p>
+      <form [formGroup]="contactForm" (ngSubmit)="submitContactForm()">
+        <ion-item lines="none">
+          <ion-label position="floating">Full Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="fullName" type="text" maxlength="100"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="email" type="email"></ion-input>
+          <!-- Email Validation-->
+          <div class="validation-errors">
+                <ng-container *ngFor="let validation of validationMessasges.email">
+                  <div class="validation-error-message"
+                  *ngIf="contactForm
+                    .get('email')
+                    .hasError(validation.type) && (contactForm.get('email')
+                    .dirty || contactForm.get('email').touched)">
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+          </div>
+        </ion-item>
+        <ion-item lines="none" style="height: 300px;">
+          <ion-label
+          position="floating">Message <ion-text color="danger">*</ion-text></ion-label>
+          <ion-textarea #contactMessage required formControlName="message" type="text" maxlength="500"></ion-textarea>
+        </ion-item>
+        <p [ngClass]="contactMessage.value.length > 450 ? 'message-count-red ': 'message-count'">
+          {{contactMessage.value.length}} / 500 Characters</p>
+        <ion-button 
+          id="submit-message-button" 
+          color="primary" 
+          type="submit" 
+          (click)="showSuccessModal()"
+          >
+          Send
+        </ion-button>
+        <!-- [disabled]="contactForm.invalid" -->
+        <ion-button (click)="cancel()" color="primary">
+          Cancel
+        </ion-button>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 
+<!-- Success Modal -->
+<ion-modal [isOpen]="this.successModalOpen">
+  <ng-template>
+    <ion-content style="--background: #00c400;">Modal Content</ion-content>
+  </ng-template>
+</ion-modal>
 </ion-content>
