@@ -1,9 +1,104 @@
 <ion-header class="ion-hide-lg-up">
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="5">
+      <div class="spacer-2x"></div>
+      <div class="static-alert-yellow">
+        <p>Please fill out the entire form to continue.</p>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <ion-item>
+          <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="firstName" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="lastName" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="email" type="email"></ion-input>
+          <!-- Email Validation-->
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessasges.email">
+                  <div class="validation-error-message"
+                  *ngIf="registerForm
+                    .get('email')
+                    .hasError(validation.type) && (registerForm.get('email')
+                    .dirty || registerForm.get('email').touched)">
+                    {{ validation.message }}
+                  </div>
+            </ng-container>
+          </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="password" type="password"></ion-input>
+            <!-- Password Validation-->
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validationMessasges.password">
+                    <div class="validation-error-message"
+                    *ngIf="registerForm
+                      .get('password')
+                      .hasError(validation.type) && (registerForm.get('password')
+                      .dirty || registerForm.get('password').touched)">
+                      {{ validation.message }}
+                    </div>
+              </ng-container>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Re-type Password <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="reTypePassword" type="password"></ion-input>
+            <!-- Password Validation-->
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validationMessasges.password">
+                    <div class="validation-error-message"
+                    *ngIf="registerForm
+                      .get('reTypePassword')
+                      .hasError(validation.type) && (registerForm.get('reTypePassword')
+                      .dirty || registerForm.get('reTypePassword').touched)">
+                      {{ validation.message }}
+                    </div>
+              </ng-container>
+            </div>
+        </ion-item>
+    </form>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
 
+  <ion-modal [isOpen]="this.registerSuccessModal">
+    <ng-template>
+      <ion-content style="--background: green;">
+        <ion-button (click)="closeSuccessModal()" expand="block" fill="clear" shape="round">
+          Close
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
+
+<ion-footer>
+    <ion-button style="display: block;" 
+    id="register-button" 
+    color="success" 
+    type="submit" 
+    (click)="this.tryRegister()"
+    >
+    Register
+    </ion-button>
+    <!-- [disabled]="contactForm.invalid" -->
+    <ion-button id="cancel-button" style="display: block;" (click)="goToLoginPage()" color="medium">
+    Cancel
+    </ion-button>
+</ion-footer>

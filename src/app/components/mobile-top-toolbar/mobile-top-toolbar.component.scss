@@ -1,0 +1,21 @@
+ion-toolbar {
+    position: fixed;
+    width: 100%;
+    padding: 0 0.5em;
+    --background: #fff;
+}
+#login-button {
+    background: #008BFF;
+    --color: white;
+    border-radius: 5px;
+}
+#logout-button {
+    background: none;
+    --color: #750f29;
+    --border-color: #750f29;
+    --border-style: solid;
+    --border-width: 1.8px;
+    border-radius: 5px;
+    font-size: 0.5em;
+    height: 24px;
+}

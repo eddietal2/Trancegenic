@@ -7,12 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { BlogPageRoutingModule } from './blog-routing.module';
 
 import { BlogPage } from './blog.page';
+import { CustomComponentsModule } from 'src/app/components/custom-compontents.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    CustomComponentsModule,
     BlogPageRoutingModule
   ],
   declarations: [BlogPage]

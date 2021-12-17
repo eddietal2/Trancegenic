@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
-import Swiper, { SwiperOptions } from 'swiper';
-
+import { SwiperOptions } from 'swiper';
 
 @Component({
   selector: 'app-landing',

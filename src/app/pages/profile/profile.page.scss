@@ -1,17 +1,46 @@
+ion-footer {
+    position: absolute;
+    bottom: 60px;
 
-    ion-toolbar {
-        position: fixed;
-        width: 100%;
-        padding: 0 0.5em;
-        --background: #fff;
+    ion-button {
+        height: 60px;
     }
-    #login-button {
-        background: #008BFF;
-        --color: white;
-        border-radius: 5px;
+
+    
+}
+
+#profile-wrapper {
+   height: auto; 
+}
+@media screen and (min-width: 996px) {
+    #profile-wrapper {
+        height: 80vh; 
+     }
+}
+#user-info-header {
+    height: auto;
+    // background: #999;
+    margin: 5em auto 2em auto;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #9999993d;
+
+    p, h2 {
+        line-height: 30px;
+        margin: 0;
     }
-    #logout-button {
-        background: #750f29;
-        --color: white;
-        border-radius: 5px;
-    }
+}
+span {
+    display: inline-block;
+    position: relative;
+    bottom: 9px;
+    left: 10px;
+
+}
+
+// Modals
+#change-name-modal,
+#change-email-modal,
+#change-password-modal,
+#news-letter-modal {
+    --background: #fff;
+}

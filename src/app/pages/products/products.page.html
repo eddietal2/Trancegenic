@@ -1,18 +1,61 @@
-<ion-header class="ion-hide-lg-up">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Products</ion-title>
+    <ion-buttons slot="start">
+      <img height="30" src="../../../assets/placeholders/placeholder-logo.svg" alt="" srcset="">
+      <ion-searchbar 
+        placeholder="Filter Pizza"
+        nputmode="decimal" 
+        type="decimal" 
+        (ionChange)="onSearchChange($event)" 
+        [debounce]="250" 
+        showCancelButton="always">
+      </ion-searchbar>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="filterPopover()">
+        Filter
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-grid>
-    <ion-row class="ion-justify-content-center ion-hide-lg-down">
+    <!-- Horizontal Categories -->
+    <ion-row class="ion-justify-content-center">
       <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">
-        <h1 class="desktop-page-header">Products</h1>
+        <div class="spacer-1x"></div>
+        <swiper 
+          [config]="config" 
+          (swiper)="onSwiper($event)">
+            <ng-template swiperSlide>All</ng-template>
+            <ng-template swiperSlide>Slide 2</ng-template>
+            <ng-template swiperSlide>Slide 3</ng-template>
+            <ng-template swiperSlide>Slide 3</ng-template>
+            <ng-template swiperSlide>Slide 3</ng-template>
+            <ng-template swiperSlide>Slide 3</ng-template>
+        </swiper>
       </ion-col>
     </ion-row>
+
+    <!-- Results Bar -->
     <ion-row class="ion-justify-content-center">
-      <ion-col class="page-content-wrapper" size-xs="12" size-sm="10" size-md="8" size-lg="8"></ion-col>
+      <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <p>Results: Most Recent / All</p>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="favoriteProducts()">
+              <ion-icon slot="start" name="heart-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+
+    <!-- Products -->
+    <ion-row class="product-wrapper ion-justify-content-center">
+      <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8"></ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

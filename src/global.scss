@@ -32,6 +32,13 @@ ion-grid {
 ion-toolbar {
     --background: #fff;
 }
+ion-item {
+    color: #444;
+}
+ion-checkbox {
+    border: 2px solid #222428;
+    border-radius: 3px;
+}
 
 // 
 * {
@@ -40,10 +47,12 @@ ion-toolbar {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Signika', sans-serif;
+    color: #222;
 }
 
 p {
     font-family: 'Arial', sans-serif;
+    color: #444;
 }
 
 .row-margin {
@@ -58,18 +67,51 @@ p {
     // background: #999;
     height: 600px;
 }
-.validation-error-message {
-    color: red;
+
+// Spacers
+.spacer-5x {
+    margin-top: 5em;
 }
+.spacer-4x {
+    margin-top: 4em;
+}
+.spacer-3x {
+    margin-top: 3em;
+}
+.spacer-2x {
+    margin-top: 2em;
+}
+.spacer-1x {
+    margin-top: 1em;
+}
+
+// Validation
+.validation-error-message {
+    color: white;
+    background: red;
+    padding: 0.5em;
+}
+
+// Static Alerts
 .static-alert-yellow {
    background: #fff3ad; 
    border-left: 6px solid #ffd900;
    padding: 0.5em;
+   margin: 1em auto;
+   display: block;
 }
 .static-alert-red {
+   background: #ff8a8a; 
+   border-left: 6px solid #f51818;
+   padding: 0.5em;
+   margin: 1em auto;
 
 }
 .static-alert-blue {
+   background: #a1caff; 
+   border-left: 6px solid #006eff;
+   padding: 0.5em;
+   margin: 1em auto;
 
 }
 

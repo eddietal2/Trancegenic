@@ -48,7 +48,7 @@
         </ion-item>
         <p [ngClass]="contactMessage.value.length > 450 ? 'message-count-red ': 'message-count'">
           {{contactMessage.value.length}} / 500 Characters</p>
-        <ion-button 
+        <ion-button style="display: block;" 
           id="submit-message-button" 
           color="primary" 
           type="submit" 
@@ -57,7 +57,7 @@
           Send
         </ion-button>
         <!-- [disabled]="contactForm.invalid" -->
-        <ion-button (click)="cancel()" color="primary">
+        <ion-button style="display: block;" (click)="cancel()" color="primary">
           Cancel
         </ion-button>
       </form>
@@ -68,6 +68,7 @@
 <!-- Success Modal -->
 <ion-modal [isOpen]="this.successModalOpen">
   <ng-template>
+    <!-- TODO: Add ID to IonContent -->
     <ion-content style="--background: #00c400;">Modal Content</ion-content>
   </ng-template>
 </ion-modal>
