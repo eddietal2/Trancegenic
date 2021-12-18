@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -28,6 +29,7 @@ export function jwtOptionsFactory(storage) {
   imports: [
     CustomComponentsModule,
     BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(), 

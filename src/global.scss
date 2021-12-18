@@ -39,10 +39,31 @@ ion-checkbox {
     border: 2px solid #222428;
     border-radius: 3px;
 }
+ion-skeleton-text {
+    --background-rgb: 0,85,165;
+    margin: 0.5em 0;
+}
+.is-square {
+    height: 75px;
+    width: 75px;
+}
+.is-text {
+    width: 100%;
+    line-height: 15px;
+}
+.ion-accordion-toggle-icon {
+    color: #333 !important;
+}
+.dark-toast {
+    --background: #02b10a;
+    --color: #fff;
+    font-size: 1em;
+}
 
 // 
 * {
     margin: 0;
+    transition: 0.5s;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -118,7 +139,7 @@ p {
 // Media Queries
 @media screen and (min-width: 996px) {
     .shadow-desktop {
-        box-shadow: 1px 1px 20px #d4d4d4;
+        box-shadow: 15px 16px 28px 0 #0000001c;
     }
     .row-margin {
         margin: 5em auto;
