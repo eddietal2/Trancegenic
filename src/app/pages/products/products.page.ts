@@ -2,16 +2,17 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation, Aft
 import Swiper, { SwiperOptions, Autoplay } from 'swiper';
 import { ActionSheetController, IonContent, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 Swiper.use([Autoplay]);
 
 interface Product {
   _id: string,
   title: string,
-  duration: string,
-  price: string,
+  duration: number,
+  price: number,
   description?: string,
+  category: string;
   reviews?: Array<Review>,
 }
 // Make FeaturedProduct with Timer?
@@ -35,27 +36,34 @@ interface Review {
 })
 export class ProductsPage implements OnInit, AfterViewInit {
   skeletonData = false;
+  noSearchResults = false;
+  searching = false;
+  activeCategory = "all"
+
   filterPopoverOpen = false;
   filtering = false;
   filterOption = "Newest";
+  filterSubject$ = new BehaviorSubject('Newest');
+
   featuredSliderVisible = true;
   allProductsFabVisibile = false;
-  searching = false;
-  accordianGroupValue: string;
+
+  accordianGroupValue = "all";
   accordianBSubject$ = new BehaviorSubject('featured');
-  accrodianSubsciption: Subscription;
+
   @ViewChild('productsPageContent') content: IonContent;
 
   // Static Data before Backend Integration
-  // I only need _id, title, and duration for main Products page
-  // Measure duration in milliseconds
+  // I only need _id, title, category, and duration for main Products page
+  
   searchLoadedProducts: Array<Product> = [];
   staticProducts: Array<Product> = [
     {
       _id: "1",
       title: "Banana Pudding",
-      duration: "2:30 Mins",
-      price: "$5",
+      duration: 120,
+      category: "relaxation",
+      price: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
@@ -90,88 +98,99 @@ export class ProductsPage implements OnInit, AfterViewInit {
     {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "2:30 Mins",
-      price: "$50",
+      duration: 120,
+      category: "business",
+      price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relationships",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "2:30 Mins",
-      price: "$50",
+      duration: 120,
+      category: "sleep",
+      price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "self-improvement",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relationships",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relationships",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relaxation",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     }
@@ -180,8 +199,9 @@ export class ProductsPage implements OnInit, AfterViewInit {
     {
       _id: "1",
       title: "Banana Pudding",
-      duration: "2:30 Mins",
-      price: "$5",
+      duration: 120,
+      category: "relaxation",
+      price: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
@@ -216,88 +236,99 @@ export class ProductsPage implements OnInit, AfterViewInit {
     {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "2:30 Mins",
-      price: "$50",
+      duration: 120,
+      category: "business",
+      price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relationships",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "2:30 Mins",
-      price: "$50",
+      duration: 120,
+      category: "sleep",
+      price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "self-improvement",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relationships",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relationships",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "relaxation",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     }
@@ -306,8 +337,9 @@ export class ProductsPage implements OnInit, AfterViewInit {
     {
       _id: "1",
       title: "Product Name",
-      duration: "2:30 Mins",
-      price: "$5",
+      duration: 120,
+      category: "sleep",
+      price: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
@@ -342,33 +374,35 @@ export class ProductsPage implements OnInit, AfterViewInit {
     {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "2:30 Mins",
-      price: "$50",
+      duration: 120,
+      category: "sleep",
+      price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: "5:30 Mins",
-      price: "$100",
+      duration: 630,
+      category: "sleep",
+      price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     }
   ]
   categorySwipeConfig: SwiperOptions = {
-    slidesPerView: 3.7,
+    slidesPerView: 3,
     spaceBetween: 20,
     navigation: true,
     pagination: { clickable: true },
     scrollbar: { draggable: true },
   };
   featuredSwipeConfig: SwiperOptions = {
-    slidesPerView: 1.1,
+    slidesPerView: 1.2,
     spaceBetween: 0,
-    autoplay: {
-      delay: 3000,
-    },
+    // autoplay: {
+    //   delay: 3000,
+    // },
     navigation: true,
   };
 
@@ -380,26 +414,42 @@ export class ProductsPage implements OnInit, AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
+    this.initializeView();
+  }
+
+  ngOnInit() { 
+    this.initializeData();
+  }
+
+  /**
+   * Initialize View to highlight Featured section
+   */
+  initializeView() {
     let accordianGroup = document.getElementById("accordian-group");
     let featuredProductsIonItem = document.getElementById('featured-products-item');
-    let favoriotesProductsIonItem = document.getElementById('favorite-products-item');
     let allProductsIonItem = document.getElementById('all-products-item');
 
     featuredProductsIonItem.style.background = "#ffdcca";
-    favoriotesProductsIonItem.style.background = "none";
-    allProductsIonItem.style.background = "none";
+    // allProductsIonItem.style.background = "none";
     accordianGroup.attributes[0].value = 'featured';
-
-
   }
 
-  ngOnInit() {
-
+  /**
+   * Load page with initial Product Data, as well as subscribing
+   * to Accordian and Filter Behavior Subjects.
+   */
+  initializeData() {
+    this.searchLoadedProducts = this.staticProducts;
     this.accordianBSubject$.subscribe(
       data => {
+        console.log('Accordian Value:')
         console.log(data)
-      }
-    )
+    });
+    this.filterSubject$.subscribe(
+      data => {
+        console.log('Filter Value:')
+        console.log(data)
+    });
   }
 
   /**
@@ -428,24 +478,45 @@ export class ProductsPage implements OnInit, AfterViewInit {
     */
   onSearchChange(e) {
     console.clear();
-    let searchInput = e.detail.value;
+    // Reset Loaded Product on each character change
     this.searchLoadedProducts = [];
-    console.log(searchInput)
+    let searchInput = e.detail.value;
+
+    // Check to see if Search Input is Empty
     if(searchInput == '' || searchInput == null) {
-      this.staticProducts = this.staticProductsInitialLoad;
+
+      this.searchLoadedProducts = this.staticProductsInitialLoad;
+      this.triggerSearchView();
+      return;
+
     } else {
-      this.staticProducts
-        .filter((product) => {
-          if(product.title.includes(searchInput)) {
-            this.searchLoadedProducts.push(product)
-          }
-        })
-        this.staticProducts = this.searchLoadedProducts;
+
+      console.log('Searching...');
+      this.staticProducts.filter((product) => {
+
+        if(product.title.includes(searchInput)) {
+            this.searchLoadedProducts.push(product);
+            this.staticProducts = this.searchLoadedProducts;
+            this.triggerSearchView();
+        } 
+      });
+
+      // If there are no search results,
+      // add initial products data that was
+      // loaded during construction.
+      console.log(this.searchLoadedProducts);
+      if (this.searchLoadedProducts.length === 0) {
+  
+        console.log('Search Data is Empty!');
+        this.staticProducts = this.staticProductsInitialLoad;
         this.triggerSearchView();
-        setTimeout(() => {
-          this.searchToast();
-        }, 2000);
+      }
+      
+      // If there are no results, and a user needs to backspace
+      // to correct spelling.
+      this.staticProducts = this.staticProductsInitialLoad;
     }
+
   }
 
   /**
@@ -461,17 +532,38 @@ export class ProductsPage implements OnInit, AfterViewInit {
   }
 
 
+  /**
+   * Trigger Skeleton Data, Sucess Toast, and switching to
+   * the all products accordian. If there are no search results,
+   * that is being handled here.
+   */
   triggerSearchView() {
-    let accordianGroup = document.getElementById("accordian-group");
-    accordianGroup.attributes[0].value = 'all';
+
     this.searching = true;
     this.skeletonData = true;
 
     setTimeout(() => {
       this.searching = false;
       this.skeletonData = false;
-      this.changeDetectorRef.detectChanges()
+
+      this.searchToast();
+      this.searchResultLog();
+      this.changeDetectorRef.detectChanges();
     }, 2000);
+  }
+
+  /**
+   * Log for keeping track of Search & Product Data
+   */
+  searchResultLog() {
+    console.log('Search Loaded Product:')
+    console.log(this.searchLoadedProducts.length)
+
+    console.log('Static Products:')
+    console.log(this.staticProducts.length)
+
+    console.log('Initial Static Products:')
+    console.log(this.staticProductsInitialLoad.length)
   }
 
   /**
@@ -480,14 +572,14 @@ export class ProductsPage implements OnInit, AfterViewInit {
    * @param userEmail
    */
   goToProductPage() {
-    this.router.navigateByUrl("/product");
+    this.router.navigateByUrl("/products/product-page");
   }
 
-  /**
-   * Send user to that product's page
-   * @param productID
-   * @param userEmail
-   */
+/**
+ * Send user to that product's page
+ * @param productID
+ * @param userEmail
+ */
   goTofavoriteProductsPage() {
     console.log('Wassup')
   }
@@ -515,51 +607,39 @@ export class ProductsPage implements OnInit, AfterViewInit {
   actionSheetButtons(){
     return [
       {
-        text: 'Low Price',
-        data: 10,
+        text: 'Lowest Price',
         handler: () => {
-          console.log('Share clicked');
-          this.filterProductsFromActionSheet('Low Price')
+          this.triggerFilteringView('Lowest Price')
         }
       },
       {
         text: 'Highest Price',
-        data: 10,
         handler: () => {
-          console.log('Share clicked');
-          this.filterOption = 'Highest Price';
+          this.triggerFilteringView('Highest Price')
         }
       },
       {
         text: 'Newest',
-        data: 10,
         handler: () => {
-          console.log('Share clicked');
-          this.filterOption = 'Newest';
+          this.triggerFilteringView('Newest')
         }
       },
       {
         text: 'Oldest',
-        data: 10,
         handler: () => {
-          console.log('Share clicked');
-          this.filterOption = 'Oldest';
+          this.triggerFilteringView('Oldest')
         }
       },
       {
         text: 'Longest Duration',
-        data: 10,
         handler: () => {
-          console.log('Share clicked');
-          this.filterOption = 'Longest Duration';
+          this.triggerFilteringView('Longest Duration')
         }
       },
       {
         text: 'Shortest Duration',
-        data: 10,
         handler: () => {
-          console.log('Share clicked');
-          this.filterOption = 'Shortest Duration';
+          this.triggerFilteringView('Shortest Duration')
         }
       },
       {
@@ -576,79 +656,175 @@ export class ProductsPage implements OnInit, AfterViewInit {
 
   /**
    * Triggered specifically when filtering products
-   * from the filter Action Sheet.
-   * Trigger IonSpinner in ResultsBar
-   * Trigger Skeleton Text while filtering
-   * --
-   * change filtering true
-   * change filterOption UI
-   * change skeletonData true
-   * change filtering & skeletonData false
    * @param filterOption
    */
-  filterProductsFromActionSheet(filterOption: string) {
-    this.filterOption = filterOption;
-    this.triggerFilteringView();
-  }
-
-  triggerFilteringView() {
+  triggerFilteringView(filterOption: string) {
     console.clear()
-    console.log(this.changeDetectorRef)
-    this.filtering = true;
-    this.skeletonData = true;
+      this.filterOption = filterOption;
+      this.searching = true;
+      this.skeletonData = true;
+      console.log(this.searchLoadedProducts);
+
+      // Lowest Price
+      // Highest Price
+      // Newest
+      // Oldest
+      // Longest Duration
+      // Shortest Duration
+
+      switch (filterOption) {
+        case 'Lowest Price':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return a.price - b.price;
+          });
+          break;
+        case 'Highest Price':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return b.price - a.price;
+          });
+          break;
+        case 'Newest':
+          this.searchLoadedProducts.sort();
+          
+          break;
+        case 'Oldest':
+          this.searchLoadedProducts.sort();
+          
+          break;
+        case 'Shortest Duration':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return a.duration - b.duration;
+          });
+          
+          break;
+        case 'Longest Duration':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return b.duration - a.duration;
+          });
+          
+          break;
+      
+        default:
+          break;
+      }
+
+
     setTimeout(() => {
-      this.filtering = false;
+      this.searching = false;
       this.skeletonData = false;
       this.changeDetectorRef.detectChanges()
     }, 2000);
   }
 
+  /**
+   * When a User selects a Products section with each
+   * accordian button, the IonList's elements will re-arrange.
+   * This only applies to both the All & Favorite IonItems.
+   * 
+   * When you tap those IonItems, it will drop down to the bottom
+   * of the list. This way, the accordian is never open with
+   * an IonItem underneath it.
+   * @param e Accordian change Event
+   */
   accordianChange(e) {
+
     let accordian = e.detail.value;
-    let featureProductsIonAccordian = document.getElementById('featured-products-accordian');
     let featuredProductsIonItem = document.getElementById('featured-products-item');
-    let favoritesProductsIonAccordian = document.getElementById('favorite-products-accordian');
-    let favoriotesProductsIonItem = document.getElementById('favorite-products-item');
+
+    let favoriteProductsIonAccordian = document.getElementById('favorite-products-accordian');
+    let favoriteProductsIonItem = document.getElementById('favorite-products-item');
+
     let allProductsIonAccordian = document.getElementById('all-products-accordian');
     let allProductsIonItem = document.getElementById('all-products-item');
-    console.clear();
+    
+    console.clear()
+    console.log(e)
     console.log(accordian);
 
+    // All Products
     if(accordian == 'all' || this.searching) {
-      console.log(featureProductsIonAccordian.nextSibling);
-      console.log(allProductsIonAccordian);
       this.accordianBSubject$.next(accordian)
-      featuredProductsIonItem.style.background = "none";
-      favoriotesProductsIonItem.style.background = "none";
+      featuredProductsIonItem.style.background = "#ededed";
+      favoriteProductsIonItem.style.background = "#ededed";
       allProductsIonItem.style.background = "#ffdcca";
-      this.insertAfter(favoritesProductsIonAccordian, allProductsIonAccordian)
+      this.insertAfter(favoriteProductsIonAccordian, allProductsIonAccordian)
       
     }
+
+    // Favorite Products
     if(accordian == 'favorites') {
 
       this.accordianBSubject$.next(accordian)
-      featuredProductsIonItem.style.background = "none";
-      favoriotesProductsIonItem.style.background = "#ffdcca";
-      allProductsIonItem.style.background = "none";
-      this.insertAfter(allProductsIonAccordian, favoritesProductsIonAccordian)
+      featuredProductsIonItem.style.background = "#ededed";
+      favoriteProductsIonItem.style.background = "#ffdcca";
+      allProductsIonItem.style.background = "#ededed";
+      this.insertAfter(allProductsIonAccordian, favoriteProductsIonAccordian)
     }
+
+    // Featured Products
     if(accordian == 'featured') {
       featuredProductsIonItem.style.background = "#ffdcca";
-      favoriotesProductsIonItem.style.background = "none";
-      allProductsIonItem.style.background = "none";
+      favoriteProductsIonItem.style.background = "#ededed";
+      allProductsIonItem.style.background = "#ededed";
       this.accordianBSubject$.next(accordian)
     }
+
+    // Undefined Products
     if(accordian === undefined) {
       featuredProductsIonItem.style.background = "none";
-      favoriotesProductsIonItem.style.background = "none";
+      favoriteProductsIonItem.style.background = "none";
       allProductsIonItem.style.background = "none";
 
     }
     
   }
 
+  /**
+   * Function for handling changing the node positions in the
+   * DOM for IonItems in the AccordianGroup
+   * @param referenceNode 
+   * @param newNode 
+   */
   insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+
+  /**
+   * Filtering this.searchLoadedProducts: Product by Category
+   * @param category being changed from #category-swiper
+   * @param e being click $event from IonButton in #category-swiper
+   */
+  changeCategory(category: string, e: Event): void {
+    // this.searchLoadedProducts = this.staticProductsInitialLoad;
+    let searchLoadedProductsCopy = this.staticProductsInitialLoad;
+
+    this.activeCategory = category;
+
+    console.clear();
+    console.log(category, e);
+    console.log('Search Results / Changed Category');
+    console.log(this.searchLoadedProducts);
+    console.log(category, e);
+    console.log('Search Results Copy / Changed Category');
+    console.log(searchLoadedProductsCopy);
+
+    if(category === 'all') {
+      console.log('Products Filted By Category: All')
+      this.searchLoadedProducts = searchLoadedProductsCopy;
+      return;
+    }
+
+    let catergoryFilteredProducts = searchLoadedProductsCopy
+      .filter(product => {
+        console.log(product.category);
+        return product.category == this.activeCategory;
+    });
+    
+    console.log('\n');
+    console.log('Products Filted By Category: ')
+    console.log(catergoryFilteredProducts);
+    this.searchLoadedProducts = catergoryFilteredProducts;
+    return;
   }
 
   
