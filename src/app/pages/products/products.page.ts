@@ -9,14 +9,15 @@ Swiper.use([Autoplay]);
 interface Product {
   _id: string,
   title: string,
+  description?: string,
+  category: string,
+  rating: number,
   duration: number,
   price: number,
-  description?: string,
-  category: string;
   reviews?: Array<Review>,
 }
-// Make FeaturedProduct with Timer?
 
+// Make FeaturedProduct with Timer?
 interface Review {
   _id: string,
   reviewerUsername: string,
@@ -27,18 +28,19 @@ interface Review {
   review: string,
 }
 
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.page.html',
   styleUrls: ['./products.page.scss'],
   encapsulation: ViewEncapsulation.None,
 })
+
 export class ProductsPage implements OnInit, AfterViewInit {
   skeletonData = false;
   noSearchResults = false;
   searching = false;
   activeCategory = "all"
+  searchBarMessage: string;
 
   filterPopoverOpen = false;
   filtering = false;
@@ -64,6 +66,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       duration: 120,
       category: "relaxation",
       price: 5,
+      rating: 1,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
@@ -101,6 +104,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       duration: 120,
       category: "business",
       price: 50,
+      rating: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -108,6 +112,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relationships",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -117,6 +122,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 120,
+      rating: 5,
       category: "sleep",
       price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -126,6 +132,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "self-improvement",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -135,6 +142,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -144,6 +152,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relationships",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -153,6 +162,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relationships",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -162,6 +172,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -171,6 +182,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -180,6 +192,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relaxation",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -189,6 +202,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -202,6 +216,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       duration: 120,
       category: "relaxation",
       price: 5,
+      rating: 1,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
@@ -239,6 +254,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       duration: 120,
       category: "business",
       price: 50,
+      rating: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -246,6 +262,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relationships",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -255,6 +272,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 120,
+      rating: 5,
       category: "sleep",
       price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -264,6 +282,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "self-improvement",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -273,6 +292,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -282,6 +302,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relationships",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -291,6 +312,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relationships",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -300,6 +322,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -309,6 +332,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -318,6 +342,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "relaxation",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -327,6 +352,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -338,6 +364,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "1",
       title: "Product Name",
       duration: 120,
+      rating: 5,
       category: "sleep",
       price: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -374,7 +401,8 @@ export class ProductsPage implements OnInit, AfterViewInit {
     {
       _id: "2",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 120,
+      duration: 120,      
+      rating: 5,
       category: "sleep",
       price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -383,21 +411,62 @@ export class ProductsPage implements OnInit, AfterViewInit {
     {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
+      duration: 630,      
+      rating: 5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     }
   ]
-  categorySwipeConfig: SwiperOptions = {
+  staticFavoriteProducts: Array<Product> = [
+    {
+      _id: "1",
+      title: "Product Name",
+      duration: 120,
+      rating: 5,
+      category: "sleep",
+      price: 5,
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "John Doe",
+          reviewerEmail: "eddielacrosse2@gmail.com",
+          reviewerProfilePicture: "",
+          rating: 5,
+          date: "Post 1 Day Ago",
+          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+        },
+        {
+          _id: "1",
+          reviewerUsername: "John Doe",
+          reviewerEmail: "eddielacrosse2@gmail.com",
+          reviewerProfilePicture: "",
+          rating: 4,
+          date: "Post 1 Day Ago",
+          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+        },
+        {
+          _id: "1",
+          reviewerUsername: "Jane Doe",
+          reviewerEmail: "eddielacrosse2@gmail.com",
+          reviewerProfilePicture: "",
+          rating: 4.5,
+          date: "Post 1 Day Ago",
+          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+        },
+      ]
+    },
+  ]
+  categorySwiperConfig: SwiperOptions = {
     slidesPerView: 3,
     spaceBetween: 20,
     navigation: true,
     pagination: { clickable: true },
     scrollbar: { draggable: true },
   };
-  featuredSwipeConfig: SwiperOptions = {
+  featuredSwiperConfig: SwiperOptions = {
     slidesPerView: 1.2,
     spaceBetween: 0,
     // autoplay: {
@@ -423,15 +492,25 @@ export class ProductsPage implements OnInit, AfterViewInit {
 
   /**
    * Initialize View to highlight Featured section
+   * Hide Product Searchbar & Filter Button
+   * (When use selects Favorites or All Products, Product Searchbar & Filter Button
+   * will be visible.)
    */
   initializeView() {
     let accordianGroup = document.getElementById("accordian-group");
     let featuredProductsIonItem = document.getElementById('featured-products-item');
     let allProductsIonItem = document.getElementById('all-products-item');
+    let searchBar = document.getElementById('search-bar');
+    let filterButton = document.getElementById('filter-button');
 
     featuredProductsIonItem.style.background = "#ffdcca";
     // allProductsIonItem.style.background = "none";
     accordianGroup.attributes[0].value = 'featured';
+    searchBar.style.opacity = '0';
+    searchBar.style.pointerEvents = 'none';
+    filterButton.style.opacity = '0';
+    filterButton.style.pointerEvents = 'none';
+    
   }
 
   /**
@@ -619,6 +698,30 @@ export class ProductsPage implements OnInit, AfterViewInit {
         }
       },
       {
+        text: 'Most Reviews',
+        handler: () => {
+          this.triggerFilteringView('Most Reviews')
+        }
+      },
+      {
+        text: 'Least Reviews',
+        handler: () => {
+          this.triggerFilteringView('Least Reviews')
+        }
+      },
+      {
+        text: 'Highest Ratings',
+        handler: () => {
+          this.triggerFilteringView('Highest Ratings')
+        }
+      },
+      {
+        text: 'Lowest Ratings',
+        handler: () => {
+          this.triggerFilteringView('Lowest Ratings')
+        }
+      },
+      {
         text: 'Newest',
         handler: () => {
           this.triggerFilteringView('Newest')
@@ -671,6 +774,10 @@ export class ProductsPage implements OnInit, AfterViewInit {
       // Oldest
       // Longest Duration
       // Shortest Duration
+      // Highest Ratings
+      // Lowest Ratings
+      // Most Reviews
+      // Least Reviews
 
       switch (filterOption) {
         case 'Lowest Price':
@@ -689,6 +796,30 @@ export class ProductsPage implements OnInit, AfterViewInit {
           break;
         case 'Oldest':
           this.searchLoadedProducts.sort();
+          
+          break;
+        case 'Highest Ratings':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return b.rating - a.rating;
+          });
+          
+          break;
+        case 'Lowest Ratings':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return a.rating - b.rating;
+          });
+          
+          break;
+        case 'Most Reviews':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return b.reviews.length - a.reviews.length;
+          });
+          
+          break;
+        case 'Least Reviews':
+          this.searchLoadedProducts.sort((a: Product, b: Product) => {
+            return a.reviews.length - b.reviews.length;
+          });
           
           break;
         case 'Shortest Duration':
@@ -736,6 +867,9 @@ export class ProductsPage implements OnInit, AfterViewInit {
 
     let allProductsIonAccordian = document.getElementById('all-products-accordian');
     let allProductsIonItem = document.getElementById('all-products-item');
+
+    let searchBar = document.getElementById('search-bar');
+    let filterButton = document.getElementById('filter-button');
     
     console.clear()
     console.log(e)
@@ -744,20 +878,29 @@ export class ProductsPage implements OnInit, AfterViewInit {
     // All Products
     if(accordian == 'all' || this.searching) {
       this.accordianBSubject$.next(accordian)
+      this.searchBarMessage = 'Search All Products';
       featuredProductsIonItem.style.background = "#ededed";
       favoriteProductsIonItem.style.background = "#ededed";
       allProductsIonItem.style.background = "#ffdcca";
+      searchBar.style.opacity = '1';
+      searchBar.style.pointerEvents = 'auto';
+      filterButton.style.opacity = '1';
+      filterButton.style.pointerEvents = 'auto';
       this.insertAfter(favoriteProductsIonAccordian, allProductsIonAccordian)
       
     }
 
     // Favorite Products
     if(accordian == 'favorites') {
-
-      this.accordianBSubject$.next(accordian)
+      this.accordianBSubject$.next(accordian);
+      this.searchBarMessage = 'Search Favorite Products';
       featuredProductsIonItem.style.background = "#ededed";
       favoriteProductsIonItem.style.background = "#ffdcca";
       allProductsIonItem.style.background = "#ededed";
+      searchBar.style.opacity = '1';
+      searchBar.style.pointerEvents = 'auto';
+      filterButton.style.opacity = '1';
+      filterButton.style.pointerEvents = 'auto';
       this.insertAfter(allProductsIonAccordian, favoriteProductsIonAccordian)
     }
 
@@ -766,6 +909,11 @@ export class ProductsPage implements OnInit, AfterViewInit {
       featuredProductsIonItem.style.background = "#ffdcca";
       favoriteProductsIonItem.style.background = "#ededed";
       allProductsIonItem.style.background = "#ededed";
+      searchBar.style.opacity = '0';
+      searchBar.style.pointerEvents = 'none';
+      filterButton.style.opacity = '0';
+      filterButton.style.pointerEvents = 'none';
+
       this.accordianBSubject$.next(accordian)
     }
 

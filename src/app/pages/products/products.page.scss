@@ -67,7 +67,7 @@ ion-icon{
     transition: 0.5s;
     animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
 
-    .duration {
+    .product-duration {
         font-size: 0.7em;
         color: #999;
     }
@@ -75,6 +75,14 @@ ion-icon{
     .product-category {
         font-size: 0.6em;
         color: #5a5a5a;
+    }
+
+    .product-title {
+
+    }
+
+    .product-rating {
+
     }
 
     .product-price {
@@ -89,7 +97,7 @@ ion-icon{
         margin-top: 1em;
     }
 
-    .star-container {
+    .product-reviews-length {
         
     }
 

@@ -9,7 +9,8 @@
       
       <!-- Searchbar -->
       <ion-searchbar 
-        placeholder="Search"
+        id="search-bar"
+        placeholder="{{this.searchBarMessage}}"
         nputmode="decimal" 
         type="decimal" 
         [debounce]="250"
@@ -19,7 +20,7 @@
     </ion-buttons>
 
     <!-- Filter -->
-    <ion-buttons slot="end">
+    <ion-buttons id="filter-button" slot="end">
       <ion-button (click)="openFilterActionSheet()">
         <ion-icon name="filter-outline"></ion-icon>
       </ion-button>
@@ -67,17 +68,18 @@
         <ion-accordion value="featured" id="featured-products-accordian">
           
           <ion-item id="featured-products-item" lines="none" slot="header">
-            <ion-label>Featured Products | 3</ion-label>
+            <ion-label>Featured Products | {{this.staticFeaturedProducts.length}}</ion-label>
             <ion-icon name="pricetag-outline" slot="start"></ion-icon>
           </ion-item>
 
           <ion-list slot="content">
 
             <div id="feature-swiper-overlay"></div>
+
             <!-- Featured Products -->
             <swiper
               id="featured-swiper"
-              [config]="featuredSwipeConfig" 
+              [config]="featuredSwiperConfig" 
               (swiper)="onSwiper($event)">
                 <ng-template swiperSlide *ngFor="let featuredProduct of staticFeaturedProducts">
                   <ion-row
@@ -88,9 +90,11 @@
                     <ion-col size="6">
                       <div (click)="goToProductPage()">
                         <p class="product-price">${{featuredProduct.price}}</p>
-                        <h6>{{featuredProduct.title}}</h6>
-                        <p class="duration">Duration: {{featuredProduct.duration}} Mins</p>
+                        <h6 class="product-title">{{featuredProduct.title}}</h6>
+                        <h6 class="product-rating">Rating: {{featuredProduct.rating}}</h6>
+                        <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
                         <p class="product-category"># {{featuredProduct.category}}</p>
+                        <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
                         <div class="star-container">
                         </div>
                       </div>
@@ -120,7 +124,7 @@
         <ion-accordion value="favorites" id="favorite-products-accordian">
           
           <ion-item id="favorite-products-item" lines="none" slot="header">
-            <ion-label>Favorite Products | 3</ion-label>
+            <ion-label>Favorite Products | {{this.staticFavoriteProducts.length}}</ion-label>
             <ion-icon name="heart" slot="start"></ion-icon>
           </ion-item>
       
@@ -128,7 +132,7 @@
         
             <!-- Products -->
             <!-- Using same data from Featured data for now -->
-            <div *ngFor="let product of staticFeaturedProducts">
+            <div *ngFor="let product of staticFavoriteProducts">
                 <ion-row
                 class="product-wrapper ion-justify-content-center">
                 <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
@@ -137,11 +141,11 @@
                 <ion-col size="6">
                   <div (click)="this.goToProductPage()">
                     <p class="product-price">${{product.price}}</p>
-                    <h6>{{product.title}}</h6>
-                    <p class="duration">Duration: {{product.duration}} Mins</p>
+                    <h6 class="product-title">{{product.title}}</h6>
+                    <h6 class="product-rating">Rating: {{product.rating}}</h6>
+                    <p class="-product-duration">Duration: {{product.duration}} Mins</p>
                     <p class="product-category"># {{product.category}}</p>
-                    <div class="star-container">
-                    </div>
+                    <h5 class="product-reviews-length">Reviews {{product.reviews.length}}</h5>
                   </div>
                   <div class="product-message-green"></div>
                   <div class="product-message-red"></div>
@@ -175,9 +179,10 @@
 
               <ion-col size-xs="12" size-sm="12" size-md="10" size-lg="8">
 
+                <!-- Categories Swiper -->
                 <swiper
                   id="category-swiper"
-                  [config]="categorySwipeConfig" 
+                  [config]="categorySwiperConfig" 
                   (swiper)="onSwiper($event)">
 
                     <ng-template swiperSlide>
@@ -250,11 +255,11 @@
                 <ion-col size="6">
                   <div (click)="this.goToProductPage()">
                     <p class="product-price">${{product.price}}</p>
-                    <h6>{{product.title}}</h6>
+                    <h6 class="product-title">{{product.title}}</h6>
+                    <h6 class="product-rating">Rating: {{product.rating}}</h6>
                     <p class="duration">Duration: {{product.duration}} Mins</p>
                     <p class="product-category"># {{product.category}}</p>
-                    <div class="star-container">
-                    </div>
+                    <h5 class="product-reviews-length">Reviews {{product.reviews.length}}</h5>
                   </div>
                   <div class="product-message-green"></div>
                   <div class="product-message-red"></div>
@@ -275,6 +280,7 @@
       </ion-accordion-group>
 
     </ng-container>
+
   </ion-grid>
 
   <ion-fab 
