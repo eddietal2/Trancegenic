@@ -104,11 +104,14 @@
                       <div class="product-message-red">
                         <p>Test Message</p>
                       </div> -->
+
+                      <!-- [featuredProduct]="featuredProduct._id" 
+                              [favoriteJobs]="favoriteJobs"
+                              (favoritedAnimation)="favoriteAnimation($event)"
+                              (unFavoritedAnimation)="unFavoriteAnimation($event)" -->
                       <ion-toolbar>
                         <ion-buttons slot="end">
-                          <ion-button class="favorite-this-product-button" (click)="favorites()">
-                            <ion-icon slot="start" name="heart"></ion-icon>
-                          </ion-button>
+                          <app-favorite-icon></app-favorite-icon>
                         </ion-buttons>
                       </ion-toolbar>
                     </ion-col>

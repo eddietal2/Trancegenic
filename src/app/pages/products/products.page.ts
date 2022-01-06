@@ -3,6 +3,7 @@ import Swiper, { SwiperOptions, Autoplay } from 'swiper';
 import { ActionSheetController, IonContent, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { FavoriteIconComponent } from 'src/app/components/favorite-icon/favorite-icon.component';
 
 Swiper.use([Autoplay]);
 
@@ -655,12 +656,17 @@ export class ProductsPage implements OnInit, AfterViewInit {
   }
 
 /**
- * Send user to that product's page
+ * Toggle the product's favorite state
  * @param productID
  * @param userEmail
  */
-  goTofavoriteProductsPage() {
-    console.log('Wassup')
+
+favoriteToggle(productID: string, userEmail: string) {
+    console.clear();
+    console.log('Email: ' + userEmail);
+    console.log('Product: ' + productID);
+
+    // Check for this Products Favorite State
   }
 
   async openFilterActionSheet() {

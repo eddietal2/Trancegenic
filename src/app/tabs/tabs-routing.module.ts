@@ -8,6 +8,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: '',
+        redirectTo: 'products',
+        pathMatch: 'full'
+      },
+      {
         path: 'home',
         loadChildren: () => import('../pages/landing/landing.module').then(m => m.LandingPageModule)
       },
@@ -30,19 +35,9 @@ const routes: Routes = [
       {
         path: 'cart',
         loadChildren: () => import('../pages/cart/cart.module').then(m => m.CartPageModule)
-      },
-      {
-        path: '',
-        redirectTo: '/products',
-        pathMatch: 'full'
       }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  }
 ];
 
 @NgModule({

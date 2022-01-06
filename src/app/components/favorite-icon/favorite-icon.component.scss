@@ -1,0 +1,23 @@
+ion-icon {
+    z-index: 9999;
+    position: relative;
+  }
+  #favorited-caption {
+    color: #e3405f;
+    font-size: 0.6em;
+    position: relative;
+    top: -10px;
+    opacity: 0;
+    display: inline-block;
+    animation: favorite-caption-fade-in 1s ease forwards;
+  }
+  @keyframes favorite-caption-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(6px);
+    }
+  }

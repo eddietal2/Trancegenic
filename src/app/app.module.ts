@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -8,7 +9,6 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { CustomComponentsModule } from './components/custom-compontents.module';
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,12 +27,13 @@ export function jwtOptionsFactory(storage) {
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    CustomComponentsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule.forRoot(), 
+    IonicModule.forRoot(),
+    CustomComponentsModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
