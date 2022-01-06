@@ -12,12 +12,12 @@ import { CustomComponentsModule } from 'src/app/components/custom-compontents.mo
 
 @NgModule({
   imports: [
+    CustomComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    CustomComponentsModule,
     BlogPageRoutingModule
   ],
-  declarations: [BlogPage]
+  declarations: []
 })
 export class BlogPageModule {}

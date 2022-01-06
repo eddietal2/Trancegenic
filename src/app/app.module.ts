@@ -29,11 +29,11 @@ export function jwtOptionsFactory(storage) {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CustomComponentsModule,
+    IonicModule.forRoot(),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule.forRoot(),
-    CustomComponentsModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,

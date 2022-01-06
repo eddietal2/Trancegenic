@@ -13,6 +13,7 @@ import { BlogPage } from '../pages/blog/blog.page';
 import { LandingPage } from '../pages/landing/landing.page';
 import { ProfilePage } from '../pages/profile/profile.page';
 import { CartPage } from '../pages/cart/cart.page';
+import { CustomComponentsModule } from '../components/custom-compontents.module';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { CartPage } from '../pages/cart/cart.page';
     CommonModule,
     RouterModule,
     FormsModule,
+    CustomComponentsModule,
     TabsPageRoutingModule
   ],
   declarations: [
@@ -28,7 +30,7 @@ import { CartPage } from '../pages/cart/cart.page';
     ProductsPage,
     BlogPage,
     LandingPage,
-    ProfilePage,
+    // ProfilePage,
     CartPage
   ]
 })

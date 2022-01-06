@@ -146,5 +146,13 @@ export class LoginPage implements OnInit {
   onSlideChange() {
   }
 
+  changeName() {
+
+  }
+
+  onSubmit() {
+    
+  }
+
 
 }

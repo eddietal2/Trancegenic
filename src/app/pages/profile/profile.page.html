@@ -12,21 +12,22 @@
             <p>johndoe@email.com</p>
           </span>
         </div>
-        <ion-item (click)="changeName()" lines="none" detail="true">
+        <ion-item (click)="changeName('eddielacrosse2@gmail.com')" lines="none" detail="true">
           <ion-label>Change Name</ion-label>
         </ion-item>
-        <ion-item (click)="changeEmail()" lines="none" detail="true">
+        <ion-item (click)="changeEmail('eddielacrosse2@gmail.com')" lines="none" detail="true">
           <ion-label>Change Email</ion-label>
         </ion-item>
-        <ion-item (click)="changePassword()" lines="none" detail="true">
+        <ion-item (click)="changePassword('Lacrosse2')" lines="none" detail="true">
           <ion-label>Change Password</ion-label>
         </ion-item>
-        <ion-item (click)="newsLetter()" lines="none" detail="true">
+        <ion-item (click)="newsLetter('eddielacrosse2@gmail.com')" lines="none" detail="true">
           <ion-label>Subscribe to Newsletter</ion-label>
         </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>
+  
   <!-- Change Name Modal -->
   <ion-modal [isOpen]="this.changeNameModalOpen">
     <ng-template>
@@ -51,7 +52,7 @@
                   <h2>John Doe</h2>
                 </span>
               </div>
-              <form [formGroup]="changeNameForm" (ngSubmit)="changeName(this.auth.userEmail)">
+              <form [formGroup]="changeNameForm" (ngSubmit)="changeName('eddielacrosse2@gmail.com')">
                 <ion-item>
                   <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input required formControlName="firstName" type="text"></ion-input>
@@ -125,7 +126,7 @@
                   <h2>Email</h2>
                 </span>
               </div>
-              <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail(this.auth.userEmail)">
+              <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail('eddielacrosse2@gmail.com')">
                 <ion-item>
                   <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input required formControlName="newEmail" type="email"></ion-input>
@@ -180,7 +181,7 @@
               <div id="user-info-header">
                 <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
               </div>
-              <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword(this.auth.userEmail)">
+              <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword('eddielacrosse2@gmail.com')">
                 <ion-item>
                   <ion-label position="floating">New Password <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input required formControlName="newPassword" type="password"></ion-input>

@@ -11,4 +11,8 @@ export class MobileTopToolbarComponent implements OnInit {
 
   ngOnInit() {}
 
+  login() {
+    
+  }
+
 }

@@ -103,4 +103,12 @@ export class LandingPage implements OnInit {
   goToContactPage() {
     this.router.navigateByUrl("/contact");
   }
+
+  onClick() {
+
+  }
+
+  goToMembershipPage() {
+    
+  }
 }

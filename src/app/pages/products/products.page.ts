@@ -1019,4 +1019,11 @@ favoriteToggle(productID: string, userEmail: string) {
   scrollToTop() {
     this.content.scrollToTop();
   }
+
+  /**
+   * 
+   */
+   favorites() {
+     
+   }
 }

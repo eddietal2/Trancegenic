@@ -74,4 +74,11 @@ export class RegisterPage implements OnInit {
      return this.registerSuccessModal = false;
    }
 
+   /**
+    * 
+    */
+    register() {
+      
+    }
+
 }

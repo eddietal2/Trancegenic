@@ -20,7 +20,10 @@
       <p class="static-alert-yellow">
         You need to fill out the enter form before you can send a message.
       </p>
-      <form [formGroup]="contactForm" (ngSubmit)="submitContactForm()">
+      <form [formGroup]="contactForm" (ngSubmit)="submitContactForm(
+          this.contactForm.controls.fullName.value,
+          this.contactForm.controls.email.value,
+          this.contactForm.controls.message.value)">
         <ion-item lines="none">
           <ion-label position="floating">Full Name <ion-text color="danger">*</ion-text></ion-label>
           <ion-input required formControlName="fullName" type="text" maxlength="100"></ion-input>

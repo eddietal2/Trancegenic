@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
@@ -87,6 +87,14 @@ export class ProfilePage implements OnInit {
     this.changeEmailModalOpen = true;
 
   }
+
+  /**
+   * 
+   */
+  updateEmail() {
+
+  }
+
   /**
    * Close Change Email Modal
    */
@@ -100,6 +108,13 @@ export class ProfilePage implements OnInit {
    changePassword(email: string) {
     this.changePasswordModalOpen = true;
 
+  }
+
+  /**
+   * 
+   */
+  updatePassword() {
+    
   }
   /**
    * Close Change Password Modal
