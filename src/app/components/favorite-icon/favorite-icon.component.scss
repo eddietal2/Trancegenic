@@ -1,12 +1,13 @@
 ion-icon {
     z-index: 9999;
+    font-size: 2em;
     position: relative;
+    color: red;
+    left: 22px;
   }
-  #favorited-caption {
-    color: #e3405f;
+  .favorited-caption {
+    color: #c00000;
     font-size: 0.6em;
-    position: relative;
-    top: -10px;
     opacity: 0;
     display: inline-block;
     animation: favorite-caption-fade-in 1s ease forwards;
@@ -14,10 +15,14 @@ ion-icon {
   @keyframes favorite-caption-fade-in {
     0% {
       opacity: 0;
-      transform: translateX(-10px);
+      transform: translateX(-4px);
+    }
+    70% {
+      opacity: 1;
+      transform: translateX(0px);
     }
     100% {
-      opacity: 1;
-      transform: translateX(6px);
+      opacity: 0;
+      display: none;
     }
   }

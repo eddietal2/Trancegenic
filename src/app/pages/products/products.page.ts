@@ -38,6 +38,7 @@ interface Review {
 
 export class ProductsPage implements OnInit, AfterViewInit {
   skeletonData = false;
+  skeletonDataLg = false;
   noSearchResults = false;
   searching = false;
   activeCategory = "all"
@@ -50,6 +51,8 @@ export class ProductsPage implements OnInit, AfterViewInit {
 
   featuredSliderVisible = true;
   allProductsFabVisibile = false;
+
+  categoryLg = 'featured';
 
   accordianGroupValue = "all";
   accordianBSubject$ = new BehaviorSubject('featured');
@@ -365,7 +368,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "1",
       title: "Product Name",
       duration: 120,
-      rating: 5,
+      rating: 4.79,
       category: "sleep",
       price: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -413,7 +416,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "3",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,      
-      rating: 5,
+      rating: 2.5,
       category: "sleep",
       price: 100,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -425,7 +428,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "1",
       title: "Product Name",
       duration: 120,
-      rating: 5,
+      rating: 2,
       category: "sleep",
       price: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -556,7 +559,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   /**
     * Searching Products
     */
-  onSearchChange(e) {
+  onSearchChange(e, screenSize) {
     console.clear();
     // Reset Loaded Product on each character change
     this.searchLoadedProducts = [];
@@ -566,7 +569,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
     if(searchInput == '' || searchInput == null) {
 
       this.searchLoadedProducts = this.staticProductsInitialLoad;
-      this.triggerSearchView();
+      this.triggerSearchView(screenSize);
       return;
 
     } else {
@@ -577,7 +580,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
         if(product.title.includes(searchInput)) {
             this.searchLoadedProducts.push(product);
             this.staticProducts = this.searchLoadedProducts;
-            this.triggerSearchView();
+            this.triggerSearchView(screenSize);
         } 
       });
 
@@ -589,7 +592,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   
         console.log('Search Data is Empty!');
         this.staticProducts = this.staticProductsInitialLoad;
-        this.triggerSearchView();
+        this.triggerSearchView(screenSize);
       }
       
       // If there are no results, and a user needs to backspace
@@ -617,19 +620,37 @@ export class ProductsPage implements OnInit, AfterViewInit {
    * the all products accordian. If there are no search results,
    * that is being handled here.
    */
-  triggerSearchView() {
+  triggerSearchView(screenSize) {
 
-    this.searching = true;
-    this.skeletonData = true;
+    if(screenSize == 'lg') {
+      this.searching = true;
+      this.skeletonDataLg = true;
+  
+      setTimeout(() => {
+        this.searching = false;
+        this.skeletonDataLg = false;
+  
+        this.searchToast();
+        this.searchResultLog();
+        this.changeDetectorRef.detectChanges();
+      }, 2000);
+    }
 
-    setTimeout(() => {
-      this.searching = false;
-      this.skeletonData = false;
+    if(screenSize == 'mobile') {
+      this.searching = true;
+      this.skeletonData = true;
+  
+      setTimeout(() => {
+        this.searching = false;
+        this.skeletonData = false;
+  
+        this.searchToast();
+        this.searchResultLog();
+        this.changeDetectorRef.detectChanges();
+      }, 2000);
+    }
 
-      this.searchToast();
-      this.searchResultLog();
-      this.changeDetectorRef.detectChanges();
-    }, 2000);
+    return;
   }
 
   /**
@@ -1025,5 +1046,50 @@ favoriteToggle(productID: string, userEmail: string) {
    */
    favorites() {
      
+   }
+
+   /**
+    * 
+    */
+   featuredLg() {
+    console.log('Featured Products Large');
+    this.categoryLg = 'none';
+    this.skeletonDataLg = true;
+
+    setTimeout(() => {
+      this.categoryLg = 'featured';
+      this.skeletonDataLg = false;
+      this.changeDetectorRef.detectChanges();
+    }, 2000);
+   }
+
+   /**
+    * 
+    */
+    favoritesLg() {
+      console.log('Favorite Products Large');
+      this.categoryLg = 'none';
+      this.skeletonDataLg = true;
+  
+      setTimeout(() => {
+        this.categoryLg = 'favorites';
+        this.skeletonDataLg = false;
+        this.changeDetectorRef.detectChanges();
+      }, 2000);
+   }
+
+   /**
+    * 
+    */
+    allLg() {
+      console.log('All Products Large');
+      this.categoryLg = 'none';
+      this.skeletonDataLg = true;
+  
+      setTimeout(() => {
+        this.categoryLg = 'all';
+        this.skeletonDataLg = false;
+        this.changeDetectorRef.detectChanges();
+      }, 2000);
    }
 }

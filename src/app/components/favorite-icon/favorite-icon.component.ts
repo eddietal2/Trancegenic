@@ -14,7 +14,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
             transform: 'scale(0.9)'
         })),
         state('favorited', style({
-            color: '#e4405f',
+            // color: '#0000c4',
             opacity: '1',
             transform: 'scale(1)'
 
@@ -25,7 +25,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 export class FavoriteIconComponent implements OnInit {
-  favoriteState;
+  favoriteState = "favorited";
   public iconName = 'heart';
   @Input() job;
   @Input() favoriteJobs;
