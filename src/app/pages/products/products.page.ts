@@ -368,7 +368,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       _id: "1",
       title: "Product Name",
       duration: 120,
-      rating: 4.79,
+      rating: 1,
       category: "sleep",
       price: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -672,8 +672,10 @@ export class ProductsPage implements OnInit, AfterViewInit {
    * @param productID
    * @param userEmail
    */
-  goToProductPage() {
-    this.router.navigateByUrl("/products/product-page");
+  goToProductPage(id) {
+    console.log(id)
+    this.router.navigate(["/products/product-page", id]);
+
   }
 
 /**

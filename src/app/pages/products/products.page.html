@@ -83,8 +83,9 @@
               (swiper)="onSwiper($event)">
                 <ng-template swiperSlide *ngFor="let featuredProduct of staticFeaturedProducts">
                   <ion-row
+                    (click)="goToProductPage(featuredProduct._id)"
                     class="featured-product product-wrapper ion-justify-content-center">
-                    <ion-col (click)="goToProductPage()" class="product-photo" size="6">
+                    <ion-col class="product-photo" size="6">
 
                     </ion-col>
                     <ion-col size="6">
@@ -359,10 +360,10 @@
 
         <ion-row>
           <ion-col 
-            *ngFor="let featuredProduct of staticFeaturedProducts" 
+            *ngFor="let featuredProduct of staticFeaturedProducts"
+            (click)="goToProductPage(featuredProduct._id)"
             class="product-lg" 
             size="3.8">
-            <!-- (click)="goToProductPage()" -->
             <div class="product-lg-image">
 
             </div>
