@@ -5,11 +5,13 @@
       <span style="margin-left: 1em;"></span>
       <img height="30" src="../../../../assets/placeholders/placeholder-logo.svg" alt="" srcset="">
     </ion-buttons>
-    <ion-buttons slot="end">
-      <app-favorite-icon></app-favorite-icon>
+    <ion-buttons slot="start">
       <ion-button (click)="close()">
         <ion-icon slot="start" name="close"></ion-icon>
       </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <app-favorite-icon></app-favorite-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -50,6 +52,19 @@
       *ngIf="!this.skeletonData"
       class="ion-justify-content-center">
 
+      <!-- Toolbar-lg -->
+      <ion-col size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
+        <div class="spacer-5x"></div>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button class="back-button ion-hide-lg-down" (click)="close()">
+              <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+              Back to Products
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+
       <!-- Picture Header -->
       <ion-col class="ion-text-center" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
         <div class="spacer-4x ion-hide-lg-down"></div>
@@ -59,13 +74,6 @@
       <!-- Product Info -->
       <ion-col id="product-info" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
         <div class="spacer-2x"></div>
-        <ion-toolbar>
-          <ion-buttons slot="end">
-            <ion-button class="back-button ion-hide-lg-down" (click)="close()">
-              Back
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
 
         <!-- Info -->
         <p class="product-price">$price</p>
@@ -83,6 +91,7 @@
           </ion-button>
           <div id="sample-track"></div>
         </div>
+
         <p class="description">
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
           Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
@@ -97,6 +106,66 @@
       <ion-col id="related-products" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
         
         <h2>Related Products</h2>
+        <ion-row id="related-product-wrapper-lg">
+          <ion-col class="related-product-outer-lg ion-text-center" size="4">
+            <div class="related-product-inner-lg">
+              <div class="related-product-add-cart-lg">
+                <ion-button class="related-product-add-cart-lg" (click)="relatedProductAddToCart()" expand="block">
+                  Add to Cart
+                </ion-button>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="related-product-outer-lg ion-text-center" size="4">
+            <div class="related-product-inner-lg">
+              <div class="related-product-add-cart-lg">
+                <ion-button class="related-product-add-cart-lg" (click)="relatedProductAddToCart()" expand="block">
+                  Add to Cart
+                </ion-button>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="related-product-outer-lg ion-text-center" size="4">
+            <div class="related-product-inner-lg">
+              <div class="related-product-add-cart-lg">
+                <ion-button class="related-product-add-cart-lg" (click)="relatedProductAddToCart()" expand="block">
+                  Add to Cart
+                </ion-button>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="related-product-outer-lg ion-text-center" size="4">
+            <div class="related-product-inner-lg">
+              <div class="related-product-add-cart-lg">
+                <ion-button class="related-product-add-cart-lg" (click)="relatedProductAddToCart()" expand="block">
+                  Add to Cart
+                </ion-button>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="related-product-outer-lg ion-text-center" size="4">
+            <div class="related-product-inner-lg">
+              <div class="related-product-add-cart-lg">
+                <ion-button class="related-product-add-cart-lg" (click)="relatedProductAddToCart()" expand="block">
+                  Add to Cart
+                </ion-button>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col class="related-product-outer-lg ion-text-center" size="4">
+            <div class="related-product-inner-lg">
+              <div class="related-product-add-cart-lg">
+                <ion-button class="related-product-add-cart-lg" (click)="relatedProductAddToCart()" expand="block">
+                  Add to Cart
+                </ion-button>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <!-- Related Products Lg -->
+      
+        <!-- Related Products Mobile -->
         <swiper
               id="featured-swiper"
               class="ion-hide-lg-up"
@@ -143,31 +212,61 @@
 
       </ion-col>
 
-      <ion-col class="ion-text-center" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
+      <!-- Back To Products Page Button Lg -->
+      <ion-col id="product-bottom-buttons-lg" class="ion-text-center" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
+        <div class="spacer-5x"></div>
+        <ion-button 
+          id="back-button-lg" 
+          (click)="close()">
+          <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+          Back to Products
+        </ion-button>
+        <div class="spacer-1x"></div>
+        <ion-button 
+          id="add-to-cart-button-lg" 
+          (click)="close()">
+          <ion-icon slot="start" name="cart-outline"></ion-icon>
+          Add to Cart
+        </ion-button>
+        <div class="spacer-1x"></div>
         <ion-button 
           id="reviews-button" 
           [ngClass]="this.reviewDisplay ? 'hide-reviews-button' : 'show-reviews-button'" 
           (click)="toggleReviews()">
+          <ion-icon name="chatbubbles-outline"></ion-icon>
             {{reviewButtonMessage}}
         </ion-button>
       </ion-col>
 
       <!-- Reviews -->
       <ion-col *ngIf="this.reviewDisplay" id="reviews" class="ion-text-center" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
-        
 
         <div id="reviews-wrapper">
           <div class="review"></div>
           <div class="review"></div>
           <div class="review"></div>
         </div>
+
+        <ion-button 
+          id="back-button-reviews-lg" 
+          (click)="close()">
+          <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+          Back to Products
+        </ion-button>
+        <div class="spacer-5x"></div>
       </ion-col>
       <div id="reviews-scroll-to"></div>
+
+      <!-- Footer -->
+      <ion-col id="footer" size="12">
+        <p>Footer</p>
+      </ion-col>
     </ion-row>
 
   </ion-grid>
 </ion-content>
 
+<!-- Mobile Add to Cart Button -->
 <ion-footer 
   id="add-to-cart" 
   class="ion-hide-lg-up ion-text-center" 
