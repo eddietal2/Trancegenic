@@ -5,13 +5,13 @@
       <span style="margin-left: 1em;"></span>
       <img height="30" src="../../../../assets/placeholders/placeholder-logo.svg" alt="" srcset="">
     </ion-buttons>
-    <ion-buttons slot="start">
-      <ion-button (click)="close()">
-        <ion-icon slot="start" name="close"></ion-icon>
-      </ion-button>
+    <ion-buttons slot="">
     </ion-buttons>
     <ion-buttons slot="end">
       <app-favorite-icon></app-favorite-icon>
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -72,24 +72,51 @@
       </ion-col>
 
       <!-- Product Info -->
-      <ion-col id="product-info" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
+      <ion-col id="product-info-wrapper" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
         <div class="spacer-2x"></div>
 
         <!-- Info -->
-        <p class="product-price">$price</p>
-        <h6 class="product-title">title</h6>
-        <p class="product-duration">Duration: duration Mins</p>
-        <p class="product-category"># category</p>
-        <p class="product-reviews-length">Reviews reviews.length</p>
-        <div class="spacer-2x"></div>
+        <div id="product-info">
+          <p class="product-price">$price</p>
+          <h6 class="product-title">title</h6>
+          <p class="product-duration">Duration: duration Mins</p>
+          <p class="product-category"># category</p>
+          <p class="product-reviews-length">Reviews reviews.length</p>
+        </div>
+        
+        <div class="spacer-5x"></div>
 
-        <!-- Sample Button -->
+        <!-- Product Sample -->
         <div class="ion-text-center">
+
+          <!-- Sample Icon -->
+          <div class="ion-text-center">
+            <ion-icon id="sample-icon" name="musical-notes-outline"></ion-icon>
+            <div class="spacer-1x"></div>
+          </div>
+
+          <!-- Sample Button -->
           <ion-button id="sample-button" (click)="playSample(this.sampleButtonIcon)">
             <ion-icon slot="start" name="{{this.sampleButtonIcon}}"></ion-icon>
-             <span style="width: 8px;"></span>Sample
+             <span style="width: 8px;"></span>{{sampleButtonText}}
           </ion-button>
-          <div id="sample-track"></div>
+
+          <!-- Sample Track -->
+          <div id="sample-track">
+
+            <div class="spacer-1x"></div>
+            <ion-progress-bar value="{{this.sampleCurrentPosition/this.sampleDuration}}"></ion-progress-bar>
+            <div class="spacer-1x"></div>
+
+            <!-- Volume -->
+            <div id="volume-track">
+              <div class="spacer-1x"></div><h5>Volume</h5>
+              <ion-icon (click)="decreaseVolume()" class="sample-volume-button" name="arrow-back-circle-outline"></ion-icon>
+              <ion-icon (click)="increaseVolume()" class="sample-volume-button" name="arrow-forward-circle-outline"></ion-icon>
+              <ion-progress-bar value="{{this.sampleMasterVolume}}"></ion-progress-bar>
+            </div>
+          </div>
+
         </div>
 
         <p class="description">
@@ -106,7 +133,7 @@
       <ion-col id="related-products" size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
         
         <h2>Related Products</h2>
-        <ion-row id="related-product-wrapper-lg">
+        <ion-row id="related-product-wrapper-lg" class="ion-hide-md-down">
           <ion-col class="related-product-outer-lg ion-text-center" size="4">
             <div class="related-product-inner-lg">
               <div class="related-product-add-cart-lg">
@@ -168,7 +195,7 @@
         <!-- Related Products Mobile -->
         <swiper
               id="featured-swiper"
-              class="ion-hide-lg-up"
+              class="ion-hide-md-up"
               [config]="relatedProductsSwiperConfig" 
               (swiper)="onSwiper($event)">
 
@@ -227,6 +254,14 @@
           (click)="close()">
           <ion-icon slot="start" name="cart-outline"></ion-icon>
           Add to Cart
+        </ion-button>
+        <div class="spacer-1x"></div>
+        <ion-button 
+          id="favorite-button-lg" 
+          (click)="close()">
+          <!-- Add isLg property that changes class depending on viewport size -->
+          <app-favorite-icon></app-favorite-icon>
+          Favorite
         </ion-button>
         <div class="spacer-1x"></div>
         <ion-button 

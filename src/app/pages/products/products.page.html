@@ -288,7 +288,7 @@
     <ion-row class="spacer-5x ion-hide-lg-down ion-justify-content-center">
       
       <!-- ProductsLg Toolbar -->
-      <ion-col size="8">
+      <ion-col size="6.7">
         <ion-toolbar id="product-lg-toolbar">
 
           <!-- Category Buttons -->
@@ -326,7 +326,7 @@
       </ion-col>
 
       <!-- Skeleton UI Lg -->
-      <ion-col size="8" *ngIf="this.skeletonDataLg">
+      <ion-col size="6.7" *ngIf="this.skeletonDataLg">
         <div class="ion-padding custom-skeleton">
           <ion-list>
             <ion-item lines="none">
@@ -350,13 +350,13 @@
       </ion-col>
 
       <!-- FeaturedLg -->
-      <ion-col *ngIf="this.categoryLg == 'featured' && !this.skeletonDataLg" size="8">
+      <ion-col *ngIf="this.categoryLg == 'featured' && !this.skeletonDataLg" size="6.7">
         <p id="featured-page-message-lg">This is a message.</p>
       </ion-col>
 
       <ion-col 
         *ngIf="this.categoryLg == 'featured'" 
-        size="8">
+        size="6.7">
 
         <ion-row>
           <ion-col 
@@ -477,13 +477,13 @@
       </ion-col>
 
       <!-- FavoritesLg -->
-      <ion-col *ngIf="this.categoryLg == 'favorites' && this.staticFavoriteProducts.length == 0 && !this.skeletonDataLg" size="8">
+      <ion-col *ngIf="this.categoryLg == 'favorites' && this.staticFavoriteProducts.length == 0 && !this.skeletonDataLg" size="6.7">
         <h1>You have no favorites! To add a favorite product, tap the Heart icon.</h1>
       </ion-col>
    
       <ion-col
         *ngIf="this.categoryLg == 'favorites' && !this.skeletonDataLg" 
-        size="8">
+        size="6.7">
         <ion-row>
           <ion-col *ngFor="let product of staticFavoriteProducts" 
             class="product-lg" 
@@ -603,12 +603,12 @@
       </ion-col>
      
       <!-- AllProductsLg -->
-      <ion-col *ngIf="this.categoryLg == 'all' && this.searchLoadedProducts.length == 0 && !this.skeletonDataLg" size="8">
+      <ion-col *ngIf="this.categoryLg == 'all' && this.searchLoadedProducts.length == 0 && !this.skeletonDataLg" size="6.7">
         <h1>No results from search was found.</h1>
       </ion-col>
 
       <ion-col *ngIf="this.categoryLg == 'all' && !this.skeletonDataLg" 
-        size="8">
+        size="6.7">
 
         <!-- <h1>All Products</h1> -->
         <ion-row>

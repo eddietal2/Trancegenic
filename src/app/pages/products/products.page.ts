@@ -15,6 +15,7 @@ interface Product {
   rating: number,
   duration: number,
   price: number,
+  sample: string,
   reviews?: Array<Review>,
 }
 
@@ -71,6 +72,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       category: "relaxation",
       price: 5,
       rating: 1,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
@@ -109,6 +111,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       category: "business",
       price: 50,
       rating: 5,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -119,6 +122,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relationships",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -129,6 +133,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 50,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -139,6 +144,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "self-improvement",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -149,6 +155,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -159,6 +166,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relationships",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -169,6 +177,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relationships",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -179,6 +188,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -189,6 +199,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -199,6 +210,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relaxation",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -209,6 +221,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     }
@@ -220,6 +233,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       duration: 120,
       category: "relaxation",
       price: 5,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       rating: 1,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
@@ -258,6 +272,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       duration: 120,
       category: "business",
       price: 50,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       rating: 5,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
@@ -269,6 +284,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relationships",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -279,6 +295,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 50,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -289,6 +306,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "self-improvement",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -299,6 +317,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -309,6 +328,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relationships",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -319,6 +339,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relationships",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -329,6 +350,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -339,6 +361,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -349,6 +372,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "relaxation",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     },
@@ -359,6 +383,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     }
@@ -371,6 +396,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 1,
       category: "sleep",
       price: 5,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
@@ -407,6 +433,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 120,      
       rating: 5,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       category: "sleep",
       price: 50,
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
@@ -419,6 +446,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 2.5,
       category: "sleep",
       price: 100,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: []
     }
@@ -431,6 +459,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       rating: 2,
       category: "sleep",
       price: 5,
+      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       reviews: [
         {
