@@ -1,9 +1,16 @@
+
+ion-button {
+  --background: none;
+  --box-shadow: none;
+}
 ion-icon {
     z-index: 9999;
     font-size: 2em;
     position: relative;
     color: red;
-    left: 8px;
+    left: 0px;
+    float: left;
+    
   }
   .favorited-caption {
     color: #c00000;

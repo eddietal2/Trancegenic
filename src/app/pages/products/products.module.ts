@@ -13,9 +13,9 @@ import { CustomComponentsModule } from 'src/app/components/custom-compontents.mo
   imports: [
     CommonModule,
     FormsModule,
-    SwiperModule,
     IonicModule,
     CustomComponentsModule,
+    SwiperModule,
     ProductsPageRoutingModule,
   ],
   declarations: []

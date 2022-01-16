@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
@@ -24,17 +24,23 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
     ])
   ]
 })
-export class FavoriteIconComponent implements OnInit {
+export class FavoriteIconComponent implements OnInit, AfterViewInit {
   favoriteState = "favorited";
   public iconName = 'heart';
-  @Input() job;
-  @Input() favoriteJobs;
+  @Input() productID;
   @Output() favoritedAnimation = new EventEmitter<Object>();
   @Output() unFavoritedAnimation = new EventEmitter<Object>();
 
   constructor() { }
 
-  ngOnInit() {}
+  ngAfterViewInit(): void {
+    console.clear();
+    console.log(this.productID);
+      
+  }
+
+  ngOnInit() {
+  }
 
 
   toggleLikeState() {
@@ -52,14 +58,12 @@ export class FavoriteIconComponent implements OnInit {
     this.favoriteState = 'favorited';
     this.favoritedAnimation.emit({
       favorited: true,
-      msg: `${this.job} was favorited`
       })
  }
   setFavoriteStateOff() {
     this.favoriteState = 'unfavorited';
     this.unFavoritedAnimation.emit({
       favorited: false,
-      msg: `${this.job} was unfavorited`
       })
   }
 

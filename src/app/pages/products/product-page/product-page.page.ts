@@ -1,7 +1,10 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swiper, { SwiperOptions } from 'swiper';
+import Swiper, { Autoplay, SwiperOptions } from 'swiper';
 import {Howl, Howler} from 'howler';
+import { LoadingController, ToastController } from '@ionic/angular';
+
+Swiper.use([Autoplay]);
 
 interface Product {
   _id: string,
@@ -10,7 +13,7 @@ interface Product {
   category: string,
   rating: number,
   duration: number,
-  price: number,
+  price: string,
   sample: string,
   reviews?: Array<Review>,
 }
@@ -30,25 +33,381 @@ interface Review {
   selector: 'app-product-page',
   templateUrl: './product-page.page.html',
   styleUrls: ['./product-page.page.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProductPagePage implements OnInit, OnDestroy {
-  productID: string;
-  reviewLength: number;
-  reviewButtonMessage = 'Show Reviews (3)';
+
+  testProduct: Product = {
+    _id: null,
+    title: "This is the title of the Product",
+    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+    category: "Sleep",
+    rating: 0,
+    duration: 50,
+    price: "19.99",
+    sample: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    reviews: [
+      {
+        _id: "1",
+        reviewerUsername: "Reviewer Name",
+        reviewerEmail: 'eddielacrosse2@gmail.com',
+        reviewerProfilePicture: "",
+        date: "Posted 3 Days ago",
+        rating: 4,
+        review: 'This is the review',
+      },
+      {
+        _id: "2",
+        reviewerUsername: "Reviewer Name",
+        reviewerEmail: 'eddielacrosse2@gmail.com',
+        reviewerProfilePicture: "",
+        date: "Posted 3 Days ago",
+        rating: 5,
+        review: 'This is the review',
+      },
+      {
+        _id: "3",
+        reviewerUsername: "Reviewer Name",
+        reviewerEmail: 'eddielacrosse2@gmail.com',
+        reviewerProfilePicture: "",
+        date: "Posted 3 Days ago",
+        rating: 5,
+        review: 'This is the review',
+      }
+    ]
+  }
+
+  relatedProducts: Array<Product> = [
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    },
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    },
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    },
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    },
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    },
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    },
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    },
+    {
+      _id: null,
+      title: "This is the title of the Product",
+      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
+      category: "Sleep",
+      rating: 0,
+      duration: 50,
+      price: "19.99",
+      sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
+      reviews: [
+        {
+          _id: "1",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 4,
+          review: 'This is the review',
+        },
+        {
+          _id: "2",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        },
+        {
+          _id: "3",
+          reviewerUsername: "Reviewer Name",
+          reviewerEmail: 'eddielacrosse2@gmail.com',
+          reviewerProfilePicture: "",
+          date: "Posted 3 Days ago",
+          rating: 5,
+          review: 'This is the review',
+        }
+      ]
+    }
+  ]
+
+  reviewButtonMessage = `Show Reviews (${this.testProduct.reviews.length})`;
   skeletonData = true;
+  isMobileProductPage = true;
   
 
   relatedProductsSwiperConfig: SwiperOptions = {
-    slidesPerView: 1,
+    slidesPerView: 1.3,
     spaceBetween: 20,
-    navigation: true,
-    pagination: { clickable: true },
-    scrollbar: { draggable: true },
+    navigation: true
   };
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    public toastController: ToastController,
+    public loadingController: LoadingController
     // private auth: AuthSevice
     ) {
       // this.userEmail = this.auth.userEmail;
@@ -58,7 +417,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
     this.skeletonTrigger();
     // Get Post ID from navigation params on the main posts tab
     const id  = this.activatedRoute.snapshot.paramMap.get('_id');
-    this.productID = id;
+    this.testProduct._id = id;
     console.log(id);
   }
 
@@ -89,9 +448,67 @@ export class ProductPagePage implements OnInit, OnDestroy {
    * 
    */
   addToCart() {
+    console.clear();
     console.log('Adding to Cart ...');
+    // The IonBadge next to the Cart Icon in the Tabbar
+    let cartCount = document.getElementById('cart-count');
+    this.addToCartLoading()
+      .then(() => {
+        console.log(cartCount);
+        cartCount.style.transform = 'scale(4)';
+        setTimeout(() => {
+          cartCount.style.transform = 'scale(1)';
+          
+        }, 800);
+        this.addToCartToast();
+      })
   }
 
+  /**
+   * Toast that displays when a user adds this Product to their Cart
+   * '&#x2713;' is HTML escape character for a check mark ✓
+   */
+   async addToCartToast() {
+    const toast = await this.toastController.create({
+      message: '&#x2713;   You have added this Product to your Cart!',
+      duration: 20000,
+      color: 'danger',
+      position: 'top',
+      cssClass: 'add-to-cart-toast',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'close',
+          role: 'cancel',
+          handler:  () => {
+            toast.dismiss();
+          }
+        }
+      ]
+    });
+    toast.present();
+  }
+
+  /**
+   * Loading that appears before 'Add To Cart Toast'
+   */
+   async addToCartLoading() {
+    // TODO
+    // Request Data
+    // 
+
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      showBackdrop: true,
+      spinner: 'crescent',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
   
 
   /**
@@ -104,20 +521,31 @@ export class ProductPagePage implements OnInit, OnDestroy {
    */
 
    sampleToggle = false;
+   sampleProgressBarType = 'determinate';
    sampleButtonText = 'Play Sample';
    sampleButtonIcon = 'play';
-   sampleDuration: number;
-   sampleCurrentPosition = 0;
+   sampleDuration = 0;
    sampleMasterVolume = 0.5;
    sound = new Howl({
     html5: true,
-    seek: 23000,
-    src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3']
+    src: [this.testProduct.sample],
+    sprite: {
+      sample: [14000, 20000]
+    },
   });
 
-  increaseVolume() {
+  increaseVolume(button) {
+    console.log(button);
+    button.el.style.transform = 'scale(1.4)';
+    button.el.style.color = 'red';
+    setTimeout(() => {
+      button.el.style.transform = 'scale(1)';
+      button.el.style.color = '#222';
+      
+    }, 200);
     if(this.sampleMasterVolume >= 1) {
       console.log('Maximum Volume');
+      // TODO Add Toast here
       return;
     }
 
@@ -127,9 +555,18 @@ export class ProductPagePage implements OnInit, OnDestroy {
    
   }
 
-  decreaseVolume() {
+  decreaseVolume(button) {
+    console.log(button);
+    button.el.style.transform = 'scale(1.4)';
+    button.el.style.color = 'red';
+    setTimeout(() => {
+        button.el.style.transform = 'scale(1)';
+        button.el.style.color = '#222';
+    }, 200);
     if(this.sampleMasterVolume <= 0) {
       console.log('Maximum Volume');
+      // TODO Add Toast here
+      console.log(Howler)
       return;
     }
 
@@ -138,49 +575,110 @@ export class ProductPagePage implements OnInit, OnDestroy {
     Howler.volume(this.sampleMasterVolume);
   }
   
-
-   playSample(buttonIcon) {
+  playSample(buttonIcon) {
 
     console.clear();
     console.log('Sample button icon state: ' + buttonIcon)
-    console.log(this.sound);
 
     let sampleTrackWrapper = document.getElementById('sample-track');
+    let sampleIcon = document.getElementById('sample-icon');
 
-    // Play & Change button to Pause button
+    // 
+    if(!this.sampleToggle) {
+      let interval = setInterval(() => {
+    
+  
+        updateSampleTime(this.sound, () => {
+          this.sampleDuration++;
+          console.log(this.sampleDuration);
+  
+          // When sample is finished playing, change sample button to
+          // refresh, change UI timer to 0, stop progress bar animation,
+          // unload song, and stop Interval timer.
+          if(this.sampleDuration == 20) {
+            
+            this.sampleDuration = 0;
+            this.sampleButtonIcon = 'refresh-outline';
+            this.sampleButtonText = 'Replay Sample';
+            this.sampleProgressBarType = 'determinate';
+            this.sound.unload();
+            clearInterval(interval);
+            return;
+          }
+  
+          // 
+          if(this.sampleToggle == false) {
+            clearInterval(interval);
+            return;
+          }
+  
+        }); 
+  
+      }, 1000);
+    }
+
+    function updateSampleTime(sound, callback) {
+      if (sound.playing()) {
+        // let width = (sound.seek()/sound.duration())/100;
+        let width = (sound.seek()/sound.duration());
+        return callback(width);
+      }
+    }
+
+    // Play
     if(this.sampleToggle == false) {
-      console.log('Playing Sample...');
-      this.sampleToggle = true;
-      this.sampleButtonText = 'Pause Sample';
-      this.sampleButtonIcon = 'pause';
-      this.sound.play();
 
-      // Show Sample Track Wrapper
+      // Toggle Track Player & Volume Control display
+      this.sampleToggle = true;
+
+
+      // Display Sample Track Wrapper
       sampleTrackWrapper.style.opacity = '1';
       sampleTrackWrapper.style.pointerEvents = 'auto';
 
-      // Show Restart button when sample is finished
-      // if() {
+      // Increase size of Sample Icon
+      sampleIcon.style.color = 'red';
+      sampleIcon.style.transform = 'scale(1.4)';
 
-      // }
-      
+      // Change Icon & Text in Sample Button to Pause
+      this.sampleButtonText = 'Pause Sample';
+      this.sampleButtonIcon = 'pause';
+
+      // Change progress bar type
+      this.sampleProgressBarType = 'indeterminate';
+
+      // Play Track
+      this.sound.play('sample');
       return;
       }
-    
-    
+
     // Pause
-    else {
-      console.log('Pausing Sample...');
+    else if(this.sampleToggle == true) {
       this.sampleToggle = false;
+
+      // Return sample icon to normal size when sample is paused
+      sampleIcon.style.color = '#333';
+      sampleIcon.style.transform = 'scale(1)';
+
+      // Change Icon & Text in Sample Button to Play
+      // Change progress bar type
       this.sampleButtonIcon = 'play';
       this.sampleButtonText = 'Play Sample';
+
+      // Change progress bar type
+      this.sampleProgressBarType = 'determinate';
+
+      // Pause Track
       this.sound.pause();
+      return;
     }
+    
+    return;
      
-   }
+  }
 
 
-   /**
+  /**
     * To be used with playSample()
     * @param i 
     * @param d 
@@ -188,18 +686,18 @@ export class ProductPagePage implements OnInit, OnDestroy {
     * @param callback 
     * @returns 
     */
-   sampleCurrentPositionTracker(i, d, s, callback) {
+  sampleCurrentPositionTracker(i, d, s, callback) {
     return function() {
       return callback(++i, d, s);
     }
-    }
+  }
 
   /**
    * 
    */
   // Swiper
   onSwiper(swiper) {
-    // console.log(swiper);
+    console.log(swiper);
   }
 
   /**
@@ -235,5 +733,33 @@ export class ProductPagePage implements OnInit, OnDestroy {
     
   }
 
+  /**
+   * Track scroll location of page for animations
+   * @param e - Event Object
+   */
+
+   footerScrollIntoView = false;
+
+   trackPageLocation(e) {
+     console.clear();
+    let scrollDetail = e.detail;
+    console.log(scrollDetail);
+
+    if(scrollDetail.scrollTop >= 1300) {
+      console.log('show footer');
+      this.footerScrollIntoView = true;
+    }
+    else {
+      console.log('hide footer');
+      this.footerScrollIntoView = false;
+    }
+   }
+
+   /**
+    * Go to Contact us Page
+    */
+    contactUs() {
+      this.router.navigateByUrl('/contact');
+    }
 
 }

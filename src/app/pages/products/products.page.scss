@@ -349,11 +349,7 @@ animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) 0.3s forwar
     }
 
 }
-#featured-swiper {
-    height: 315px;
-    // background: lightblue;
-    transition: 0.3s;
-}
+
 
 #feature-swiper-overlay {
     height: 100%;
@@ -365,33 +361,8 @@ animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) 0.3s forwar
     top: 0px;
     pointer-events: none;
 }
-
-.swiper {
-    width: 100%;
-    height: 60px;
-}
-.swiper-slide {
-  font-size: 18px;
-//   background: #09855b;
-//   border-radius: 10px;
-//   box-shadow: 1px 1px 5px #999;
-  margin: 0 auto;
-
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+#featured-swiper {
+    height: 315px;
+    // background: lightblue;
+    transition: 0.3s;
 }
