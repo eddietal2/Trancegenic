@@ -3,8 +3,11 @@
 <ion-content>
   <!-- Main Profile Page -->
   <ion-grid>
+    <div class="spacer-2x"></div>
     <ion-row id="profile-wrapper" class="ion-justify-content-center ion-align-items-center">
-      <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="5">
+      <ion-col id="profile" size-xs="12" size-sm="10" size-md="8" size-lg="5">
+        
+        <!-- User Info -->
         <div id="user-info-header">
           <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
           <span>
@@ -12,6 +15,8 @@
             <p>johndoe@email.com</p>
           </span>
         </div>
+
+        <!-- List Buttons -->
         <ion-item (click)="changeName('eddielacrosse2@gmail.com')" lines="none" detail="true">
           <ion-label>Change Name</ion-label>
         </ion-item>
@@ -42,16 +47,22 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
+      <div class="spacer-2x"></div>
+
       <ion-content id="change-name-modal">
         <ion-grid>
           <ion-row class="ion-justify-content-center">
             <ion-col size-xs="11">
+
+              <!-- User Info -->
               <div id="user-info-header">
                 <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
                 <span>
                   <h2>John Doe</h2>
                 </span>
               </div>
+
+              <!-- Form -->
               <form [formGroup]="changeNameForm" (ngSubmit)="changeName('eddielacrosse2@gmail.com')">
                 <ion-item>
                   <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
@@ -78,26 +89,29 @@
                   </div>
                 </ion-item>
                 <div class="ion-text-center ion-hide-lg-down">
-                  <ion-button block color="primary" type="submit" [disabled]="changeNameForm.invalid">
+                  <div class="spacer-2x"></div>
+                  <ion-button class="modal-button" type="submit" [disabled]="changeNameForm.invalid">
                     Submit
                   </ion-button>
-                  <ion-button block color="primary" type="submit" [disabled]="changeNameForm.invalid">
+                  <ion-button class="modal-button" type="submit" [disabled]="changeNameForm.invalid">
                     Cancel
                   </ion-button>
                 </div>
               </form>
+
             </ion-col>
           </ion-row>
         </ion-grid>
         <ion-footer>
-          <ion-button class="save-button ion-hide-lg-up" expand="full" (click)="updateName()" expand="block" fill="clear" shape="round">
+          <ion-button class="modal-button ion-hide-lg-up" (click)="updateName()">
             Save
           </ion-button>
-          <ion-button class="cancel-button ion-hide-lg-up" expand="full" (click)="closeNameModal()" expand="block" fill="clear" shape="round">
+          <ion-button class="modal-button ion-hide-lg-up" (click)="closeNameModal()">
             Cancel
           </ion-button>
         </ion-footer>
       </ion-content>
+
     </ng-template>
   </ion-modal>
 
@@ -116,6 +130,7 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
+      <div class="spacer-2x"></div>
       <ion-content id="change-email-modal">
         <ion-grid>
           <ion-row class="ion-justify-content-center">
@@ -148,10 +163,11 @@
           </ion-row>
         </ion-grid>
         <ion-footer>
-          <ion-button class="save-button ion-hide-lg-up" expand="full" (click)="updateEmail()" expand="block" fill="clear" shape="round">
+          <div class="spacer-2x"></div>
+          <ion-button class="modal-button ion-hide-lg-up" (click)="updateEmail()">
             Save
           </ion-button>
-          <ion-button class="cancel-button ion-hide-lg-up" expand="full" (click)="closeEmailModal()" expand="block" fill="clear" shape="round">
+          <ion-button class="modal-button ion-hide-lg-up" (click)="closeEmailModal()">
             Cancel
           </ion-button>
         </ion-footer>
@@ -174,6 +190,7 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
+      <div class="spacer-2x"></div>
       <ion-content>
         <ion-grid>
           <ion-row class="ion-justify-content-center">
@@ -207,10 +224,11 @@
           </ion-row>
         </ion-grid>
         <ion-footer>
-          <ion-button class="save-button ion-hide-lg-up" expand="full" (click)="updatePassword()" expand="block" fill="clear" shape="round">
+          <div class="spacer-2x"></div>
+          <ion-button class="modal-button ion-hide-lg-up" (click)="updatePassword()">
             Save
           </ion-button>
-          <ion-button class="cancel-button ion-hide-lg-up" expand="full" (click)="closePasswordModal()" expand="block" fill="clear" shape="round">
+          <ion-button class="modal-button ion-hide-lg-up" (click)="closePasswordModal()">
             Cancel
           </ion-button>
         </ion-footer>
@@ -233,6 +251,7 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
+      <div class="spacer-2x"></div>
       <ion-content>
         <ion-grid>
           <ion-row class="ion-justify-content-center">
@@ -253,7 +272,7 @@
           </ion-row>
         </ion-grid>
         <ion-footer>
-          <ion-button class="cancel-button ion-hide-lg-up" expand="full" (click)="closeNewsLetterModal()" expand="block" fill="clear" shape="round">
+          <ion-button class="modal-button ion-hide-lg-up"  (click)="closeNewsLetterModal()">
             Cancel
           </ion-button>
         </ion-footer>

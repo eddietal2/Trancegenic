@@ -68,7 +68,7 @@
         <ion-accordion value="featured" id="featured-products-accordian">
           
           <ion-item id="featured-products-item" lines="none" slot="header">
-            <ion-label>Featured Products | {{this.staticFeaturedProducts.length}}</ion-label>
+            <ion-label>Featured | {{this.staticFeaturedProducts.length}}</ion-label>
             <ion-icon name="pricetag-outline" slot="start"></ion-icon>
           </ion-item>
 
@@ -78,45 +78,44 @@
 
             <!-- Featured Products -->
             <swiper
+              id="featured-swiper"
               [config]="featuredSwiperConfig" 
               (swiper)="onSwiper($event)">
                 <ng-template swiperSlide *ngFor="let featuredProduct of staticFeaturedProducts">
-                  <ion-row
-                    (click)="goToProductPage(featuredProduct._id)"
+                  <div>
+                    <ion-row
                     class="featured-product product-wrapper ion-justify-content-center">
-                    <ion-col class="product-photo" size="6">
+                      <ion-col class="product-photo" size="6"
+                      (click)="goToProductPage(featuredProduct._id)">
 
-                    </ion-col>
-                    <ion-col size="6">
-                      <div (click)="goToProductPage()">
-                        <p class="product-price">${{featuredProduct.price}}</p>
-                        <h6 class="product-title">{{featuredProduct.title}}</h6>
-                        <h6 class="product-rating">Rating: {{featuredProduct.rating}}</h6>
-                        <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
-                        <p class="product-category"># {{featuredProduct.category}}</p>
-                        <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
-                        <div class="star-container">
-                        </div>
-                      </div>
-                      <!-- <div class="product-message-green">
-                        <p>Test Message</p>
-                      </div>
-                      <div class="product-message-red">
-                        <p>Test Message</p>
-                      </div> -->
+                      </ion-col>
+                      <ion-col size="6"
+                      (click)="goToProductPage(featuredProduct._id)">
+                        <div (click)="goToProductPage()">
+                          <p class="product-price">${{featuredProduct.price}}</p>
+                          
+                          <h6 class="product-title">{{featuredProduct.title}}</h6>
+                          <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
+                          <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
+                          <p class="product-category"># {{featuredProduct.category}}</p>
+                          <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
+                        </div>                 
+                        
+                      </ion-col>
 
-                      <!-- [featuredProduct]="featuredProduct._id" 
-                              [favoriteJobs]="favoriteJobs"
-                              (favoritedAnimation)="favoriteAnimation($event)"
-                              (unFavoritedAnimation)="unFavoriteAnimation($event)" -->
-                      <ion-toolbar>
-                        <ion-buttons slot="end">
-                          <app-favorite-icon></app-favorite-icon>
-                        </ion-buttons>
-                      </ion-toolbar>
-                    </ion-col>
-                  </ion-row>
-
+                        
+                    <ion-toolbar style="z-index: 9999;">
+                      <ion-buttons slot="start">
+                        <ion-button id="cart-button" (click)="onClick()">
+                          <ion-icon slot="start" name="cart-outline"></ion-icon>
+                        </ion-button>
+                      </ion-buttons>
+                      <ion-buttons slot="end">
+                        <app-favorite-icon></app-favorite-icon>
+                      </ion-buttons>
+                    </ion-toolbar>  
+                    </ion-row>
+                  </div>
                 </ng-template>
             </swiper>
 
@@ -127,7 +126,7 @@
         <ion-accordion value="favorites" id="favorite-products-accordian">
           
           <ion-item id="favorite-products-item" lines="none" slot="header">
-            <ion-label>Favorite Products | {{this.staticFavoriteProducts.length}}</ion-label>
+            <ion-label>Favorites | {{this.staticFavoriteProducts.length}}</ion-label>
             <ion-icon name="heart" slot="start"></ion-icon>
           </ion-item>
       
@@ -137,6 +136,7 @@
             <!-- Using same data from Featured data for now -->
             <div *ngFor="let product of staticFavoriteProducts">
                 <ion-row
+                style="width: 100%;"
                 class="product-wrapper ion-justify-content-center">
                 <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
           
@@ -145,21 +145,25 @@
                   <div (click)="this.goToProductPage()">
                     <p class="product-price">${{product.price}}</p>
                     <h6 class="product-title">{{product.title}}</h6>
-                    <h6 class="product-rating">Rating: {{product.rating}}</h6>
+                    <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
                     <p class="-product-duration">Duration: {{product.duration}} Mins</p>
                     <p class="product-category"># {{product.category}}</p>
-                    <h5 class="product-reviews-length">Reviews {{product.reviews.length}}</h5>
+                    <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
                   </div>
-                  <div class="product-message-green"></div>
-                  <div class="product-message-red"></div>
-                  <ion-toolbar>
-                    <ion-buttons slot="end">
-                      <ion-button class="favorite-this-product-button" (click)="favorites()">
-                        <ion-icon slot="start" name="heart"></ion-icon>
-                      </ion-button>
-                    </ion-buttons>
-                  </ion-toolbar>
                 </ion-col>
+
+                <!-- Cart + Favorites Toolbar -->
+                <ion-toolbar>
+                  <ion-buttons slot="start">
+                    <ion-button id="cart-button" (click)="onClick()">
+                      <ion-icon slot="start" name="cart-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                  <ion-buttons slot="end">
+                    <app-favorite-icon></app-favorite-icon>
+                  </ion-buttons>
+                </ion-toolbar> 
+
                 </ion-row>
             </div>
           </ion-list>
@@ -169,7 +173,7 @@
         <ion-accordion value="all" id="all-products-accordian">
           
           <ion-item id="all-products-item" slot="header" lines="none">
-            <ion-label>All Products | {{searchLoadedProducts.length}}</ion-label>
+            <ion-label>All | {{searchLoadedProducts.length}}</ion-label>
             <ion-icon name="list-outline" slot="start"></ion-icon>
           </ion-item>
       
@@ -251,6 +255,7 @@
             <!-- Products -->
             <div *ngFor="let product of searchLoadedProducts">
                 <ion-row
+                style="width: 100%;"
                 class="product-wrapper ion-justify-content-center">
                 <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
           
@@ -259,27 +264,36 @@
                   <div (click)="this.goToProductPage()">
                     <p class="product-price">${{product.price}}</p>
                     <h6 class="product-title">{{product.title}}</h6>
-                    <h6 class="product-rating">Rating: {{product.rating}}</h6>
+                    <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
                     <p class="duration">Duration: {{product.duration}} Mins</p>
                     <p class="product-category"># {{product.category}}</p>
-                    <h5 class="product-reviews-length">Reviews {{product.reviews.length}}</h5>
+                    <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
                   </div>
-                  <div class="product-message-green"></div>
-                  <div class="product-message-red"></div>
-                  <ion-toolbar>
-                    <ion-buttons slot="end">
-                      <ion-button class="favorite-this-product-button" (click)="favorites()">
-                        <ion-icon slot="start" name="heart"></ion-icon>
-                      </ion-button>
-                    </ion-buttons>
-                  </ion-toolbar>
+                  <!-- <div class="product-message-green"></div>
+                  <div class="product-message-red"></div> -->
+                                
+                  
                 </ion-col>
+
+                <!-- Cart + Favorites Toolbar -->
+                <ion-toolbar>
+                  <ion-buttons slot="start">
+                    <ion-button id="cart-button" (click)="onClick()">
+                      <ion-icon slot="start" name="cart-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                  <ion-buttons slot="end">
+                    <app-favorite-icon></app-favorite-icon>
+                  </ion-buttons>
+                </ion-toolbar> 
+
                 </ion-row>
             </div>
 
           </ion-list>
 
         </ion-accordion>
+
       </ion-accordion-group>
     </ng-container>
 
@@ -363,7 +377,7 @@
             *ngFor="let featuredProduct of staticFeaturedProducts"
             (click)="goToProductPage(featuredProduct._id)"
             class="product-lg" 
-            size="3.8">
+            size-lg="3.8" size-xl="3.8">
             <div class="product-lg-image">
 
             </div>
@@ -377,96 +391,7 @@
               
               <!-- Ratings Stars -->
               <ion-toolbar class="product-lg-lower-toolbar">
-                <ion-buttons slot="start">
-                  
-                  <!-- Rating = 0 -->
-                  <div *ngIf="this.featuredProduct.rating == 0">
-                    <p>No Rating</p>
-                  </div>
-
-                  <!-- Rating = 1.0 - 1.49 -->
-                  <div *ngIf="this.featuredProduct.rating >= 1 && 1.49 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Star Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 1.5 - 1.99 -->
-                  <div *ngIf="this.featuredProduct.rating >= 1.5 && 1.99 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 2.0 - 2.49 -->
-                  <div *ngIf="this.featuredProduct.rating >= 2.0 && 2.49 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 2.5 - 2.99 -->
-                  <div *ngIf="this.featuredProduct.rating >= 2.5 && 2.99 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 3.0 - 3.49 -->
-                  <div *ngIf="this.featuredProduct.rating >= 3.0 && 3.49 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 3.5 - 3.99 -->
-                  <div *ngIf="this.featuredProduct.rating >= 3.5 && 3.99 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 4.0 - 4.49 -->
-                  <div *ngIf="this.featuredProduct.rating >= 4.0 && 4.49 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 4.5 - 4.99 -->
-                  <div *ngIf="this.featuredProduct.rating >= 4.5 && 4.79 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 5.0 -->
-                  <div *ngIf="this.featuredProduct.rating >= 4.8 && 5.0 >= this.featuredProduct.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                  </div>
-
-                  
-                </ion-buttons>
+                <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
                 
                 <ion-buttons slot="end">
                     <app-favorite-icon></app-favorite-icon>
@@ -501,97 +426,9 @@
               <p class="product-category"># {{product.category}}</p>
               <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
               
+              <!-- Ratings Stars -->
               <ion-toolbar class="product-lg-lower-toolbar">
-                <ion-buttons slot="start">
-                  
-                  <!-- Rating = 0 -->
-                  <div *ngIf="this.product.rating == 0">
-                    <p>No Rating</p>
-                  </div>
-
-                  <!-- Rating = 1.0 - 1.49 -->
-                  <div *ngIf="this.product.rating >= 1 && 1.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Star Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 1.5 - 1.99 -->
-                  <div *ngIf="this.product.rating >= 1.5 && 1.99 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 2.0 - 2.49 -->
-                  <div *ngIf="this.product.rating >= 2.0 && 2.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 2.5 - 2.99 -->
-                  <div *ngIf="this.product.rating >= 2.5 && 2.99 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 3.0 - 3.49 -->
-                  <div *ngIf="this.product.rating >= 3.0 && 3.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 3.5 - 3.99 -->
-                  <div *ngIf="this.product.rating >= 3.5 && 3.99 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 4.0 - 4.49 -->
-                  <div *ngIf="this.product.rating >= 4.0 && 4.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 4.5 - 4.99 -->
-                  <div *ngIf="this.product.rating >= 4.5 && 4.79 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 5.0 -->
-                  <div *ngIf="this.product.rating >= 4.8 && 5.0 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                  </div>
-
-                  
-                </ion-buttons>
+                <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
                 
                 <ion-buttons slot="end">
                     <app-favorite-icon></app-favorite-icon>
@@ -622,97 +459,9 @@
               <p class="product-category"># {{product.category}}</p>
               <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
 
+              <!-- Ratings Stars -->
               <ion-toolbar class="product-lg-lower-toolbar">
-                <ion-buttons slot="start">
-                  
-                  <!-- Rating = 0 -->
-                  <div *ngIf="this.product.rating == 0">
-                    <p>No Rating</p>
-                  </div>
-
-                  <!-- Rating = 1.0 - 1.49 -->
-                  <div *ngIf="this.product.rating >= 1 && 1.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Star Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 1.5 - 1.99 -->
-                  <div *ngIf="this.product.rating >= 1.5 && 1.99 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Half Star Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 2.0 - 2.49 -->
-                  <div *ngIf="this.product.rating >= 2.0 && 2.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 2.5 - 2.99 -->
-                  <div *ngIf="this.product.rating >= 2.5 && 2.99 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Half Star Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 3.0 - 3.49 -->
-                  <div *ngIf="this.product.rating >= 3.0 && 3.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 3.5 - 3.99 -->
-                  <div *ngIf="this.product.rating >= 3.5 && 3.99 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Half Star Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 4.0 - 4.49 -->
-                  <div *ngIf="this.product.rating >= 4.0 && 4.49 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-outline.svg" alt="Star Outline Icon">
-                  </div>
-
-                  <!-- Rating = 4.5 - 4.99 -->
-                  <div *ngIf="this.product.rating >= 4.5 && 4.79 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-half-full.svg" alt="Full Start Icon">
-                  </div>
-
-                  <!-- Rating = 5.0 -->
-                  <div *ngIf="this.product.rating >= 4.8 && 5.0 >= this.product.rating">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                    <img src="../../../assets/icons/star-full.svg" alt="Full Start Icon">
-                  </div>
-
-                  
-                </ion-buttons>
+                <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
                 
                 <ion-buttons slot="end">
                     <app-favorite-icon></app-favorite-icon>

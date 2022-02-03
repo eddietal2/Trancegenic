@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { MobileTopToolbarComponent } from './mobile-top-toolbar/mobile-top-toolbar.component';
 import { FavoriteIconComponent } from './favorite-icon/favorite-icon.component';
+import { RatingsStarsComponent } from './ratings-stars/ratings-stars.component';
+
 
 @NgModule({
     imports: [
@@ -11,11 +13,13 @@ import { FavoriteIconComponent } from './favorite-icon/favorite-icon.component';
      ],
     declarations: [
         MobileTopToolbarComponent,
-        FavoriteIconComponent
+        FavoriteIconComponent,
+        RatingsStarsComponent
     ],
     exports: [
         MobileTopToolbarComponent,
-        FavoriteIconComponent
+        FavoriteIconComponent,
+        RatingsStarsComponent
     ]
 })
 export class CustomComponentsModule {}

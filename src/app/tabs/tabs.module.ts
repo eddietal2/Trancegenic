@@ -30,7 +30,7 @@ import { CustomComponentsModule } from '../components/custom-compontents.module'
     ProductsPage,
     BlogPage,
     LandingPage,
-    // ProfilePage,
+    ProfilePage,
     CartPage
   ]
 })

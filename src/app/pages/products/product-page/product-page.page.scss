@@ -148,10 +148,16 @@
         }
     }
 }
-#related-products-swiper {
-    height: auto;
-    background: lightblue;
+#related-swiper {
+    height: 63vh;
     transition: 0.3s;
+    padding: 0.5em;
+
+    .product-wrapper {
+        box-shadow: 1px 1px 10px #dedede;
+        border-radius: 10px;
+        margin: 1em auto;
+    }
 
 }
 
@@ -251,23 +257,27 @@
     #back-button-lg {
         --border-solid: #999;
         --color: #999;
+        display: block;
     }
 
     #favorite-button-lg {
         --border-solid: #ff5353;
         --color: #ff5353;
+        display: block;
         
     }
     
     .show-reviews-button {
         --border-solid: #0055a5;
         --color: #0055a5;
+        display: block;
         
     }
     
     .hide-reviews-button {
         --border-solid: #444;
         --color: #999;
+        display: block;
     }
 
 }

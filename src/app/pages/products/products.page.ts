@@ -493,15 +493,15 @@ export class ProductsPage implements OnInit, AfterViewInit {
     },
   ]
   categorySwiperConfig: SwiperOptions = {
-    slidesPerView: 3,
+    slidesPerView: 3.5,
     spaceBetween: 20,
     navigation: true,
     pagination: { clickable: true },
     scrollbar: { draggable: true },
   };
   featuredSwiperConfig: SwiperOptions = {
-    slidesPerView: 1.2,
-    spaceBetween: 0,
+    slidesPerView: 1.3,
+    spaceBetween: 20,
     // autoplay: {
     //   delay: 3000,
     // },

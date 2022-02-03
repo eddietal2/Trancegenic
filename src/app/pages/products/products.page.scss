@@ -14,6 +14,10 @@
     margin: 5em;
 }
 
+#featured-swiper {
+    height: 30vh;
+}
+
 #featured-page-message-lg {
     background: #fea;
     border-left: 7px solid #ffd427;
@@ -40,9 +44,10 @@
 }
 
 #results-header {
-    padding: 1em;
+    padding: 0.4em;
+    border-radius: 5px;
     background: #ececec;
-    margin: 2em auto;
+    margin: 1em auto;
 }
 ion-icon{
     color: #333;
@@ -71,7 +76,12 @@ ion-icon{
     width: 95%;
     float: left;
     justify-content: left;
+
+    #featured-product-lg-lower-toolbar {
+        height: 100px;
+    }
 }
+
 #no-search-results {
     text-align: center;
     background: #999;
@@ -87,7 +97,8 @@ ion-icon{
 }
 
 .product-wrapper {
-    height: 250px;
+    height: auto;
+    width: 340px;
     background: #f2f2f2;
     margin-bottom: 10px;
     padding: 1em;
@@ -112,6 +123,7 @@ ion-icon{
 
     .product-title {
         height: 40px;
+        margin-bottom: 1em;
     }
 
     .product-rating {
@@ -133,12 +145,14 @@ ion-icon{
         background-image: url('../../../assets/placeholders/placeholder-logo.svg');
         background-size: contain;
         background-repeat: no-repeat;
+        width: 100%;
+        height: 200px;
     }
 
     ion-toolbar {
-        --background: none;
-        position: absolute;
-        bottom: 0;
+        // --background: none;
+        // position: absolute;
+        // bottom: 0;
 
         ion-buttons {
 
@@ -151,11 +165,15 @@ ion-icon{
                 padding-left: 6px;
             }
 
-            ion-icon {
-                color: red;
-                position: relative;
-                left: 2px;
-                top: 1px;
+            #cart-button {
+                height: 50px;
+                width: 50px;
+                --background: #999;
+                --border-radius: 50px;
+
+                ion-icon {
+                    color: white;
+                }
             }
             
         }
@@ -325,9 +343,13 @@ animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) 0.3s forwar
 // Swiper
 #category-swiper {
     margin-left: 1em;
+    height: 35px;
+    padding-bottom: 1em;
 
     .active-category {
-        --background: #ffb28b !important;
+        --border-color: orangered !important;
+        --border-style: solid !important;
+        --border-width: 2px !important;
         color: #222 !important;
     }
 
@@ -338,10 +360,10 @@ animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) 0.3s forwar
         position: relative;
         top: 2px;
         width: 122px !important;
-        --background: #c9c9c9;
+        --background: none;
         --box-shadow: none;
         border-radius: 20px;
-        height: 35px;
+        height: 25px;
         color: #222;
         display: flex;
         align-items: center;

@@ -42,7 +42,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
     title: "This is the title of the Product",
     description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
     category: "Sleep",
-    rating: 0,
+    rating: 5,
     duration: 50,
     price: "19.99",
     sample: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
@@ -83,7 +83,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -122,7 +122,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -161,7 +161,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -200,7 +200,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -239,7 +239,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -278,7 +278,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -317,7 +317,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -356,7 +356,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
       title: "This is the title of the Product",
       description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
       category: "Sleep",
-      rating: 0,
+      rating: 5,
       duration: 50,
       price: "19.99",
       sample: "'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'",
@@ -521,6 +521,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
    */
 
    sampleToggle = false;
+   timeInterval = null;
    sampleProgressBarType = 'determinate';
    sampleButtonText = 'Play Sample';
    sampleButtonIcon = 'play';
@@ -582,15 +583,17 @@ export class ProductPagePage implements OnInit, OnDestroy {
 
     let sampleTrackWrapper = document.getElementById('sample-track');
     let sampleIcon = document.getElementById('sample-icon');
+    
 
     // 
     if(!this.sampleToggle) {
-      let interval = setInterval(() => {
+      this.timeInterval = setInterval(() => {
     
-  
+        // Fires every interval to update sample time and UI
         updateSampleTime(this.sound, () => {
           this.sampleDuration++;
           console.log(this.sampleDuration);
+          console.log(this.sound);
   
           // When sample is finished playing, change sample button to
           // refresh, change UI timer to 0, stop progress bar animation,
@@ -601,14 +604,14 @@ export class ProductPagePage implements OnInit, OnDestroy {
             this.sampleButtonIcon = 'refresh-outline';
             this.sampleButtonText = 'Replay Sample';
             this.sampleProgressBarType = 'determinate';
-            this.sound.unload();
-            clearInterval(interval);
+            clearInterval(this.timeInterval);
+            this.sound.pause();
             return;
           }
   
           // 
           if(this.sampleToggle == false) {
-            clearInterval(interval);
+            clearInterval(this.timeInterval);
             return;
           }
   
@@ -641,18 +644,19 @@ export class ProductPagePage implements OnInit, OnDestroy {
       sampleIcon.style.transform = 'scale(1.4)';
 
       // Change Icon & Text in Sample Button to Pause
-      this.sampleButtonText = 'Pause Sample';
-      this.sampleButtonIcon = 'pause';
+      this.sampleButtonText = 'Stop Sample';
+      this.sampleButtonIcon = 'stop';
 
       // Change progress bar type
       this.sampleProgressBarType = 'indeterminate';
 
       // Play Track
       this.sound.play('sample');
+      this.sound.seek();
       return;
       }
 
-    // Pause
+    // Stop
     else if(this.sampleToggle == true) {
       this.sampleToggle = false;
 
@@ -669,7 +673,9 @@ export class ProductPagePage implements OnInit, OnDestroy {
       this.sampleProgressBarType = 'determinate';
 
       // Pause Track
-      this.sound.pause();
+      this.sound.stop();
+      clearInterval(this.timeInterval);
+      this.sampleDuration = 0;
       return;
     }
     
@@ -712,6 +718,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
     console.log('Review display: ');
     console.log(this.reviewDisplay);
     let reviewsScrollTo = document.getElementById('reviews-scroll-to');
+    let reviewsButton = document.getElementById('reviews-button');
 
     // Show Reviews
     if(this.reviewDisplay == false) {
@@ -723,9 +730,9 @@ export class ProductPagePage implements OnInit, OnDestroy {
 
     // Hide Reviews
     if(this.reviewDisplay == true) {
+      reviewsButton.scrollIntoView(true);
       this.reviewDisplay = false;
       this.reviewButtonMessage = 'Show Reviews (3)';
-      reviewsScrollTo.scrollIntoView(true);
       return;
     }
 

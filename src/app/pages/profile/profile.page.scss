@@ -1,6 +1,7 @@
 ion-footer {
     position: absolute;
-    bottom: 60px;
+    bottom: 88px;
+    background: #dedede;
 
     ion-button {
         height: 60px;
@@ -9,8 +10,22 @@ ion-footer {
     
 }
 
+.modal-button {
+    display: block;
+    width: 200px;
+    height: 150px;
+    margin: 1em auto;
+}
+
 #profile-wrapper {
    height: auto; 
+
+   #profile {
+    box-shadow: 1px 1px 10px #dedede;
+    padding: 3em;
+    border-radius: 5px;
+   }
+   
 }
 @media screen and (min-width: 996px) {
     #profile-wrapper {
@@ -20,7 +35,7 @@ ion-footer {
 #user-info-header {
     height: auto;
     // background: #999;
-    margin: 5em auto 2em auto;
+    margin-bottom: 1em;
     padding-bottom: 1em;
     border-bottom: 1px solid #9999993d;
 
