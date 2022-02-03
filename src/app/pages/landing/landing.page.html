@@ -1,5 +1,6 @@
 <ion-content scrollEvents="true" (ionScroll)="scrollPosition($event)">
     <ion-grid>
+
     <!-- Header -->
     <ion-row id="header-wrapper" class="ion-justify-content-center">
         <div id="top-bar" class="ion-hide-lg-up">
@@ -10,7 +11,7 @@
                     </ion-button>
                 </ion-buttons>
                 <ion-buttons slot="end">
-                    <ion-button id="login-button" (click)="login()">
+                    <ion-button id="landing-login-button" (click)="login()">
                         Log in
                     </ion-button>
                     <!-- <ion-button id="logout-button" (click)="login()">
@@ -19,68 +20,64 @@
                 </ion-buttons>
             </ion-toolbar>
         </div>
-        <ion-col class="ion-align-items-center" id="header-background-photo" size="12">
+        <ion-col 
+            class="ion-align-items-center" 
+            id="header-background-photo" >
             <div id="welcome-popup">
-                <h1>Welcome to [Name of Site]!</h1>
-                <ion-searchbar></ion-searchbar>
-                <ion-button (click)="playHeaderAudio()">
+                <div class="ion-text-center">
+                    <h1 style="color: white;">Welcome to the Site!</h1>
+                </div>
+                <ion-searchbar
+                    placeholder="Search for Product Titles"
+                ></ion-searchbar>
+                <div class="ion-text-center">
+                    <div class="spacer-2x"></div>
+                    <ion-icon id="landing-sample-icon" name="musical-notes-outline"></ion-icon>
+                    <div class="spacer-1x"></div>
+                  </div>
+                <div class="spacer-2x"></div>
+                <ion-button id="landing-sample-button" (click)="playSample(this.sampleButtonIcon)">
                     <ion-icon slot="start" name="Play"></ion-icon>
                     Play Audio
                 </ion-button>
-                <ion-button id="contact-us-button" class="ion-float-right" (click)="goToContactPage()">
-                    Contact Us
-                </ion-button>
+                
+                <!-- Sample Track -->
+                <div id="landing-sample-track">
+
+                <div class="spacer-1x"></div>
+                <div *ngIf="this.sampleToggle" id="landing-sample-timer" class="ion-text-center">
+                <div class="spacer-3x"></div>
+                <h3 style="color: #fff;">0:0{{sampleDuration}} / 0:20</h3>
+                <ion-progress-bar  type="{{this.sampleProgressBarType}}"></ion-progress-bar>
+                </div>
+                <div class="spacer-2x"></div>
+
+                <!-- Volume -->
+                <div *ngIf="this.sampleToggle" id="landing-volume-track">
+                <div class="spacer-1x"></div>
+                <h5>Volume</h5>
+                <ion-icon #decreaseVolumeButton (click)="decreaseVolume(decreaseVolumeButton)" class="sample-volume-button" name="arrow-down-circle-outline"></ion-icon>
+                <ion-icon #inecreaseVolumeButton (click)="increaseVolume(inecreaseVolumeButton)" class="sample-volume-button" name="arrow-up-circle-outline"></ion-icon>
+                <div class="spacer-1x"></div>
+                
+                <ion-progress-bar value="{{this.sampleMasterVolume}}"></ion-progress-bar>
+                <div class="spacer-1x"></div>
+                </div>
+                <div class="spacer-5x"></div>
+                </div>
             </div>
         </ion-col>
     </ion-row>
 
-    <!-- Intro -->
-    <div class="row-margin"></div>
-    <ion-row class="ion-justify-content-center">
-        <ion-col id="intro-inner-wrapper" class="shadow" size-xs="12" size-sm="11" size-md="8" size-lg="10">
-            <ion-row class="ion-justify-content-center">
-                <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="6">
-                    <div id="hyp-illustration"></div>
-                </ion-col>
-                <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="8">
-                    <h1>Why Hypnosis?</h1>
-                    <p id="why-hypnosis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                        Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
-                        Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
-                        Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
-                        Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
-                        Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
-                        Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
-                    </p>
-                </ion-col>
-                <!-- <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="4">
-                    <div class="intro-inner-card">
-                        <div class="intro-icon"></div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, </p>
-                    </div>
-                </ion-col>
-                <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="4">
-                    <div class="intro-inner-card">
-                        <div class="intro-icon"></div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, </p>
-                    </div>
-                </ion-col>
-                <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="4">
-                    <div class="intro-inner-card">
-                        <div class="intro-icon"></div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, </p>
-                    </div>
-                </ion-col> -->
-            </ion-row>
-        </ion-col>
-    </ion-row>
+
 
     <!-- Latest Products -->
 
     <!-- Products Header -->
-    <div class="row-margin"></div>
+    <div class="spacer-5x"></div>
+    <div class="spacer-5x"></div>
     <ion-row class="ion-hide-lg-down ion-justify-content-center">
-        <ion-col size-lg="9.5">
+        <ion-col size-lg="7">
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <h2>
@@ -92,6 +89,7 @@
                 <ion-buttons slot="end">
                     <ion-button class="view-all-button"  (click)="goToProductsPage()">
                         View All
+                        <ion-icon slot="start" name="arrow-forward-outline" class="ion-float-right"></ion-icon>
                     </ion-button>
                 </ion-buttons>
             </ion-toolbar>
@@ -99,48 +97,129 @@
     </ion-row>
 
     <!-- Products -->
-    <ion-row id="products-wrapper" class="ion-justify-content-center">
-        <ion-col size-lg="6.7" size-xl="6" class="ion-hide-lg-down">
-
-            <!-- Desktop Products -->
-            <ion-col class="desktop-product" size-lg="3">
-                
-            </ion-col>
-            <ion-col class="desktop-product" size-lg="3">
-                
-            </ion-col>
-            <ion-col class="desktop-product" size-lg="3">
-                
-            </ion-col>
-            
+    <ion-row id="products-wrapper" class="ion-justify-content-center ion-hide-lg-down">
+        <ion-col size="7">
+            <ion-row>
+                <ion-col size-lg="4" *ngFor="let featuredProduct of this.staticFeaturedProducts">
+                    <ion-row
+                        class="featured-product product-wrapper ion-justify-content-center">
+                        <ion-col class="product-photo" size="6"
+                              (click)="goToProductPage(featuredProduct._id)">
+        
+                        </ion-col>
+                        <ion-col size="6"
+                              (click)="goToProductPage(featuredProduct._id)">
+                                <div (click)="goToProductPage()">
+                                  <p class="product-price">${{featuredProduct.price}}</p>
+                                  
+                                  <h6 class="product-title">{{featuredProduct.title}}</h6>
+                                  <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
+                                  <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
+                                  <p class="product-category"># {{featuredProduct.category}}</p>
+                                  <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
+                                </div>                 
+                                
+                        </ion-col>
+        
+                        <ion-toolbar>
+                              <ion-buttons slot="start">
+                                <ion-button id="cart-button" (click)="onClick()">
+                                  <ion-icon slot="start" name="cart-outline"></ion-icon>
+                                </ion-button>
+                              </ion-buttons>
+                              <ion-buttons slot="end">
+                                <app-favorite-icon></app-favorite-icon>
+                              </ion-buttons>
+                        </ion-toolbar>  
+                    </ion-row>
+                </ion-col>
+            </ion-row>
         </ion-col>
     </ion-row>
 
-    <ion-row class="ion-justify-content-center">
 
-        <!-- Mobile Products -->
-        <ion-col class="ion-hide-lg-up" size-xs="12" size-sm="12" size-md="12">
+    <!-- Intro -->
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="7">
+            <div id="hyp-illustration"></div>
+        </ion-col>
+        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="7">
+            <h1>Why Hypnosis?</h1>
+            <p id="why-hypnosis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
+                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
+                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
+                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
+                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
+                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
+            </p>
+        </ion-col>
+    </ion-row>
+
+    <!-- Mobile Products -->
+    <ion-row class="ion-justify-content-center ion-hide-lg-up">
+        <ion-col size-xs="12" size-sm="12" size-md="12">
             <h2>
                 <ion-icon slot="start" name="pricetag"></ion-icon>
+                <span></span>
                 Latest Products
+                <span width="10"></span>
                 <span class="file-type">MP3</span>
                 <span class="file-type">MP3</span>
                 <span class="file-type">MP3</span>
             </h2>
-            <swiper 
-                [config]="config" 
-                (swiper)="onSwiper($event)">
-                <ng-template swiperSlide>Slide 1</ng-template>
-                <ng-template swiperSlide>Slide 1</ng-template>
-                <ng-template swiperSlide>Slide 4</ng-template>
-              </swiper>
-        </ion-col>
+            <swiper
+              id="landing-featured-swiper"
+              [config]="config" 
+              (swiper)="onSwiper($event)">
+                <ng-template swiperSlide *ngFor="let featuredProduct of staticFeaturedProducts">
+                  <div>
+                    <ion-row
+                    class="featured-product product-wrapper ion-justify-content-center">
+                      <ion-col class="product-photo" size="6"
+                      (click)="goToProductPage(featuredProduct._id)">
 
+                      </ion-col>
+                      <ion-col size="6"
+                      (click)="goToProductPage(featuredProduct._id)">
+                        <div (click)="goToProductPage()">
+                          <p class="product-price">${{featuredProduct.price}}</p>
+                          
+                          <h6 class="product-title">{{featuredProduct.title}}</h6>
+                          <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
+                          <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
+                          <p class="product-category"># {{featuredProduct.category}}</p>
+                          <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
+                        </div>                 
+                        
+                      </ion-col>
+
+                        
+                    <ion-toolbar>
+                      <ion-buttons slot="start">
+                        <ion-button id="cart-button" (click)="onClick()">
+                          <ion-icon slot="start" name="cart-outline"></ion-icon>
+                        </ion-button>
+                      </ion-buttons>
+                      <ion-buttons slot="end">
+                        <app-favorite-icon></app-favorite-icon>
+                      </ion-buttons>
+                    </ion-toolbar>  
+                    </ion-row>
+                  </div>
+                </ng-template>
+            </swiper>
+        </ion-col>
+        <ion-col size="11">
+            <ion-button expand="full" (click)="goToProductsPage()">
+                View All Products
+            </ion-button>
+        </ion-col>
     </ion-row>
 
     <!-- Latest Blogs -->
     <!-- Header -->
-    <div class="row-margin"></div>
+    <!-- <div class="row-margin"></div>
     <ion-row class="ion-hide-lg-down ion-justify-content-center">
         <ion-col size-lg="9">
             <ion-toolbar>
@@ -157,10 +236,10 @@
                 </ion-buttons>
             </ion-toolbar>
         </ion-col>
-    </ion-row>
+    </ion-row> -->
+
     <!-- Blogs -->
-    <ion-row id="blogs-wrapper" class="ion-justify-content-center">
-        <!-- Desktop Blogs -->
+    <!-- <ion-row id="blogs-wrapper" class="ion-justify-content-center">
          <ion-col class="ion-hide-lg-down desktop-blog shadow-desktop" size-lg="3">
             
         </ion-col>
@@ -170,7 +249,6 @@
         <ion-col class="ion-hide-lg-down desktop-blog shadow-desktop" size-lg="3">
             
         </ion-col>
-        <!-- Mobile Blogs -->
         <ion-col class="ion-hide-lg-up" size-xs="12" size-sm="12" size-md="12">
             <h2>
                 <ion-icon slot="start" name="pricetag"></ion-icon>
@@ -183,12 +261,12 @@
                 <ng-template swiperSlide>Slide 4</ng-template>
               </swiper>
         </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- Growth Membership -->
-    <div class="row-margin"></div>
+    <div class="spacer-5x"></div>
     <ion-row class="ion-justify-content-center">
-        <ion-col size-xs="11" size-md="10" size-lg="9">
+        <ion-col size-xs="11" size-md="10" size-lg="7">
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <h2>
@@ -198,7 +276,7 @@
                 </ion-buttons>
             </ion-toolbar>
         </ion-col>
-        <ion-col size-xs="11" size-md="10" size-lg="9">
+        <ion-col size-xs="11" size-md="10" size-lg="7">
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                 Dicta sequi sapiente reprehenderit culpa adipisci obcaecati nihil,
@@ -218,44 +296,81 @@
             </p>
             <div class="row-margin"></div>
             <div class="ion-text-center">
-                <ion-button id="membership-button" (click)="goToMembershipPage()">
+                <ion-button id="membership-button" (click)="membershipFormToggle()" color="success" expand="full">
                     Join
                 </ion-button>
+                <div class="spacer-2x"></div>
+
+                <div *ngIf="this.showMembershipFrom" id="membership-input-wrapper">
+                    <h1>Sign Up for Memebership</h1>
+                    <form [formGroup]="this.membershipForm" (ngSubmit)="onSubmit()">
+                        <ion-item>
+                            <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-input required formControlName="email" type="email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Last Name <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-input required formControlName="email" type="email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">City <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-input required formControlName="email" type="email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">ZIP <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-input required formControlName="email" type="email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">State <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-input required formControlName="email" type="email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-input required formControlName="email" type="email"></ion-input>
+                        </ion-item>
+                        <div class="spacer-1x"></div>
+                        <ion-button block color="primary" type="submit" [disabled]="membershipForm.invalid">
+                            Sign Up
+                        </ion-button>
+                    </form>
+                </div>
             </div>
         </ion-col>
     </ion-row>
-
-
     <div class="spacer-5x"></div>
-    <ion-footer class="ion-justify-content-center">
-        <ion-row>
-            <ion-col size-xs="11" size-sm="10" size-md="10" size-lg="6">
-                <img height="35" src="../../../assets/placeholders/placeholder-logo.svg">
-                <ion-button id="contact-us-button" class="ion-float-right" (click)="goToContactPage()">
-                    Contact Us
+    
+    <ion-row class="ion-justify-content-center">
+        <ion-col id="footer-landing-page" size="12">
+            <ion-list>
+              <ion-item style="height: auto;" lines="none">
+                <img id="footer-logo" height="80" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Logo">
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <p class="footer-text">Website title - 2020</p>
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="contactUs()" id="footer-contact-us-button">
+                  Contact Us
                 </ion-button>
-            </ion-col>
-            <ion-col size-xs="11" size-sm="10" size-md="10" size-lg="6">
-                <ion-item lines="none">
-                    <ion-label>Link</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label>Link</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label>Link</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label>Link</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label>Link</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                    <ion-label>Link</ion-label>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-    </ion-footer>
+              </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+
     </ion-grid>
 </ion-content>
