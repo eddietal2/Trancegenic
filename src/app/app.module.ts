@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
@@ -19,7 +22,7 @@ export function jwtOptionsFactory(storage) {
     tokenGetter: () => {
       return storage.get('access_token');
     },
-    whitelistedDomains: ['localhost:42dfc00']
+    // whitelistedDomains: ['localhost:42dfc00']
   };
 }
 
@@ -28,9 +31,9 @@ export function jwtOptionsFactory(storage) {
   entryComponents: [],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     CustomComponentsModule,
-    IonicModule.forRoot(),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -41,6 +44,9 @@ export function jwtOptionsFactory(storage) {
         deps: [Storage],
       }
     }),
+    IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
     AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

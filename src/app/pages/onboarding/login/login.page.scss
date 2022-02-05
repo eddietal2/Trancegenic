@@ -1,6 +1,20 @@
 @import 'swiper/scss';
 @import "~swiper/css";
 
+#login-page-form-wrapper {
+  box-shadow: 1px 1px 10px #dedede;
+  padding: 3em;
+  border-radius: 5px;
+  margin-top: 100px;
+  
+}
+
+@media screen and (max-width: 996px) {
+  #login-page-form-wrapper {
+    box-shadow: none;
+  }
+}
+
 #forgot-password-button {
     margin: 0 auto;
     --background: none;

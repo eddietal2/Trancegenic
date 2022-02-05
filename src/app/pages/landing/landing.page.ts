@@ -4,7 +4,10 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swiper, { SwiperOptions, Autoplay } from 'swiper';
 import {Howl, Howler} from 'howler';
-
+import { LandingService } from 'src/app/services/landing/landing.service';
+import { LoginService } from 'src/app/services/onboarding/login.service';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 Swiper.use([Autoplay]);
 
@@ -180,25 +183,65 @@ export class LandingPage implements OnInit {
       reviews: []
     }
   ]
+  authState: boolean;
+  getSearchProductsSub: Subscription;
+  searchProducts: any;
+  dynanimcSearchArray: any;
+  searching = false;
   
 
   constructor(
+    private landingService: LandingService,
+    private loginService: LoginService,
     private productsService: ProductsService,
+    private loadingController: LoadingController,
+    private toastController: ToastController,
     private formBuilder: FormBuilder,
     private router: Router
   ) { 
-    
   }
 
   ngOnInit() {
-        this.hypIllustration = document.getElementById('hyp-illustration');
-        console.log('\nHypnosis Illustration Scrolltop: ');
-        console.log(this.hypIllustration.scrollTop);
+    this.getSearchProductsSub = this.productsService.getAllProductsForLandingSearch()
+    .subscribe(searchProducts => {
+      this.searchProducts = searchProducts;
+    });
+    this.hypIllustration = document.getElementById('hyp-illustration');
+    console.log('\nHypnosis Illustration Scrolltop: ');
+    console.log(this.hypIllustration.scrollTop);
 
-        this.membershipForm = this.formBuilder.group({
-          email: ['', [Validators.required, Validators.email]],
-          
-        })
+    this.membershipForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]], 
+    })
+
+        this.landingService.getLandingFeaturedPosts();
+  }
+
+  /**
+   * @param e - ionChange Event for Searchbar
+   */
+  searchUpdate(e: CustomEvent) {
+    let searchBarValue = e.detail.value;
+    this.dynanimcSearchArray = this.searchProducts.filter(product => product.title.includes(searchBarValue))
+
+
+    console.log("Search Input: " + searchBarValue);
+    console.log(this.dynanimcSearchArray);
+
+    return this.searching = true;
+  }
+
+  goToProductPage(id, searchBar) {
+    console.log(searchBar)
+    this.searching = false;
+    this.router.navigate(["/products/product-page", id]);
+
+    setTimeout(() => {
+      searchBar.value = "";
+      this.searching = false;
+      
+    }, 500);
+
   }
 
   // General
@@ -262,14 +305,38 @@ export class LandingPage implements OnInit {
   login() {
     this.router.navigateByUrl('/login')
   }
+  logout() {
+     this.loginService.logout();
+  }
+
+  async logoutLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
+  async logoutToast() {
+    const toast = await this.toastController.create({
+      message: 'You have been logged out.',
+      cssClass: 'danger-toast',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  register() {
+    this.router.navigateByUrl('/register')
+  }
   goToProductsPage() {
     this.router.navigateByUrl("/products");
   }
-  goToProductPage(id) {
-    console.log(id)
-    this.router.navigate(["/products/product-page", id]);
 
-  }
   goToBlogsPage() {
     this.router.navigateByUrl("/blog");
   }

@@ -26,10 +26,33 @@
         --background: none;
         z-index: 9999;
     }
+    #search-results-list {
+        background: #fff;
+        position: absolute;
+        width: 100%;
+        z-index: 9999;
+        min-height: 100px;
+        max-height: 300px;
+        overflow: scroll;
+    }
     #landing-login-button {
         background: #008BFF;
         --color: white;
         border-radius: 5px;
+    }
+    #landing-logout-button {
+        background: #ff0a54;
+        --color: white;
+        border-radius: 5px;
+    }
+    #landing-sample-divider {
+        border-bottom: 1px solid #fff;
+    }
+    #landing-sample-message {
+        background: #c8ffab;
+        border-left: 4px solid #63cf00;
+        color: #222;
+        padding: 0.3em;
     }
     #logout-button {
         background: #750f29;
@@ -100,11 +123,12 @@
             height: 200px;
             width: 80%;
             padding: 1em;
+            margin-top: 100px;
             // background: #999;
             border-radius: 5px;
             margin: 0 auto;
             opacity: 0;
-            animation: welcome-fade-in 1s ease forwards;
+            animation: welcome-fade-in 1s ease 2s forwards;
 
             ion-searchbar {
                 width: 100%;
@@ -134,7 +158,7 @@
             }
             100% {
                 opacity: 1;
-                transform: translateY(0px);
+                transform: translateY(-100px);
 
             }
         }
@@ -145,6 +169,10 @@
         #header-background-photo {        
             height: 95vh;
             background-image: linear-gradient(#222428b3, #ffffff00), url('https://s3.amazonaws.com/gazelle.cdn.yolocare.com/sites/376/2018/07/16160435/yolo-1900x1000-4.jpg');
+            
+            #welcome-popup {
+                
+            }
         }
     }
 }
@@ -248,7 +276,7 @@
     height: 50vh;
 }
 
-.product-wrapper {
+.landing-product-wrapper {
     height: auto;
     width: 100%;
     box-shadow: 1px 1px 10px #dedede;

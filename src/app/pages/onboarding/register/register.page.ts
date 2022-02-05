@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { RegisterService } from 'src/app/services/onboarding/register.service';
+
+interface RegisteredUSer {
+  fullName: string,
+  email: string,
+  password: string,
+}
 
 @Component({
   selector: 'app-register',
@@ -20,28 +29,39 @@ export class RegisterPage implements OnInit {
       { type: 'pattern', message: 'Password must be at least 6 characters with at least one lowercase character, one uppcase character, and one number.'}
     ]
   };
+  registerSub: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
+    private registerService: RegisterService,
+    private loadingController: LoadingController,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.compose([
+    this.createRegisterFormBuilder();
+    this.registerForm.statusChanges.subscribe( changes => {
+      console.log(changes);
+    })
+  }
+  createRegisterFormBuilder() {
+    return this.registerForm = this.formBuilder.group({
+      firstName: ['John', [Validators.required]],
+      lastName: ['Doe', [Validators.required]],
+      email: ['eddielacrosse2@gmail.com', [Validators.required, Validators.email]],
+      password: ['12345678', Validators.compose([
         Validators.minLength(8),
+        Validators.maxLength(8),
         Validators.required,
         // at least 1 number, 1 uppercase letter, and one lowercase letter
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ])],
-      reTypePassword: ['', Validators.compose([
+      reTypePassword: ['Lacrosse2', Validators.compose([
         Validators.minLength(8),
+        Validators.maxLength(8),
         Validators.required,
         // at least 1 number, 1 uppercase letter, and one lowercase letter
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
     ])]
     })
   }
@@ -56,8 +76,22 @@ export class RegisterPage implements OnInit {
   /**
    * 
    */
-   tryRegister() {
-     this.showSuccessModal();
+   async tryRegister() {
+    // Check to see if form is valid
+    // Register user
+    let registeredUser: RegisteredUSer = {
+      fullName: 
+        this.registerForm.controls.firstName.value 
+        + ' ' 
+        + this.registerForm.controls.lastName.value,
+      email: this.registerForm.controls.email.value,
+      password: this.registerForm.controls.password.value,
+    }
+
+    this.registerSub = await this.registerService.register(registeredUser);
+    await this.showSuccessModal();
+    await this.registerSub.unsubscribe();
+
    }
 
   /**
@@ -70,15 +104,29 @@ export class RegisterPage implements OnInit {
   /**
    * 
    */
-   closeSuccessModal() {
-     return this.registerSuccessModal = false;
+  closeSuccessModal() {
+       this.registerSuccessModal = false;
+       this.registerForm.reset();
+       this.registerSuccessNavigationLoading();
+       setTimeout(() => {
+        this.backToLoginFromSuccessModal();
+       },1000)
+       
    }
 
-   /**
-    * 
-    */
-    register() {
-      
-    }
+   backToLoginFromSuccessModal() {
+    this.router.navigateByUrl('/login')
+   }
 
+  async registerSuccessNavigationLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'success-loading',
+      message: 'You should be able to Log in now!',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
 }

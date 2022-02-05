@@ -268,7 +268,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
     },
     {
       _id: "2",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
+      title: "Xbox just destroyed PS with that Activision acquision. Damn",
       duration: 120,
       category: "business",
       price: 50,
@@ -279,7 +279,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
     },
     {
       _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
+      title: "I want a Jeep Wrangler Sport",
       duration: 630,
       rating: 5,
       category: "relationships",
@@ -289,8 +289,8 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "2",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
+      _id: "4",
+      title: "Ketchup is Nasty",
       duration: 120,
       rating: 5,
       category: "sleep",
@@ -300,7 +300,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "5",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,
@@ -311,7 +311,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "6",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,
@@ -322,7 +322,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "7",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,
@@ -333,7 +333,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "8",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,
@@ -344,7 +344,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "9",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,
@@ -355,7 +355,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "10",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,
@@ -366,7 +366,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "11",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,
@@ -377,7 +377,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     },
     {
-      _id: "3",
+      _id: "12",
       title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
       duration: 630,
       rating: 5,

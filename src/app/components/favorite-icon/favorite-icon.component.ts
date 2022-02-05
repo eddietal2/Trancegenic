@@ -34,8 +34,8 @@ export class FavoriteIconComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    console.clear();
-    console.log(this.productID);
+    // console.clear();
+    // console.log(this.productID);
       
   }
 

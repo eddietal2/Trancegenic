@@ -2,7 +2,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { LoginService } from 'src/app/services/onboarding/login.service';
+import { RegisterService } from 'src/app/services/onboarding/register.service';
 import { SwiperOptions } from 'swiper';
+
 
 @Component({
   selector: 'app-login',
@@ -38,6 +41,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private registerService: RegisterService,
     private router: Router,
     private alertController: AlertController) { }
 
@@ -48,8 +53,16 @@ export class LoginPage implements OnInit {
   /**
    * 
    */
-  login() {
+  login(email, password) {
+    let user = {
+      email,
+      password
+    }
+    console.clear();
+    console.log(email);
+    console.log(user);
 
+    this.loginService.login(user);
   }
 
   /**
@@ -73,12 +86,12 @@ export class LoginPage implements OnInit {
    */
   initializeFormGroups() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.compose([
+      email: ['eddielacrosse2@gmail.com', [Validators.required, Validators.email]],
+      password: ['12345678', Validators.compose([
         Validators.minLength(8),
         Validators.required,
         // at least 1 number, 1 uppercase letter, and one lowercase letter
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
      ])]
     })
 

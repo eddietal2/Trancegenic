@@ -11,8 +11,11 @@
                     </ion-button>
                 </ion-buttons>
                 <ion-buttons slot="end">
-                    <ion-button id="landing-login-button" (click)="login()">
+                    <ion-button *ngIf="!this.loginService.authenticationState.value;" id="landing-login-button" (click)="login()">
                         Log in
+                    </ion-button>
+                    <ion-button *ngIf="this.loginService.authenticationState.value;" id="landing-logout-button" (click)="logout()">
+                        Logout
                     </ion-button>
                     <!-- <ion-button id="logout-button" (click)="login()">
                         Log out
@@ -29,16 +32,50 @@
                 </div>
                 <ion-searchbar
                     placeholder="Search for Product Titles"
+                    (ionChange)="searchUpdate($event)"
+                    #searchBar
+                    showCancelButton="true"
+                    showClearButton="true"
                 ></ion-searchbar>
+                <ion-list id="search-results-list" *ngIf="this.searching">
+                    <ion-item 
+                        lines="none" 
+                        detail="true"
+                        *ngFor="let results of this.dynanimcSearchArray"
+                        (click)="this.goToProductPage(results._id, searchBar)">
+                        <ion-avatar slot="start">
+                            <img src="{{results.picture}}" />
+                          </ion-avatar>
+                        <ion-label>
+                            <h2>{{results.title}} <span style="color: red; font-size: 0.5em;">MP3</span></h2>
+                            <h2 style="color: green;">${{results.price}}</h2>
+                        </ion-label>
+                        <div class="spacer-2x"></div>
+                    </ion-item>
+                    <ion-item lines="none" style="width: 100%; background: blue; color: white; position: fixed; bottom: 0;">
+                        <ion-label>Cancel Search</ion-label>
+                    </ion-item>
+                </ion-list>
                 <div class="ion-text-center">
                     <div class="spacer-2x"></div>
-                    <ion-icon id="landing-sample-icon" name="musical-notes-outline"></ion-icon>
+                    <hr id="landing-sample-divider">
+                    <h4 id="landing-sample-message">Try out a sample track!</h4>
+                    <div class="spacer-2x"></div>
+                    <ion-icon id="landing-sample-icon" color="dark" name="musical-notes-outline"></ion-icon>
                     <div class="spacer-1x"></div>
                   </div>
                 <div class="spacer-2x"></div>
                 <ion-button id="landing-sample-button" (click)="playSample(this.sampleButtonIcon)">
-                    <ion-icon slot="start" name="Play"></ion-icon>
-                    Play Audio
+                    <ion-icon slot="start" name="Play" ></ion-icon>
+                    Play
+                </ion-button>
+                <div class="spacer-2x"></div>
+                <ion-button *ngIf="!this.loginService.authenticationState.value;" (click)="login()">
+                    Login
+                </ion-button>
+                <div class="spacer-2x"></div>
+                <ion-button *ngIf="!this.loginService.authenticationState.value;" color="success" (click)="register()">
+                    Register
                 </ion-button>
                 
                 <!-- Sample Track -->
@@ -102,7 +139,7 @@
             <ion-row>
                 <ion-col size-lg="4" *ngFor="let featuredProduct of this.staticFeaturedProducts">
                     <ion-row
-                        class="featured-product product-wrapper ion-justify-content-center">
+                        class="landing-product-wrapper ion-justify-content-center">
                         <ion-col class="product-photo" size="6"
                               (click)="goToProductPage(featuredProduct._id)">
         
@@ -137,24 +174,6 @@
         </ion-col>
     </ion-row>
 
-
-    <!-- Intro -->
-    <ion-row class="ion-justify-content-center">
-        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="7">
-            <div id="hyp-illustration"></div>
-        </ion-col>
-        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="7">
-            <h1>Why Hypnosis?</h1>
-            <p id="why-hypnosis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
-                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
-                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
-                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
-                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
-                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
-            </p>
-        </ion-col>
-    </ion-row>
 
     <!-- Mobile Products -->
     <ion-row class="ion-justify-content-center ion-hide-lg-up">
@@ -216,6 +235,26 @@
             </ion-button>
         </ion-col>
     </ion-row>
+
+
+    <!-- Intro -->
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="7">
+            <div id="hyp-illustration"></div>
+        </ion-col>
+        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="7">
+            <h1>Why Hypnosis?</h1>
+            <p id="why-hypnosis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
+                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
+                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
+                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
+                Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
+                Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
+            </p>
+        </ion-col>
+    </ion-row>
+
 
     <!-- Latest Blogs -->
     <!-- Header -->

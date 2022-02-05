@@ -12,7 +12,7 @@ export class RatingsStarsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.rating);
+    // console.log(this.rating);
   }
 
 }
