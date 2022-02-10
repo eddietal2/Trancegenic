@@ -14,6 +14,9 @@
                     <ion-button *ngIf="!this.loginService.authenticationState.value;" id="landing-login-button" (click)="login()">
                         Log in
                     </ion-button>
+                    <ion-button *ngIf="!this.loginService.authenticationState.value;" id="landing-login-button" (click)="register()">
+                        Register
+                    </ion-button>
                     <ion-button *ngIf="this.loginService.authenticationState.value;" id="landing-logout-button" (click)="logout()">
                         Logout
                     </ion-button>
@@ -32,13 +35,21 @@
                 </div>
                 <ion-searchbar
                     placeholder="Search for Product Titles"
+                    (ionFocus)="searchingOn()"
                     (ionChange)="searchUpdate($event)"
                     #searchBar
                     showCancelButton="true"
                     showClearButton="true"
                 ></ion-searchbar>
                 <ion-list id="search-results-list" *ngIf="this.searching">
-                    <ion-item 
+                    <ion-item lines="none">
+                        <ion-spinner></ion-spinner>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="this.dynanimcSearchArray.length == 0 && this.searching == true">
+                        No Results with that search. Try again.
+                    </ion-item>
+                    <ion-item
+                        class="search-item" 
                         lines="none" 
                         detail="true"
                         *ngFor="let results of this.dynanimcSearchArray"
@@ -47,13 +58,10 @@
                             <img src="{{results.picture}}" />
                           </ion-avatar>
                         <ion-label>
-                            <h2>{{results.title}} <span style="color: red; font-size: 0.5em;">MP3</span></h2>
-                            <h2 style="color: green;">${{results.price}}</h2>
+                            <h2>{{results.title}} <span class="search-results-type">MP3</span></h2>
+                            <h2 class="search-results-price">${{results.price}}</h2>
                         </ion-label>
                         <div class="spacer-2x"></div>
-                    </ion-item>
-                    <ion-item lines="none" style="width: 100%; background: blue; color: white; position: fixed; bottom: 0;">
-                        <ion-label>Cancel Search</ion-label>
                     </ion-item>
                 </ion-list>
                 <div class="ion-text-center">
@@ -70,13 +78,13 @@
                     Play
                 </ion-button>
                 <div class="spacer-2x"></div>
-                <ion-button *ngIf="!this.loginService.authenticationState.value;" (click)="login()">
+                <!-- <ion-button *ngIf="!this.loginService.authenticationState.value;" (click)="login()">
                     Login
                 </ion-button>
                 <div class="spacer-2x"></div>
                 <ion-button *ngIf="!this.loginService.authenticationState.value;" color="success" (click)="register()">
                     Register
-                </ion-button>
+                </ion-button> -->
                 
                 <!-- Sample Track -->
                 <div id="landing-sample-track">
@@ -137,7 +145,7 @@
     <ion-row id="products-wrapper" class="ion-justify-content-center ion-hide-lg-down">
         <ion-col size="7">
             <ion-row>
-                <ion-col size-lg="4" *ngFor="let featuredProduct of this.staticFeaturedProducts">
+                <ion-col size-lg="4" *ngFor="let featuredProduct of this.landingFeaturedProducts">
                     <ion-row
                         class="landing-product-wrapper ion-justify-content-center">
                         <ion-col class="product-photo" size="6"
@@ -153,7 +161,7 @@
                                   <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
                                   <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
                                   <p class="product-category"># {{featuredProduct.category}}</p>
-                                  <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
+                                  <!-- <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5> -->
                                 </div>                 
                                 
                         </ion-col>
@@ -174,27 +182,24 @@
         </ion-col>
     </ion-row>
 
-
     <!-- Mobile Products -->
     <ion-row class="ion-justify-content-center ion-hide-lg-up">
         <ion-col size-xs="12" size-sm="12" size-md="12">
             <h2>
                 <ion-icon slot="start" name="pricetag"></ion-icon>
                 <span></span>
-                Latest Products
+                Featured Products
                 <span width="10"></span>
-                <span class="file-type">MP3</span>
-                <span class="file-type">MP3</span>
                 <span class="file-type">MP3</span>
             </h2>
             <swiper
               id="landing-featured-swiper"
               [config]="config" 
               (swiper)="onSwiper($event)">
-                <ng-template swiperSlide *ngFor="let featuredProduct of staticFeaturedProducts">
+                <ng-template swiperSlide *ngFor="let featuredProduct of this.landingFeaturedProducts">
                   <div>
                     <ion-row
-                    class="featured-product product-wrapper ion-justify-content-center">
+                    class="landing-product-wrapper-mobile ion-justify-content-center">
                       <ion-col class="product-photo" size="6"
                       (click)="goToProductPage(featuredProduct._id)">
 

@@ -26,11 +26,19 @@ export class AppComponent {
 
   initializeApp() {
     this.storage.create();
-    this.loginService.checkToken();
+    this.loginService.checkToken().then(() => {
+      this.getAuthState();
+    });
     this.platform.ready().then(() => {
       // this.statusBar.styleDefault();
       // this.splashScreen.hide();
     });
+  }
+
+  /**
+   * Get the Client's Authentication State
+   */
+  getAuthState() {
 
     // State for the User. If Authentication State == False, the app reverts back to the landing page
     this.loginService.authenticationState.subscribe(async state => {
@@ -41,6 +49,7 @@ export class AppComponent {
         this.router.navigate(['']);
       }
     });
+
   }
 
 

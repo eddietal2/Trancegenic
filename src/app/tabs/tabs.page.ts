@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { LoginService } from '../services/onboarding/login.service';
+
 
 @Component({
   selector: 'app-tabs',
@@ -7,13 +9,24 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage implements OnInit {
+  userEmail: string;
+  userFullName: string;
+  userPicture: string;
   
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
+    this.tabBarStyling();
+  }
+
+  /**
+   * Handles Tabbar Icon Styling
+   */
+  tabBarStyling() {
     this.router.events.subscribe(data => {
       console.log();
       if(data instanceof NavigationEnd) {

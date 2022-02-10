@@ -59,135 +59,13 @@ export class LandingPage implements OnInit {
   };
   hypIllustration: HTMLElement;
 
-  staticFeaturedProducts: Array<Product> = [
-    {
-      _id: "1",
-      title: "Product Name",
-      duration: 120,
-      rating: 1,
-      category: "sleep",
-      price: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: [
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "Jane Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4.5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-      ]
-    },
-    {
-      _id: "2",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 120,      
-      rating: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      category: "sleep",
-      price: 50,
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,      
-      rating: 2.5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "4",
-      title: "Product Name",
-      duration: 120,
-      rating: 1,
-      category: "sleep",
-      price: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: [
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "Jane Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4.5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-      ]
-    },
-    {
-      _id: "5",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 120,      
-      rating: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      category: "sleep",
-      price: 50,
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "6",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,      
-      rating: 2.5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    }
-  ]
-  authState: boolean;
+  landingFeaturedProducts = [];
   getSearchProductsSub: Subscription;
-  searchProducts: any;
-  dynanimcSearchArray: any;
+  getFeaturedProductsForLandingSub: Subscription;
+  searchProducts = [];
+  dynanimcSearchArray = [];
   searching = false;
+  searchBarValue = "";
   
 
   constructor(
@@ -206,9 +84,11 @@ export class LandingPage implements OnInit {
     .subscribe(searchProducts => {
       this.searchProducts = searchProducts;
     });
+
+    this.getLandingFeaturedProducts();
     this.hypIllustration = document.getElementById('hyp-illustration');
-    console.log('\nHypnosis Illustration Scrolltop: ');
-    console.log(this.hypIllustration.scrollTop);
+    // console.log('\nHypnosis Illustration Scrolltop: ');
+    // console.log(this.hypIllustration.scrollTop);
 
     this.membershipForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], 
@@ -221,27 +101,45 @@ export class LandingPage implements OnInit {
    * @param e - ionChange Event for Searchbar
    */
   searchUpdate(e: CustomEvent) {
-    let searchBarValue = e.detail.value;
-    this.dynanimcSearchArray = this.searchProducts.filter(product => product.title.includes(searchBarValue))
+    this.searchBarValue = e.detail.value;
+    this.dynanimcSearchArray = this.searchProducts
+      .filter(product => product.title.startsWith(this.searchBarValue))
 
 
-    console.log("Search Input: " + searchBarValue);
+    console.log("Search Input: " + this.searchBarValue);
     console.log(this.dynanimcSearchArray);
+    console.log(this.dynanimcSearchArray.length);
 
-    return this.searching = true;
+    if(!this.searchBarValue) {
+      console.log("Search is empty" + this.searchBarValue );
+      return this.dynanimcSearchArray = [];
+    }
+  }
+
+  searchingOn() {
+    this.searching = true;
+  }
+
+  searchingOff() {
+    this.searching = false;
   }
 
   goToProductPage(id, searchBar) {
     console.log(searchBar)
-    this.searching = false;
     this.router.navigate(["/products/product-page", id]);
-
     setTimeout(() => {
+      this.searchingOff();
       searchBar.value = "";
-      this.searching = false;
-      
     }, 500);
 
+  }
+
+  getLandingFeaturedProducts() {
+    this.getFeaturedProductsForLandingSub = this.productsService.getFeaturedProductsForLanding()
+      .subscribe( featuredProducts => {
+        // console.log(featuredProducts)
+        this.landingFeaturedProducts = Object.values(featuredProducts);
+      });
   }
 
   // General

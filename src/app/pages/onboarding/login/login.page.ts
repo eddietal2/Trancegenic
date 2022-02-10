@@ -58,9 +58,6 @@ export class LoginPage implements OnInit {
       email,
       password
     }
-    console.clear();
-    console.log(email);
-    console.log(user);
 
     this.loginService.login(user);
   }

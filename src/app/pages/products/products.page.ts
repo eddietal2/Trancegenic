@@ -4,6 +4,8 @@ import { ActionSheetController, IonContent, ToastController } from '@ionic/angul
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FavoriteIconComponent } from 'src/app/components/favorite-icon/favorite-icon.component';
+import { ProductsService } from 'src/app/services/products/products.service';
+
 
 Swiper.use([Autoplay]);
 
@@ -63,7 +65,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   // Static Data before Backend Integration
   // I only need _id, title, category, and duration for main Products page
   
-  searchLoadedProducts: Array<Product> = [];
+  searchLoadedProducts = [];
   staticProducts: Array<Product> = [
     {
       _id: "1",
@@ -388,69 +390,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
       reviews: []
     }
   ]
-  staticFeaturedProducts: Array<Product> = [
-    {
-      _id: "1",
-      title: "Product Name",
-      duration: 120,
-      rating: 1,
-      category: "sleep",
-      price: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: [
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "Jane Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4.5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-      ]
-    },
-    {
-      _id: "2",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 120,      
-      rating: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      category: "sleep",
-      price: 50,
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,      
-      rating: 2.5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    }
-  ]
+  featuredProducts: Array<Product> = []
   staticFavoriteProducts: Array<Product> = [
     {
       _id: "1",
@@ -511,6 +451,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   constructor(
     private actionSheetController: ActionSheetController,
     private router: Router,
+    private productsService: ProductsService,
     private toastController: ToastController,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
@@ -522,6 +463,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   ngOnInit() { 
     this.initializeData();
   }
+
 
   /**
    * Initialize View to highlight Featured section
@@ -551,17 +493,31 @@ export class ProductsPage implements OnInit, AfterViewInit {
    * to Accordian and Filter Behavior Subjects.
    */
   initializeData() {
-    this.searchLoadedProducts = this.staticProducts;
-    this.accordianBSubject$.subscribe(
-      data => {
-        console.log('Accordian Value:')
-        console.log(data)
-    });
-    this.filterSubject$.subscribe(
-      data => {
-        console.log('Filter Value:')
-        console.log(data)
-    });
+
+    this.productsService.getAllProducts()
+      .subscribe(products => {
+        this.searchLoadedProducts = Object.values(products);
+      })
+    
+    this.productsService.getFeaturedProductsForLanding()
+      .subscribe( featuredProducts => {
+        this.featuredProducts = Object.values(featuredProducts);
+      });
+
+
+
+      // -----
+    // this.searchLoadedProducts = this.staticProducts;
+    // this.accordianBSubject$.subscribe(
+    //   data => {
+    //     console.log('Accordian Value:')
+    //     console.log(data)
+    // });
+    // this.filterSubject$.subscribe(
+    //   data => {
+    //     console.log('Filter Value:')
+    //     console.log(data)
+    // });
   }
 
   /**

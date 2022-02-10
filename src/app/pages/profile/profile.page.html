@@ -1,33 +1,55 @@
 <app-mobile-top-toolbar></app-mobile-top-toolbar>
 
 <ion-content>
-  <!-- Main Profile Page -->
+  <!-- If User is NOT Logged in -->
   <ion-grid>
+    <ion-row>
+      <ion-col 
+        size-xs="11" size-md="10" size-lg="6"
+        *ngIf="!this.loginService.authenticationState.value">
+        <div class="spacer-5x"></div>
+        <h1>Please Log in</h1>
+        <ion-button (click)="goToLoginPage()" expand="block" color="success">
+          Login
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Main Profile Page -->
+  <ion-grid *ngIf="this.loginService.authenticationState.value">
     <div class="spacer-2x"></div>
+  
     <ion-row id="profile-wrapper" class="ion-justify-content-center ion-align-items-center">
-      <ion-col id="profile" size-xs="12" size-sm="10" size-md="8" size-lg="5">
+      <ion-col id="profile" size-xs="11" size-sm="10" size-md="8" size-lg="5">
         
         <!-- User Info -->
         <div id="user-info-header">
           <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
           <span>
-            <h2>John Doe</h2>
-            <p>johndoe@email.com</p>
+            <h2>{{this.userFullName}}</h2>
+            <p>{{this.userEmail}}</p>
           </span>
         </div>
 
         <!-- List Buttons -->
-        <ion-item (click)="changeName('eddielacrosse2@gmail.com')" lines="none" detail="true">
+        <ion-item (click)="changeNameModal()" lines="none" detail="true">
           <ion-label>Change Name</ion-label>
         </ion-item>
-        <ion-item (click)="changeEmail('eddielacrosse2@gmail.com')" lines="none" detail="true">
+        <ion-item (click)="changeEmailModal()" lines="none" detail="true">
           <ion-label>Change Email</ion-label>
         </ion-item>
-        <ion-item (click)="changePassword('Lacrosse2')" lines="none" detail="true">
+        <!-- <ion-item (click)="changePictureModal()" lines="none" detail="true">
+          <ion-label>Change Picture</ion-label>
+        </ion-item> -->
+        <ion-item (click)="changePasswordModal()" lines="none" detail="true">
           <ion-label>Change Password</ion-label>
         </ion-item>
-        <ion-item (click)="newsLetter('eddielacrosse2@gmail.com')" lines="none" detail="true">
+        <!-- <ion-item (click)="changeNewsLetterModal()" lines="none" detail="true">
           <ion-label>Subscribe to Newsletter</ion-label>
+        </ion-item> -->
+        <ion-item (click)="logout()" lines="none" detail="true">
+          <ion-label>Logout</ion-label>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -43,7 +65,8 @@
           </ion-buttons>
           <ion-buttons slot="end">
             <ion-button (click)="closeNameModal()">
-              <ion-icon name="close-outline"></ion-icon>          </ion-button>
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -58,19 +81,19 @@
               <div id="user-info-header">
                 <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
                 <span>
-                  <h2>John Doe</h2>
+                  <h2>{{this.userFullName}}</h2>
                 </span>
               </div>
 
               <!-- Form -->
-              <form [formGroup]="changeNameForm" (ngSubmit)="changeName('eddielacrosse2@gmail.com')">
+              <form [formGroup]="changeNameForm" ngSubmit="tryChangeName()">
                 <ion-item>
                   <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
-                  <ion-input required formControlName="firstName" type="text"></ion-input>
+                  <ion-input required formControlName="firstName" placeholder="{{this.userFirstName}}" type="text"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="floating">Last Name <ion-text color="danger">*</ion-text></ion-label>
-                  <ion-input required formControlName="firstName" type="text"></ion-input>
+                  <ion-input required formControlName="lastName" placeholder="{{this.userLastName}}" type="text"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
@@ -93,7 +116,7 @@
                   <ion-button class="modal-button" type="submit" [disabled]="changeNameForm.invalid">
                     Submit
                   </ion-button>
-                  <ion-button class="modal-button" type="submit" [disabled]="changeNameForm.invalid">
+                  <ion-button class="modal-button" type="cancel" [disabled]="changeNameForm.invalid">
                     Cancel
                   </ion-button>
                 </div>
@@ -103,7 +126,8 @@
           </ion-row>
         </ion-grid>
         <ion-footer>
-          <ion-button class="modal-button ion-hide-lg-up" (click)="updateName()">
+          <ion-button (click)="tryChangeName()" 
+            class="modal-button ion-hide-lg-up">
             Save
           </ion-button>
           <ion-button class="modal-button ion-hide-lg-up" (click)="closeNameModal()">
@@ -138,17 +162,17 @@
               <div id="user-info-header">
                 <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
                 <span>
-                  <h2>Email</h2>
+                  <h2>{{this.userEmail}}</h2>
                 </span>
               </div>
               <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail('eddielacrosse2@gmail.com')">
                 <ion-item>
                   <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
-                  <ion-input required formControlName="newEmail" type="email"></ion-input>
+                  <ion-input required formControlName="newEmail" placeholder="{{this.userEmail}}" type="email"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
-                  <ion-input required formControlName="password" type="text"></ion-input>
+                  <ion-input required formControlName="password" type="password"></ion-input>
                 </ion-item>
                 <div class="ion-text-center ion-hide-lg-down">
                   <ion-button block color="primary" type="submit" [disabled]="changeEmailForm.invalid">
@@ -164,7 +188,7 @@
         </ion-grid>
         <ion-footer>
           <div class="spacer-2x"></div>
-          <ion-button class="modal-button ion-hide-lg-up" (click)="updateEmail()">
+          <ion-button class="modal-button ion-hide-lg-up" (click)="tryChangeEmail()">
             Save
           </ion-button>
           <ion-button class="modal-button ion-hide-lg-up" (click)="closeEmailModal()">
@@ -198,7 +222,7 @@
               <div id="user-info-header">
                 <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
               </div>
-              <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword('eddielacrosse2@gmail.com')">
+              <form [formGroup]="changePasswordForm" (ngSubmit)="tryChangePassword()">
                 <ion-item>
                   <ion-label position="floating">New Password <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input required formControlName="newPassword" type="password"></ion-input>
@@ -225,7 +249,7 @@
         </ion-grid>
         <ion-footer>
           <div class="spacer-2x"></div>
-          <ion-button class="modal-button ion-hide-lg-up" (click)="updatePassword()">
+          <ion-button class="modal-button ion-hide-lg-up" (click)="tryChangePassword()">
             Save
           </ion-button>
           <ion-button class="modal-button ion-hide-lg-up" (click)="closePasswordModal()">
@@ -279,4 +303,5 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+
 </ion-content>

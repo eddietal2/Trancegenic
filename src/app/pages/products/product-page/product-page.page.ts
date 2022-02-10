@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swiper, { Autoplay, SwiperOptions } from 'swiper';
 import {Howl, Howler} from 'howler';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
+import { ProductsService } from 'src/app/services/products/products.service';
 
 Swiper.use([Autoplay]);
 
@@ -37,45 +39,7 @@ interface Review {
 })
 export class ProductPagePage implements OnInit, OnDestroy {
 
-  testProduct: Product = {
-    _id: null,
-    title: "This is the title of the Product",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-    category: "Sleep",
-    rating: 5,
-    duration: 50,
-    price: "19.99",
-    sample: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    reviews: [
-      {
-        _id: "1",
-        reviewerUsername: "Reviewer Name",
-        reviewerEmail: 'eddielacrosse2@gmail.com',
-        reviewerProfilePicture: "",
-        date: "Posted 3 Days ago",
-        rating: 4,
-        review: 'This is the review',
-      },
-      {
-        _id: "2",
-        reviewerUsername: "Reviewer Name",
-        reviewerEmail: 'eddielacrosse2@gmail.com',
-        reviewerProfilePicture: "",
-        date: "Posted 3 Days ago",
-        rating: 5,
-        review: 'This is the review',
-      },
-      {
-        _id: "3",
-        reviewerUsername: "Reviewer Name",
-        reviewerEmail: 'eddielacrosse2@gmail.com',
-        reviewerProfilePicture: "",
-        date: "Posted 3 Days ago",
-        rating: 5,
-        review: 'This is the review',
-      }
-    ]
-  }
+  productInfo;
 
   relatedProducts: Array<Product> = [
     {
@@ -392,7 +356,6 @@ export class ProductPagePage implements OnInit, OnDestroy {
     }
   ]
 
-  reviewButtonMessage = `Show Reviews (${this.testProduct.reviews.length})`;
   skeletonData = true;
   isMobileProductPage = true;
   
@@ -402,10 +365,14 @@ export class ProductPagePage implements OnInit, OnDestroy {
     spaceBetween: 20,
     navigation: true
   };
+  reviewButtonMessage: string;
+  sound: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private productsService: ProductsService,
+    private location: Location,
     public toastController: ToastController,
     public loadingController: LoadingController
     // private auth: AuthSevice
@@ -415,10 +382,22 @@ export class ProductPagePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.skeletonTrigger();
+    this.reviewButtonMessage = `Show Reviews (${this.productInfo.reviews})`;
+    this.sound = new Howl({
+      html5: true,
+      src: [this.productInfo.sample],
+      sprite: {
+        sample: [14000, 20000]
+      },
+    });
     // Get Post ID from navigation params on the main posts tab
     const id  = this.activatedRoute.snapshot.paramMap.get('_id');
-    this.testProduct._id = id;
-    console.log(id);
+
+    this.productsService.getProductInfo(id)
+      .subscribe(info => {
+        this.productInfo = Object.values(info);
+        
+      })
   }
 
   @HostListener('unloaded')
@@ -441,7 +420,8 @@ export class ProductPagePage implements OnInit, OnDestroy {
    * 
    */
    close() {
-     this.router.navigateByUrl("products");
+    //  this.router.navigateByUrl("products");
+    this.location.back();
    }
 
   /**
@@ -527,13 +507,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
    sampleButtonIcon = 'play';
    sampleDuration = 0;
    sampleMasterVolume = 0.5;
-   sound = new Howl({
-    html5: true,
-    src: [this.testProduct.sample],
-    sprite: {
-      sample: [14000, 20000]
-    },
-  });
+   
 
   increaseVolume(button) {
     console.log(button);

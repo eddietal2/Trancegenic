@@ -68,7 +68,7 @@
         <ion-accordion value="featured" id="featured-products-accordian">
           
           <ion-item id="featured-products-item" lines="none" slot="header">
-            <ion-label>Featured | {{this.staticFeaturedProducts.length}}</ion-label>
+            <ion-label>Featured | {{this.featuredProducts.length}}</ion-label>
             <ion-icon name="pricetag-outline" slot="start"></ion-icon>
           </ion-item>
 
@@ -81,7 +81,7 @@
               id="featured-swiper"
               [config]="featuredSwiperConfig" 
               (swiper)="onSwiper($event)">
-                <ng-template swiperSlide *ngFor="let featuredProduct of staticFeaturedProducts">
+                <ng-template swiperSlide *ngFor="let featuredProduct of featuredProducts">
                   <div>
                     <ion-row
                     class="featured-product product-wrapper ion-justify-content-center">
@@ -267,7 +267,7 @@
                     <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
                     <p class="duration">Duration: {{product.duration}} Mins</p>
                     <p class="product-category"># {{product.category}}</p>
-                    <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
+                    <!-- <p class="product-reviews-length">Reviews {{product.reviews.length}}</p> -->
                   </div>
                   <!-- <div class="product-message-green"></div>
                   <div class="product-message-red"></div> -->
@@ -374,7 +374,7 @@
 
         <ion-row>
           <ion-col 
-            *ngFor="let featuredProduct of staticFeaturedProducts"
+            *ngFor="let featuredProduct of featuredProducts"
             (click)="goToProductPage(featuredProduct._id)"
             class="product-lg" 
             size-lg="3.8" size-xl="3.8">
@@ -407,7 +407,7 @@
         <h1>You have no favorites! To add a favorite product, tap the Heart icon.</h1>
       </ion-col>
       
-      <!-- Favorites -->
+      <!-- FavoritesLg -->
       <ion-col
         *ngIf="this.categoryLg == 'favorites' && !this.skeletonDataLg" 
         size="6.7">

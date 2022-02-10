@@ -75,15 +75,15 @@
       <ion-col id="product-info-wrapper" size-xs="11" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
 
         <div class="spacer-2x"></div>
-        <h1 class="product-title">{{testProduct.title}}</h1>
+        <h1 class="product-title">{{productInfo.title}}</h1>
 
         <!-- Info -->
         <div id="product-info">
-          <h1 class="product-price">${{testProduct.price}}</h1>
+          <h1 class="product-price">${{productInfo.price}}</h1>
           <div class="spacer-1x"></div>
-          <p class="product-duration"><b>Duration: </b>{{testProduct.duration}} Mins</p>
-          <p class="product-reviews-length"><b>Reviews:</b> {{testProduct.reviews.length}}</p>
-          <p class="product-category">#{{testProduct.category}}</p>
+          <p class="product-duration"><b>Duration: </b>{{productInfo.duration}} Mins</p>
+          <!-- <p class="product-reviews-length"><b>Reviews:</b> {{productInfo.reviews.length}}</p> -->
+          <p class="product-category">#{{productInfo.category}}</p>
         </div>
         
         <div class="spacer-5x"></div>
@@ -244,7 +244,7 @@
         size-xs="12" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
 
         <div id="reviews-wrapper">
-          <div class="review" *ngFor="let review of this.testProduct.reviews" >
+          <div class="review" *ngFor="let review of this.productInfo.reviews" >
 
             <!-- Name & Pic -->
             <div class="ion-align-items-center">

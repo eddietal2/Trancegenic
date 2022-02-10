@@ -64,6 +64,12 @@ ion-skeleton-text {
     --color: #fff;
     font-size: 1.1em;
 }
+.login-loading {
+    --background: green;
+    --min-height: 200vh;
+    --min-width: 200vw;
+    color: white;
+}
 
 // 
 * {

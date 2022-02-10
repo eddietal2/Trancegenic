@@ -31,7 +31,7 @@ export class LandingService {
   getLandingFeaturedPosts() {
     return this.http.get(`${this.BACKEND_URL}/products/get-featured-products`)
       .subscribe( (featuredProducts) => {
-        console.log(featuredProducts);
+        // console.log(featuredProducts);
       });
   }
 
@@ -45,7 +45,7 @@ export class LandingService {
   membershipSignUp(user: MembershipUser) {
     return this.http.post(`${this.BACKEND_URL}/products/membership-sign-up`, user)
       .subscribe( (membershipSignUpResponse) => {
-        console.log(membershipSignUpResponse);
+        // console.log(membershipSignUpResponse);
       })
   }
 }

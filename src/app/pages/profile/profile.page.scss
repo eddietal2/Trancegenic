@@ -18,18 +18,28 @@ ion-footer {
 }
 
 #profile-wrapper {
-   height: auto; 
+    padding-top: 3em;
+    height: auto; 
 
    #profile {
-    box-shadow: 1px 1px 10px #dedede;
-    padding: 3em;
+    box-shadow: none;
+    padding: 3em 0em;
     border-radius: 5px;
    }
    
 }
+@media screen and (max-width: 996px) {
+    #profile {
+        box-shadow: none;
+     }
+}
 @media screen and (min-width: 996px) {
     #profile-wrapper {
         height: 80vh; 
+     }
+
+     #profile {
+      box-shadow: 1px 1px 10px #dedede;
      }
 }
 #user-info-header {

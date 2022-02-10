@@ -24,7 +24,6 @@ export class ProductsService {
   getAllProductsForLandingSearch() {
     return this.http.get(`${this.BACKEND_URL}/products/get-all-products`)
       .pipe(
-        map( item => item['products']),
         reduce(
           (acc: any, value: any, i: number) => {
 
@@ -38,5 +37,17 @@ export class ProductsService {
             }))];
           }, [])
       )
+  }
+
+  getFeaturedProductsForLanding() {
+    return this.http.get(`${this.BACKEND_URL}/products/get-featured-products`)
+  }
+
+  getAllProducts() {
+    return this.http.get(`${this.BACKEND_URL}/products/get-all-products`)
+  }
+
+  getProductInfo(id) {
+    return this.http.post(`${this.BACKEND_URL}/products/get-product-info`, {_id: id})
   }
 }
