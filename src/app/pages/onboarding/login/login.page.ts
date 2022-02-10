@@ -38,6 +38,7 @@ export class LoginPage implements OnInit {
   enterEmailForm: FormGroup;
   enterCodeForm: FormGroup;
   newPasswordForm: FormGroup;
+  userStayLoggedIn: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,7 +60,19 @@ export class LoginPage implements OnInit {
       password
     }
 
-    this.loginService.login(user);
+    this.loginService.login(user, this.userStayLoggedIn);
+  }
+
+  stayLoggedIn(e) {
+    console.log(e.detail);
+    let checkBoxValue = e.detail;
+    if(checkBoxValue) {
+      this.userStayLoggedIn = true;
+      return;
+    } else {
+      this.userStayLoggedIn = false;
+      return;
+    }
   }
 
   /**

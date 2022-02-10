@@ -41,7 +41,7 @@ export class LoginService {
    * Get all the featured posts for the Landing Page
    * @returns Landing Page Featured Products Observerable
    */
-   login(user: LoginUser) {
+   login(user: LoginUser, userStayLoggedIn: boolean) {
     return this.http.post(`${this.BACKEND_URL}/auth/login`,
       {
         email: user.email,
@@ -53,8 +53,11 @@ export class LoginService {
         if (!res) {
           console.log('There was no response.');
         }
-        this.storage.set(this.TOKEN_KEY, res['token']);
-        this.user = this.helper.decodeToken( res['token']);
+
+        if(userStayLoggedIn) {
+          this.storage.set(this.TOKEN_KEY, res['token']);
+          this.user = this.helper.decodeToken( res['token']);
+        } 
       }),
       catchError(e => {
         console.error(e);
@@ -170,8 +173,6 @@ export class LoginService {
             this.userEmail.next(decoded.email);
             this.userFullName.next(decoded.fullName);
             this.authenticationState.next(true);
-
-            console.log(this.userEmail.value)
           }
         } else {
           console.log('Token Removed from Storage');

@@ -3,29 +3,6 @@
 
     <!-- Header -->
     <ion-row id="header-wrapper" class="ion-justify-content-center">
-        <div id="top-bar" class="ion-hide-lg-up">
-            <ion-toolbar>
-                <ion-buttons slot="start">
-                    <ion-button id="top-bar-logo"  (click)="onClick()">
-                        <img height="35" id="logo"  src="../../assets/placeholders/placeholder-logo.svg">
-                    </ion-button>
-                </ion-buttons>
-                <ion-buttons slot="end">
-                    <ion-button *ngIf="!this.loginService.authenticationState.value;" id="landing-login-button" (click)="login()">
-                        Log in
-                    </ion-button>
-                    <ion-button *ngIf="!this.loginService.authenticationState.value;" id="landing-login-button" (click)="register()">
-                        Register
-                    </ion-button>
-                    <ion-button *ngIf="this.loginService.authenticationState.value;" id="landing-logout-button" (click)="logout()">
-                        Logout
-                    </ion-button>
-                    <!-- <ion-button id="logout-button" (click)="login()">
-                        Log out
-                    </ion-button> -->
-                </ion-buttons>
-            </ion-toolbar>
-        </div>
         <ion-col 
             class="ion-align-items-center" 
             id="header-background-photo" >

@@ -6,10 +6,10 @@
         </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-        <!-- <ion-button id="login-button" (click)="login()">
+        <ion-button *ngIf="!this.authState" id="top-bar-login-button" (click)="goToLoginPage()">
             Log in
-        </ion-button> -->
-        <ion-button id="logout-button" (click)="login()">
+        </ion-button>
+        <ion-button *ngIf="this.authState" id="top-bar-logout-button" (click)="logout()">
             Log out
         </ion-button>
     </ion-buttons>

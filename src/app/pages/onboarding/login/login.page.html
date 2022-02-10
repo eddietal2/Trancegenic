@@ -39,6 +39,11 @@
                       </ng-container>
                     </div>
                 </ion-item>
+                <ion-item lines="none">
+                  <ion-checkbox (ionChange)="stayLoggedIn($event)"></ion-checkbox>
+                  <span class="hr-spacer-1x"></span>
+                  <ion-label>Stay Logged In?</ion-label>
+                </ion-item>
             </form>
               <div class="ion-text-center">
                 <div class="spacer-3x"></div>

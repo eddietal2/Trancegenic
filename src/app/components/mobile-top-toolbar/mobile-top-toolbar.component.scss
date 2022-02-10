@@ -3,19 +3,19 @@ ion-toolbar {
     width: 100%;
     padding: 0 0.5em;
     --background: #fff;
+    box-shadow: 1px 1px 10px #dedede;
+
 }
-#login-button {
+#top-bar-login-button {
     background: #008BFF;
     --color: white;
     border-radius: 5px;
 }
-#logout-button {
+#top-bar-logout-button {
     background: none;
-    --color: #750f29;
-    --border-color: #750f29;
+    --color: #c50938;
+    --border-color: #c50938;
     --border-style: solid;
-    --border-width: 1.8px;
+    --border-width: 2px;
     border-radius: 5px;
-    font-size: 0.5em;
-    height: 24px;
 }

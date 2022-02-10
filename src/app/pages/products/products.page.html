@@ -1,32 +1,3 @@
-<!-- Mobile Header -->
-<ion-header class="ion-hide-lg-up">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-
-      <!-- Logo -->
-      <img id="logo" height="30" src="../../../assets/placeholders/placeholder-logo.svg" alt="Logo">
-      
-      <!-- Searchbar -->
-      <ion-searchbar 
-        id="search-bar"
-        placeholder="{{this.searchBarMessage}}"
-        nputmode="decimal" 
-        type="decimal" 
-        [debounce]="250"
-        (ionChange)="onSearchChange($event, 'mobile')"
-        showCancelButton="always">
-      </ion-searchbar>
-    </ion-buttons>
-
-    <!-- Filter -->
-    <ion-buttons id="filter-button" slot="end">
-      <ion-button (click)="openFilterActionSheet()">
-        <ion-icon name="filter-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content #productsPageContent [scrollEvents]="true" (ionScroll)="scrollPosition($event)">
   
   <div id="featured-return-position"></div>

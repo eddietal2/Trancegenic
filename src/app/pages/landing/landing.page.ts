@@ -150,13 +150,11 @@ export class LandingPage implements OnInit {
     // When user has scrolled passed Header
     if(scrollTop > 330) {
 
-      let toolbarBackground = document.getElementById('top-bar');
       let navWrapper = document.getElementById('nav-wrapper');
       let links = document.getElementsByTagName('a');
       
       navWrapper.style.background = "#fff"
       navWrapper.style.boxShadow = "1px 1px 10px #cec7c7"
-      toolbarBackground.style.background = "#fff"
       
       for (let i = 0; i < links.length; i++) {
         if(links[i].classList.value != 'active-link') {
@@ -167,11 +165,9 @@ export class LandingPage implements OnInit {
 
     // When user has scrolled back to Header
     else {
-      let toolbarBackground = document.getElementById('top-bar');
       let navWrapper = document.getElementById('nav-wrapper');
       let links = document.getElementsByTagName('a');
 
-      toolbarBackground.style.background = "none"      
       navWrapper.style.background = "none"      
       navWrapper.style.boxShadow = "none"
 

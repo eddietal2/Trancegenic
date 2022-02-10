@@ -128,6 +128,17 @@ p {
     margin-top: 1em;
 }
 
+// Horizontal Spacers
+.hr-spacer-3x {
+    width: 1.5em;
+}
+.hr-spacer-2x {
+    width: 1em;
+}
+.hr-spacer-1x {
+    width: 0.5em;
+}
+
 // Validation
 .validation-error-message {
     color: white;
