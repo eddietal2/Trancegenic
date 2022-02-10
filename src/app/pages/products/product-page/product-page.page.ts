@@ -382,22 +382,24 @@ export class ProductPagePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.skeletonTrigger();
-    this.reviewButtonMessage = `Show Reviews (${this.productInfo.reviews})`;
-    this.sound = new Howl({
-      html5: true,
-      src: [this.productInfo.sample],
-      sprite: {
-        sample: [14000, 20000]
-      },
-    });
     // Get Post ID from navigation params on the main posts tab
     const id  = this.activatedRoute.snapshot.paramMap.get('_id');
-
     this.productsService.getProductInfo(id)
       .subscribe(info => {
-        this.productInfo = Object.values(info);
+        this.productInfo = info;
+
+        console.log(this.productInfo)
+        this.reviewButtonMessage = `Show Reviews (${this.productInfo.reviews})`;
+        this.sound = new Howl({
+          html5: true,
+          src: [this.productInfo.sample],
+          sprite: {
+            sample: [14000, 20000]
+          },
+        });
         
       })
+
   }
 
   @HostListener('unloaded')

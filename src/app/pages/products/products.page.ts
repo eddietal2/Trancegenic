@@ -481,10 +481,10 @@ export class ProductsPage implements OnInit, AfterViewInit {
     featuredProductsIonItem.style.background = "#ffdcca";
     // allProductsIonItem.style.background = "none";
     accordianGroup.attributes[0].value = 'featured';
-    searchBar.style.opacity = '0';
-    searchBar.style.pointerEvents = 'none';
-    filterButton.style.opacity = '0';
-    filterButton.style.pointerEvents = 'none';
+    // searchBar.style.opacity = '0';
+    // searchBar.style.pointerEvents = 'none';
+    // filterButton.style.opacity = '0';
+    // filterButton.style.pointerEvents = 'none';
     
   }
 
@@ -896,10 +896,10 @@ favoriteToggle(productID: string, userEmail: string) {
       featuredProductsIonItem.style.background = "#ededed";
       favoriteProductsIonItem.style.background = "#ededed";
       allProductsIonItem.style.background = "#ffdcca";
-      searchBar.style.opacity = '1';
-      searchBar.style.pointerEvents = 'auto';
-      filterButton.style.opacity = '1';
-      filterButton.style.pointerEvents = 'auto';
+      // searchBar.style.opacity = '1';
+      // searchBar.style.pointerEvents = 'auto';
+      // filterButton.style.opacity = '1';
+      // filterButton.style.pointerEvents = 'auto';
       this.insertAfter(favoriteProductsIonAccordian, allProductsIonAccordian)
       
     }
