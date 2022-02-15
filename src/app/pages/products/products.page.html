@@ -52,7 +52,7 @@
               id="featured-swiper"
               [config]="featuredSwiperConfig" 
               (swiper)="onSwiper($event)">
-                <ng-template swiperSlide *ngFor="let featuredProduct of this.featuredProducts">
+                <ng-template swiperSlide *ngFor="let featuredProduct of featuredProducts">
                     <ion-row 
                     class="featured-product product-wrapper ion-justify-content-center">
                       <ion-col class="product-photo" size="6"
@@ -68,7 +68,7 @@
                           <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
                           <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
                           <p class="product-category"># {{featuredProduct.category}}</p>
-                          <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
+                          <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews}}</h5>
                         </div>                 
                         
                       </ion-col>
@@ -105,8 +105,9 @@
             </ion-item> -->
             <!-- Products -->
             <!-- Using same data from Featured data for now -->
-            <div *ngFor="let product of favoriteProducts">
+            <div>
                 <ion-row
+                *ngFor="let product of favoriteProducts"
                 style="width: 100%;"
                 class="product-wrapper ion-justify-content-center">
                 <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
@@ -119,7 +120,8 @@
                     <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
                     <p class="-product-duration">Duration: {{product.duration}} Mins</p>
                     <p class="product-category"># {{product.category}}</p>
-                    <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
+                    <!-- user's favoriteProducts collection on has IDs -->
+                    <p class="product-reviews-length">Reviews {{product.reviews}}</p>
                   </div>
                 </ion-col>
  
@@ -130,12 +132,12 @@
                       <ion-icon slot="start" name="cart-outline"></ion-icon>
                     </ion-button>
                   </ion-buttons>
-                  <ion-buttons slot="end">
+                  <!-- <ion-buttons slot="end">
                     <app-favorite-icon 
                     [id]="product._id"
                     [email]="this.userEmail"
                     ></app-favorite-icon>
-                  </ion-buttons>
+                  </ion-buttons> -->
                 </ion-toolbar> 
 
                 </ion-row>

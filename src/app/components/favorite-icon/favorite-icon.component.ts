@@ -44,8 +44,6 @@ export class FavoriteIconComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log(this.id);
-    console.log(this.email);
   }
 
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation, AfterViewInit, HostListener } from '@angular/core';
 import Swiper, { SwiperOptions, Autoplay } from 'swiper';
 import { ActionSheetController, IonContent, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -112,6 +112,14 @@ export class ProductsPage implements OnInit, AfterViewInit {
     console.clear();
     this.initializeData();
   }
+  
+  @HostListener('unloaded')
+  ngOnDestroy() {
+    this.authStateSub.unsubscribe();
+    this.getAllProductsSub.unsubscribe();
+    this.userFavoriteProductsSub.unsubscribe();
+    this.userEmailSub.unsubscribe();
+  }
 
 
   /**
@@ -142,43 +150,54 @@ export class ProductsPage implements OnInit, AfterViewInit {
    * Load page with initial Product Data, as well as subscribing
    * to Accordian and Filter Behavior Subjects.
    */
+  
+  authStateSub: Subscription;
+  getAllProductsSub: Subscription;
+  userFavoriteProductsSub: Subscription;
+  userEmailSub: Subscription;
+  featuredProductsSub: Subscription;
+
   initializeData() {
 
     // Get all Products
-    this.productsService.getAllProducts()
+    this.getAllProductsSub = this.productsService.getAllProducts()
       .subscribe(products => {
         this.searchLoadedProducts = products;
         this.searchLoadedProductsLength = Object.values(products).length;;
         this.allProducts = products;
         this.allProductsInitialLoad = products;
         console.log(products);
+
+        // Get Featured Products
+        this.featuredProductsSub = this.productsService.getFeaturedProductsForLanding()
+        .subscribe( data => {
+          this.featuredProducts = data;
+          this.featuredProductsLength = Object.values(data).length;
+          console.log(data)
+        })
       });
     
     // Get User's Auth State
-    this.loginService.authenticationState.subscribe(data => {
+    this.authStateSub = this.loginService.authenticationState.subscribe(data => {
       this.authState = data;
-    })
+
+      if(data) {
+
+        // Get User's Email
+        this.userEmailSub = this.loginService.userEmail.subscribe(data => {
+          this.userEmail = data;
+          console.log(this.userEmail)
     
-    // Get Featured Products
-    this.productsService.getFeaturedProductsForLanding()
-      .subscribe( data => {
-        this.featuredProducts = data;
-        this.featuredProductsLength = Object.values(data).length;
-        console.log(data)
-      })
+          // Get User's favorite Products
+          this.userFavoriteProductsSub = this.profileService.getFavoriteProducts(this.userEmail)
+          .subscribe( data => {
+            this.favoriteProducts = data;
+            this.favoriteProductsLength = Object.values(data).length;
+          })
+        })
 
-    // Get User's Email
-    this.loginService.userEmail.subscribe(data => {
-      this.userEmail = data;
-      console.log(this.userEmail)
+      }
     })
-
-    // Get User's favorite Products
-    this.profileService.getFavoriteProducts(this.userEmail)
-      .subscribe( data => {
-        this.favoriteProducts = data;
-        this.favoriteProductsLength = Object.values(data).length;
-      })
     return;
   }
 
