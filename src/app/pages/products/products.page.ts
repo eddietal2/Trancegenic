@@ -71,7 +71,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   allProducts;
   allProductsInitialLoad;
   featuredProducts;
-  favoriteProducts;
+  favoriteProducts = [];
   authState: boolean;
   userEmail: string;
 
@@ -190,8 +190,15 @@ export class ProductsPage implements OnInit, AfterViewInit {
     
           // Get User's favorite Products
           this.userFavoriteProductsSub = this.profileService.getFavoriteProducts(this.userEmail)
-          .subscribe( data => {
-            this.favoriteProducts = data;
+          .subscribe( (data: Array<string>) => {
+            data.forEach((userFavorites: string) => {
+              
+              this.allProductsInitialLoad.forEach((product: Product) => {
+                if(product._id == userFavorites) {
+                  this.favoriteProducts.push(product);
+                }
+              })
+            })
             this.favoriteProductsLength = Object.values(data).length;
           })
         })
