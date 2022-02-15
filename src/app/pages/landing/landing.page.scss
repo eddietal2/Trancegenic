@@ -259,6 +259,10 @@
 }
 
 // Latest Products & Blogs
+.static-alert-yellow {
+    width: 100%;
+    margin: 0;
+}
 .desktop-product, .desktop-blog {
     height: 300px;
     text-align: center;
@@ -292,7 +296,7 @@
 }
 
 #landing-featured-swiper {
-    height: 50vh;
+    height: auto;
 }
 
 .landing-product-wrapper {
@@ -489,7 +493,7 @@
 // Swiper
 .swiper {
     width: 100%;
-    height: 300px;
+    height: auto;
 }
 .swiper-slide {
   text-align: center;

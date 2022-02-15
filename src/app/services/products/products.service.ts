@@ -47,7 +47,15 @@ export class ProductsService {
     return this.http.get(`${this.BACKEND_URL}/products/get-all-products`)
   }
 
-  getProductInfo(id) {
+  getProductInfo(id: string) {
     return this.http.post(`${this.BACKEND_URL}/products/get-product-info`, {_id: id})
+  }
+
+  favoriteProduct(id: string, email: string) {
+    return this.http.post(`${this.BACKEND_URL}/products/favorite-product`, {_id: id, email})
+  }
+
+  unFavoriteProduct(id: string, email: string) {
+    return this.http.post(`${this.BACKEND_URL}/products/unfavorite-product`, {_id: id, email})
   }
 }

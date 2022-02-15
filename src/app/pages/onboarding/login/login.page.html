@@ -79,6 +79,7 @@
   </ion-grid>
 
 
+  <!-- Forget Password Modal -->
   <ion-modal [isOpen]="this.forgotPasswordModal">
   <ng-template>
     <ion-header>
@@ -97,146 +98,150 @@
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col size-xs="11">
-            <div class="spacer-5x"></div>
+            <div class="spacer-5x ion-hide-lg-down"></div>
             <swiper 
                 [config]="config" 
                 (swiper)="onSwiper($event)">
 
                 <!-- Slide 1 / Email -->
                 <ng-template swiperSlide>
-                  <div class="static-alert-yellow">
-                    <p>Please enter your email. A 4 digit code will be sent to it.</p>
-                  </div>
-                  <form [formGroup]="enterEmailForm" (ngSubmit)=changeName()>
-                    <ion-item>
-                      <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
-                      <ion-input type="email" formControlName="email"></ion-input>
-                      <!-- Email Validation-->
-                      <div class="validation-errors">
-                      <ng-container *ngFor="let validation of validationMessasges.email">
-                        <div class="validation-error-message"
-                        *ngIf="enterEmailForm
-                          .get('email')
-                          .hasError(validation.type) && (enterEmailForm.get('email')
-                          .dirty || enterEmailForm.get('password').touched)">
-                          {{ validation.message }}
+                  <div>
+                    <p class="static-alert-yellow">Please enter your email. A 4 digit code will be sent to it.</p>
+                    <form [formGroup]="enterEmailForm" (ngSubmit)=changeName()>
+                      <ion-item>
+                        <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input type="email" formControlName="email"></ion-input>
+                        <!-- Email Validation-->
+                        <div class="validation-errors">
+                        <ng-container *ngFor="let validation of validationMessasges.email">
+                          <div class="validation-error-message"
+                          *ngIf="enterEmailForm
+                            .get('email')
+                            .hasError(validation.type) && (enterEmailForm.get('email')
+                            .dirty || enterEmailForm.get('password').touched)">
+                            {{ validation.message }}
+                          </div>
+                        </ng-container>
                         </div>
-                      </ng-container>
-                      </div>
-                    </ion-item>
+                      </ion-item>
 
-                    <div class="spacer-5x"></div>
-                    <ion-item
-                      (click)="swiper.slideNext()"
-                      class="ion-text-center" 
-                      lines="none" 
-                      button>
-                      <ion-label>Next</ion-label>
-                    </ion-item>
-                    <ion-item
-                      (click)="this.closeForgotPasswordModal()"
-                      class="ion-text-center" 
-                      lines="none" 
-                      button>
-                      <ion-label>Cancel</ion-label>
-                    </ion-item>
-                  </form>
+                      <div class="spacer-5x"></div>
+                      <ion-item
+                        [disabled]="!this.enterEmailForm.valid"
+                        (click)="swiper.slideNext()"
+                        class="ion-text-center" 
+                        lines="none" 
+                        button>
+                        <ion-label>Next</ion-label>
+                      </ion-item>
+                      <ion-item
+                        (click)="this.closeForgotPasswordModal()"
+                        class="ion-text-center" 
+                        lines="none" 
+                        button>
+                        <ion-label>Cancel</ion-label>
+                      </ion-item>
+                    </form>
+                  </div>
                 </ng-template>
 
                 <!-- Slide 2 / Enter Code -->
                 <ng-template swiperSlide>
-                  <div class="static-alert-yellow">
-                    <p>Please enter 4 digit code that was sent to:<br> [email].</p>
+                  <div>
+                    <p class="static-alert-yellow">Please enter 4 digit code that was sent to:<br> [email].</p>
+                    <form [formGroup]="enterCodeForm" (ngSubmit)="onSubmit()">
+                      <ion-item>
+                        <ion-label position="floating">Code <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input type="text" name="text"></ion-input>
+                      </ion-item>
+    
+                      <div class="spacer-5x"></div>
+                      <ion-item
+                        [disabled]="!this.enterCodeForm.valid"
+                        (click)="swiper.slideNext()"
+                        class="ion-text-center" 
+                        lines="none" 
+                        button>
+                        <ion-label>Next</ion-label>
+                      </ion-item>
+                      <ion-item
+                        (click)="this.resendCode()"
+                        class="ion-text-center" 
+                        lines="none" 
+                        button>
+                        <ion-label>Resend</ion-label>
+                      </ion-item>
+                      <ion-item
+                        (click)="this.closeForgotPasswordModal()"
+                        class="ion-text-center" 
+                        lines="none" 
+                        button>
+                        <ion-label>Cancel</ion-label>
+                      </ion-item>
+                      
+                    </form>
                   </div>
-                  <form [formGroup]="enterCodeForm" (ngSubmit)="onSubmit()">
-                    <ion-item>
-                      <ion-label position="floating">Code <ion-text color="danger">*</ion-text></ion-label>
-                      <ion-input type="text" name="text"></ion-input>
-                    </ion-item>
-  
-                    <div class="spacer-5x"></div>
-                    <ion-item
-                      (click)="swiper.slideNext()"
-                      class="ion-text-center" 
-                      lines="none" 
-                      button>
-                      <ion-label>Next</ion-label>
-                    </ion-item>
-                    <ion-item
-                      (click)="this.resendCode()"
-                      class="ion-text-center" 
-                      lines="none" 
-                      button>
-                      <ion-label>Resend</ion-label>
-                    </ion-item>
-                    <ion-item
-                      (click)="this.closeForgotPasswordModal()"
-                      class="ion-text-center" 
-                      lines="none" 
-                      button>
-                      <ion-label>Cancel</ion-label>
-                    </ion-item>
-                    
-                  </form>
                 </ng-template>
 
                 <!-- Slide 3 / New Password -->
                 <ng-template swiperSlide>
-                  <div class="static-alert-red">
-                    <p>Create a new password. Has to be more than 7 characters, with one number.</p>
+                  <div>
+                    <p class="static-alert-red">Create a new password. Has to be more than 7 characters, with one number.</p>
+                    <form [formGroup]="newPasswordForm" (ngSubmit)="onSubmit()">
+                      <ion-item>
+                        <ion-label position="floating">New Password <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input type="password" formControlName="newPassword"></ion-input>
+                        <!-- Password Validation-->
+                        <div class="validation-errors">
+                        <ng-container *ngFor="let validation of validationMessasges.password">
+                          <div class="validation-error-message"
+                          *ngIf="newPasswordForm
+                            .get('newPassword')
+                            .hasError(validation.type) && (newPasswordForm.get('newPassword')
+                            .dirty || newPasswordForm.get('newPassword').touched)">
+                            {{ validation.message }}
+                          </div>
+                        </ng-container>
+                        </div>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="floating">Re-type New Password <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input type="password" formControlName="reTypeNewPassword"></ion-input>
+                        <!-- Password Validation-->
+                        <div class="validation-errors">
+                        <ng-container *ngFor="let validation of validationMessasges.password">
+                          <div class="validation-error-message"
+                          *ngIf="newPasswordForm
+                            .get('reTypeNewPassword')
+                            .hasError(validation.type) && (newPasswordForm.get('reTypeNewPassword')
+                            .dirty || newPasswordForm.get('reTypeNewPassword').touched)">
+                            {{ validation.message }}
+                          </div>
+                        </ng-container>
+                        </div>
+                      </ion-item>
+    
+                      <div class="spacer-5x"></div>
+                      <ion-item
+                        [disabled]="!this.newPasswordForm.valid"
+                        (click)="swiper.slideNext()"
+                        class="ion-text-center" 
+                        lines="none" 
+                        button>
+                        <ion-label>Next</ion-label>
+                      </ion-item>
+                      <ion-item
+                        (click)="this.closeForgotPasswordModal()"
+                        class="ion-text-center" 
+                        lines="none" 
+                        button>
+                        <ion-label>Cancel</ion-label>
+                      </ion-item>
+                      
+                    </form>
                   </div>
-                  <form [formGroup]="newPasswordForm" (ngSubmit)="onSubmit()">
-                    <ion-item>
-                      <ion-label position="floating">New Password <ion-text color="danger">*</ion-text></ion-label>
-                      <ion-input type="password" formControlName="newPassword"></ion-input>
-                      <!-- Password Validation-->
-                      <div class="validation-errors">
-                      <ng-container *ngFor="let validation of validationMessasges.password">
-                        <div class="validation-error-message"
-                        *ngIf="newPasswordForm
-                          .get('newPassword')
-                          .hasError(validation.type) && (newPasswordForm.get('newPassword')
-                          .dirty || newPasswordForm.get('newPassword').touched)">
-                          {{ validation.message }}
-                        </div>
-                      </ng-container>
-                      </div>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label position="floating">Re-type New Password <ion-text color="danger">*</ion-text></ion-label>
-                      <ion-input type="password" formControlName="reTypeNewPassword"></ion-input>
-                      <!-- Password Validation-->
-                      <div class="validation-errors">
-                      <ng-container *ngFor="let validation of validationMessasges.password">
-                        <div class="validation-error-message"
-                        *ngIf="newPasswordForm
-                          .get('reTypeNewPassword')
-                          .hasError(validation.type) && (newPasswordForm.get('reTypeNewPassword')
-                          .dirty || newPasswordForm.get('reTypeNewPassword').touched)">
-                          {{ validation.message }}
-                        </div>
-                      </ng-container>
-                      </div>
-                    </ion-item>
-  
-                    <div class="spacer-5x"></div>
-                    <ion-item
-                      (click)="swiper.slideNext()"
-                      class="ion-text-center" 
-                      lines="none" 
-                      button>
-                      <ion-label>Next</ion-label>
-                    </ion-item>
-                    <ion-item
-                      (click)="this.closeForgotPasswordModal()"
-                      class="ion-text-center" 
-                      lines="none" 
-                      button>
-                      <ion-label>Cancel</ion-label>
-                    </ion-item>
-                    
-                  </form>
                 </ng-template>
+
             </swiper>
           </ion-col>
         </ion-row>

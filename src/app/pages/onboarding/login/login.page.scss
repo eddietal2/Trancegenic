@@ -69,4 +69,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+  ion-item {
+    transition: 0.5s;
+  }
 }

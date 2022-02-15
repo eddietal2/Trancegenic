@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ProductsService } from 'src/app/services/products/products.service';
 
 @Component({
   selector: 'app-favorite-icon',
@@ -25,13 +26,16 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 export class FavoriteIconComponent implements OnInit, AfterViewInit {
-  favoriteState = "favorited";
+  favoriteState = "unfavorited";
   public iconName = 'heart';
-  @Input() productID;
+  @Input() id;
+  @Input() email;
   @Output() favoritedAnimation = new EventEmitter<Object>();
   @Output() unFavoritedAnimation = new EventEmitter<Object>();
 
-  constructor() { }
+  constructor(
+    private productsService: ProductsService
+  ) { }
 
   ngAfterViewInit(): void {
     // console.clear();
@@ -40,6 +44,8 @@ export class FavoriteIconComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log(this.id);
+    console.log(this.email);
   }
 
 
@@ -55,15 +61,27 @@ export class FavoriteIconComponent implements OnInit, AfterViewInit {
 
   }
   setFavoriteStateOn() {
-    this.favoriteState = 'favorited';
-    this.favoritedAnimation.emit({
-      favorited: true,
+    this.productsService.favoriteProduct(this.id, this.email)
+      .subscribe(data => {
+        this.favoriteState = 'favorited';
+        console.log('Favorited:' + data)
+        this.favoritedAnimation.emit({
+          favorited: true,
+          });
+          return;
+
       })
  }
   setFavoriteStateOff() {
-    this.favoriteState = 'unfavorited';
-    this.unFavoritedAnimation.emit({
-      favorited: false,
+    this.productsService.unFavoriteProduct(this.id, this.email)
+      .subscribe(data => {
+        this.favoriteState = 'unfavorited';
+        console.log('Unfavorited:' + data)
+        this.unFavoritedAnimation.emit({
+          favorited: false,
+          });
+          return;
+
       })
   }
 

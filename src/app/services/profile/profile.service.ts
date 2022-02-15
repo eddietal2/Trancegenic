@@ -159,4 +159,9 @@ export class ProfileService {
   subscribeFromNewsLetter() {
 
   }
+
+  getFavoriteProducts(email) {
+    console.log(email);
+    return this.http.post(`${this.BACKEND_URL}/user-profile/get-favorite-products`, {email})
+  }
 }

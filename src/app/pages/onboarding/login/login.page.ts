@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
 
   config: SwiperOptions = {
     slidesPerView: 1,
-    spaceBetween: 0,
+    spaceBetween: 20,
     navigation: true,
     pagination: { clickable: true },
     scrollbar: { draggable: true },

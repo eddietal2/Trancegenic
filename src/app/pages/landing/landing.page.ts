@@ -51,8 +51,8 @@ export class LandingPage implements OnInit {
   };
 
   config: SwiperOptions = {
-    slidesPerView: 1.25,
-    spaceBetween: 50,
+    slidesPerView: 1.5,
+    spaceBetween: 2,
     navigation: true,
     pagination: { clickable: true },
     scrollbar: { draggable: true },
@@ -66,6 +66,8 @@ export class LandingPage implements OnInit {
   dynanimcSearchArray = [];
   searching = false;
   searchBarValue = "";
+  authState: boolean;
+  userEmail: string;
   
 
   constructor(
@@ -84,6 +86,14 @@ export class LandingPage implements OnInit {
     .subscribe(searchProducts => {
       this.searchProducts = searchProducts;
     });
+
+    this.loginService.authenticationState.subscribe(data => {
+      this.authState = data;
+    });
+
+    this.loginService.userEmail.subscribe(data => {
+      this.userEmail = data;
+    })
 
     this.getLandingFeaturedProducts();
     this.hypIllustration = document.getElementById('hyp-illustration');

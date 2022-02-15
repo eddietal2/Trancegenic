@@ -91,8 +91,6 @@
         </ion-col>
     </ion-row>
 
-
-
     <!-- Latest Products -->
 
     <!-- Products Header -->
@@ -143,14 +141,16 @@
                                 
                         </ion-col>
         
-                        <ion-toolbar>
+                        <ion-toolbar *ngIf="this.authState">
                               <ion-buttons slot="start">
                                 <ion-button id="cart-button" (click)="onClick()">
                                   <ion-icon slot="start" name="cart-outline"></ion-icon>
                                 </ion-button>
                               </ion-buttons>
                               <ion-buttons slot="end">
-                                <app-favorite-icon></app-favorite-icon>
+                                <app-favorite-icon
+                                [id]="featuredProduct._id"
+                                [email]="this.userEmail"></app-favorite-icon>
                               </ion-buttons>
                         </ion-toolbar>  
                     </ion-row>
@@ -160,8 +160,8 @@
     </ion-row>
 
     <!-- Mobile Products -->
-    <ion-row class="ion-justify-content-center ion-hide-lg-up">
-        <ion-col size-xs="12" size-sm="12" size-md="12">
+    <ion-row class="ion-hide-lg-up">
+        <ion-col size-xs="11" size-sm="10" size-md="8">
             <h2>
                 <ion-icon slot="start" name="pricetag"></ion-icon>
                 <span></span>
@@ -169,6 +169,10 @@
                 <span width="10"></span>
                 <span class="file-type">MP3</span>
             </h2>
+            <p *ngIf="!this.authState" class="static-alert-yellow">Please log in to favorite or buy a product</p>
+            
+        </ion-col>
+        <ion-col size-xs="11" size-sm="10" size-md="8">
             <swiper
               id="landing-featured-swiper"
               [config]="config" 
@@ -176,7 +180,7 @@
                 <ng-template swiperSlide *ngFor="let featuredProduct of this.landingFeaturedProducts">
                   <div>
                     <ion-row
-                    class="landing-product-wrapper-mobile ion-justify-content-center">
+                    class="landing-product-wrapper-mobile">
                       <ion-col class="product-photo" size="6"
                       (click)="goToProductPage(featuredProduct._id)">
 
@@ -196,14 +200,16 @@
                       </ion-col>
 
                         
-                    <ion-toolbar>
+                    <ion-toolbar *ngIf="this.authState">
                       <ion-buttons slot="start">
                         <ion-button id="cart-button" (click)="onClick()">
                           <ion-icon slot="start" name="cart-outline"></ion-icon>
                         </ion-button>
                       </ion-buttons>
                       <ion-buttons slot="end">
-                        <app-favorite-icon></app-favorite-icon>
+                        <app-favorite-icon
+                        [id]="featuredProduct._id"
+                        [email]="this.userEmail"></app-favorite-icon>
                       </ion-buttons>
                     </ion-toolbar>  
                     </ion-row>
@@ -211,7 +217,7 @@
                 </ng-template>
             </swiper>
         </ion-col>
-        <ion-col size="11">
+        <ion-col size-xs="11" size-sm="10" size-md="8">
             <ion-button expand="full" (click)="goToProductsPage()">
                 View All Products
             </ion-button>

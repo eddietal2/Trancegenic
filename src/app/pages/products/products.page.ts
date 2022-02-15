@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FavoriteIconComponent } from 'src/app/components/favorite-icon/favorite-icon.component';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { LoginService } from 'src/app/services/onboarding/login.service';
+import { ProfileService } from 'src/app/services/profile/profile.service';
 
 
 Swiper.use([Autoplay]);
@@ -65,373 +67,14 @@ export class ProductsPage implements OnInit, AfterViewInit {
   // Static Data before Backend Integration
   // I only need _id, title, category, and duration for main Products page
   
-  searchLoadedProducts = [];
-  staticProducts: Array<Product> = [
-    {
-      _id: "1",
-      title: "Banana Pudding",
-      duration: 120,
-      category: "relaxation",
-      price: 5,
-      rating: 1,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: [
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "Jane Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4.5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-      ]
-    },
-    {
-      _id: "2",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 120,
-      category: "business",
-      price: 50,
-      rating: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "relationships",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "2",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 120,
-      rating: 5,
-      category: "sleep",
-      price: 50,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "self-improvement",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "relationships",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "relationships",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "relaxation",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    }
-  ]
-  staticProductsInitialLoad: Array<Product> = [
-    {
-      _id: "1",
-      title: "Banana Pudding",
-      duration: 120,
-      category: "relaxation",
-      price: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      rating: 1,
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: [
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "Jane Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4.5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-      ]
-    },
-    {
-      _id: "2",
-      title: "Xbox just destroyed PS with that Activision acquision. Damn",
-      duration: 120,
-      category: "business",
-      price: 50,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      rating: 5,
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "3",
-      title: "I want a Jeep Wrangler Sport",
-      duration: 630,
-      rating: 5,
-      category: "relationships",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "4",
-      title: "Ketchup is Nasty",
-      duration: 120,
-      rating: 5,
-      category: "sleep",
-      price: 50,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "5",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "self-improvement",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "6",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "7",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "relationships",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "8",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "relationships",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "9",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "10",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "11",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "relaxation",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    },
-    {
-      _id: "12",
-      title: "Product Name xxx xxx xxx xxx xx xx x x xx xxx",
-      duration: 630,
-      rating: 5,
-      category: "sleep",
-      price: 100,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: []
-    }
-  ]
-  featuredProducts: Array<Product> = []
-  staticFavoriteProducts: Array<Product> = [
-    {
-      _id: "1",
-      title: "Product Name",
-      duration: 120,
-      rating: 2,
-      category: "sleep",
-      price: 5,
-      sample: '/Users/ferro/Desktop/Affiliate-Template/src/assets/placeholders/feel_good_inc.mp3',
-      description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend",
-      reviews: [
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "John Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          _id: "1",
-          reviewerUsername: "Jane Doe",
-          reviewerEmail: "eddielacrosse2@gmail.com",
-          reviewerProfilePicture: "",
-          rating: 4.5,
-          date: "Post 1 Day Ago",
-          review: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-      ]
-    },
-  ]
+  searchLoadedProducts;
+  allProducts;
+  allProductsInitialLoad;
+  featuredProducts;
+  favoriteProducts;
+  authState: boolean;
+  userEmail: string;
+
   categorySwiperConfig: SwiperOptions = {
     slidesPerView: 3.5,
     spaceBetween: 20,
@@ -447,20 +90,26 @@ export class ProductsPage implements OnInit, AfterViewInit {
     // },
     navigation: true,
   };
+  featuredProductsLength: any;
+  favoriteProductsLength: number;
+  searchLoadedProductsLength: number;
 
   constructor(
     private actionSheetController: ActionSheetController,
     private router: Router,
     private productsService: ProductsService,
+    private profileService: ProfileService,
+    private loginService: LoginService,
     private toastController: ToastController,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
 
-  ngAfterViewInit() {
+   ngAfterViewInit() {
     this.initializeView();
-  }
+   }
 
   ngOnInit() { 
+    console.clear();
     this.initializeData();
   }
 
@@ -481,10 +130,11 @@ export class ProductsPage implements OnInit, AfterViewInit {
     featuredProductsIonItem.style.background = "#ffdcca";
     // allProductsIonItem.style.background = "none";
     accordianGroup.attributes[0].value = 'featured';
-    // searchBar.style.opacity = '0';
-    // searchBar.style.pointerEvents = 'none';
-    // filterButton.style.opacity = '0';
-    // filterButton.style.pointerEvents = 'none';
+    searchBar.style.opacity = '0';
+    searchBar.style.pointerEvents = 'none';
+    filterButton.style.opacity = '0';
+    filterButton.style.pointerEvents = 'none';
+    
     
   }
 
@@ -494,30 +144,42 @@ export class ProductsPage implements OnInit, AfterViewInit {
    */
   initializeData() {
 
+    // Get all Products
     this.productsService.getAllProducts()
       .subscribe(products => {
-        this.searchLoadedProducts = Object.values(products);
-      })
-    
-    this.productsService.getFeaturedProductsForLanding()
-      .subscribe( featuredProducts => {
-        this.featuredProducts = Object.values(featuredProducts);
+        this.searchLoadedProducts = products;
+        this.searchLoadedProductsLength = Object.values(products).length;;
+        this.allProducts = products;
+        this.allProductsInitialLoad = products;
+        console.log(products);
       });
+    
+    // Get User's Auth State
+    this.loginService.authenticationState.subscribe(data => {
+      this.authState = data;
+    })
+    
+    // Get Featured Products
+    this.productsService.getFeaturedProductsForLanding()
+      .subscribe( data => {
+        this.featuredProducts = data;
+        this.featuredProductsLength = Object.values(data).length;
+        console.log(data)
+      })
 
+    // Get User's Email
+    this.loginService.userEmail.subscribe(data => {
+      this.userEmail = data;
+      console.log(this.userEmail)
+    })
 
-
-      // -----
-    // this.searchLoadedProducts = this.staticProducts;
-    // this.accordianBSubject$.subscribe(
-    //   data => {
-    //     console.log('Accordian Value:')
-    //     console.log(data)
-    // });
-    // this.filterSubject$.subscribe(
-    //   data => {
-    //     console.log('Filter Value:')
-    //     console.log(data)
-    // });
+    // Get User's favorite Products
+    this.profileService.getFavoriteProducts(this.userEmail)
+      .subscribe( data => {
+        this.favoriteProducts = data;
+        this.favoriteProductsLength = Object.values(data).length;
+      })
+    return;
   }
 
   /**
@@ -553,18 +215,18 @@ export class ProductsPage implements OnInit, AfterViewInit {
     // Check to see if Search Input is Empty
     if(searchInput == '' || searchInput == null) {
 
-      this.searchLoadedProducts = this.staticProductsInitialLoad;
+      this.searchLoadedProducts = this.allProductsInitialLoad;
       this.triggerSearchView(screenSize);
       return;
 
     } else {
 
       console.log('Searching...');
-      this.staticProducts.filter((product) => {
+      this.allProducts.filter((product) => {
 
         if(product.title.includes(searchInput)) {
             this.searchLoadedProducts.push(product);
-            this.staticProducts = this.searchLoadedProducts;
+            this.allProducts = this.searchLoadedProducts;
             this.triggerSearchView(screenSize);
         } 
       });
@@ -576,13 +238,13 @@ export class ProductsPage implements OnInit, AfterViewInit {
       if (this.searchLoadedProducts.length === 0) {
   
         console.log('Search Data is Empty!');
-        this.staticProducts = this.staticProductsInitialLoad;
+        this.allProducts = this.allProductsInitialLoad;
         this.triggerSearchView(screenSize);
       }
       
       // If there are no results, and a user needs to backspace
       // to correct spelling.
-      this.staticProducts = this.staticProductsInitialLoad;
+      this.allProducts = this.allProductsInitialLoad;
     }
 
   }
@@ -646,10 +308,10 @@ export class ProductsPage implements OnInit, AfterViewInit {
     console.log(this.searchLoadedProducts.length)
 
     console.log('Static Products:')
-    console.log(this.staticProducts.length)
+    console.log(this.allProducts.length)
 
     console.log('Initial Static Products:')
-    console.log(this.staticProductsInitialLoad.length)
+    console.log(this.allProductsInitialLoad.length)
   }
 
   /**
@@ -657,9 +319,9 @@ export class ProductsPage implements OnInit, AfterViewInit {
    * @param productID
    * @param userEmail
    */
-  goToProductPage(id) {
-    console.log(id)
-    this.router.navigate(["/products/product-page", id]);
+  goToProductPage(product) {
+    console.log(product)
+    this.router.navigate(["/products/product-page", product._id]);
 
   }
 
@@ -677,7 +339,7 @@ favoriteToggle(productID: string, userEmail: string) {
     // Check for this Products Favorite State
   }
 
-  async openFilterActionSheet() {
+async openFilterActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Filter Products',
       cssClass: 'filter-action-sheet',
@@ -687,7 +349,7 @@ favoriteToggle(productID: string, userEmail: string) {
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
-  }
+}
 
   closeFilterPopover() {
     this.filterPopoverOpen = false;
@@ -884,10 +546,6 @@ favoriteToggle(productID: string, userEmail: string) {
 
     let searchBar = document.getElementById('search-bar');
     let filterButton = document.getElementById('filter-button');
-    
-    console.clear()
-    console.log(e)
-    console.log(accordian);
 
     // All Products
     if(accordian == 'all' || this.searching) {
@@ -896,10 +554,10 @@ favoriteToggle(productID: string, userEmail: string) {
       featuredProductsIonItem.style.background = "#ededed";
       favoriteProductsIonItem.style.background = "#ededed";
       allProductsIonItem.style.background = "#ffdcca";
-      // searchBar.style.opacity = '1';
-      // searchBar.style.pointerEvents = 'auto';
-      // filterButton.style.opacity = '1';
-      // filterButton.style.pointerEvents = 'auto';
+      searchBar.style.opacity = '1';
+      searchBar.style.pointerEvents = 'auto';
+      filterButton.style.opacity = '1';
+      filterButton.style.pointerEvents = 'auto';
       this.insertAfter(favoriteProductsIonAccordian, allProductsIonAccordian)
       
     }
@@ -957,8 +615,8 @@ favoriteToggle(productID: string, userEmail: string) {
    * @param e being click $event from IonButton in #category-swiper
    */
   changeCategory(category: string, e: Event): void {
-    // this.searchLoadedProducts = this.staticProductsInitialLoad;
-    let searchLoadedProductsCopy = this.staticProductsInitialLoad;
+    // this.searchLoadedProducts = this.allProductsInitialLoad;
+    let searchLoadedProductsCopy = this.allProductsInitialLoad;
 
     this.activeCategory = category;
 
