@@ -7,6 +7,7 @@ import { FavoriteIconComponent } from 'src/app/components/favorite-icon/favorite
 import { ProductsService } from 'src/app/services/products/products.service';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { ProfileService } from 'src/app/services/profile/profile.service';
+import { catchError } from 'rxjs/operators';
 
 
 Swiper.use([Autoplay]);
@@ -768,11 +769,74 @@ async openFilterActionSheet() {
    /**
     * Add product to Cart
     */
-    addToCart(id) {
+    addToCart(id, title, button) {
+      let cartCount = document.getElementById('cart-count');
       this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
-      .subscribe(data => {
+      .pipe(
+        catchError(async e => {
+          let errorMessage = e.error.msg;
+          if(errorMessage == 'User already has this product in their cart.') {
+            const toast = await this.toastController.create({
+              message: `You already have this product to your Cart!`,
+              duration: 10000,
+              color: 'danger',
+              position: 'top',
+              buttons: [
+                {
+                  side: 'end',
+                  icon: 'close',
+                  role: 'cancel',
+                  handler:  () => {
+                    toast.dismiss();
+                  }
+                }
+              ]
+            });
+            toast.present();
+            
+          }
+          throw Error(e)
+        })
+      )
+      .subscribe(async data => {
         console.log(data);
-        // this.
+        button.el.style.transform = 'scale(1.4)';
+        button.el.style.color = 'red';
+        setTimeout(() => {
+          button.el.style.transform = 'scale(1)';
+          button.el.style.color = '#222';
+          cartCount.style.transform = 'scale(4)';
+          cartCount.style.background = 'green';
+          setTimeout(() => {
+            cartCount.style.transform = 'scale(1)';
+            cartCount.style.background = 'blue';
+            
+          }, 800);
+          
+        }, 200);
+          /**
+           * Toast that displays when a user adds this Product to their Cart
+           * '&#x2713;' is HTML escape character for a check mark ✓
+           */
+
+          const toast = await this.toastController.create({
+            message: `&#x2713;   You have added ${title} to your Cart!`,
+            duration: 10000,
+            color: 'success',
+            position: 'top',
+            cssClass: 'add-to-cart-toast',
+            buttons: [
+              {
+                side: 'end',
+                icon: 'close',
+                role: 'cancel',
+                handler:  () => {
+                  toast.dismiss();
+                }
+              }
+            ]
+          });
+          toast.present();
         // setTimeout(() => {
         //   return this.addToCartSub.unsubscribe();
         // }, 3000);

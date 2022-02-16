@@ -74,8 +74,8 @@
                       </ion-col>
                       <ion-toolbar *ngIf="this.authState" style="z-index: 9999;">
                       <ion-buttons slot="start">
-                        <ion-button id="cart-button" (click)="addToCart(featuredProduct._id)">
-                          <ion-icon slot="start" name="cart-outline"></ion-icon>
+                        <ion-button  id="cart-button" (click)="addToCart(featuredProduct._id, featuredProduct.title, cartButton)">
+                          <ion-icon #cartButton slot="start" name="cart-outline"></ion-icon>
                         </ion-button>
                       </ion-buttons>
                       <ion-buttons slot="end">

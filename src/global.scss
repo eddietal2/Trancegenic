@@ -57,12 +57,17 @@ ion-skeleton-text {
 .success-toast {
     --background: #02b10a;
     --color: #fff;
-    font-size: 1em;
+    font-size: 1.2em;
+}
+.danger-toast {
+    --background: red;
+    --color: #fff;
+    font-size: 1.2em;
 }
 .add-to-cart-toast {
     --background: #fa6429 !important;
     --color: #fff;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 .login-loading {
     --background: green;
