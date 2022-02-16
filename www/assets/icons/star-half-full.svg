@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/star-half-full</title>
+    <defs>
+        <path d="M9.99927182,13.2063208 L6.2478985,15.9115631 C6.083444,16.0302094 5.86071953,16.0294041 5.69713645,15.9095719 C5.53355338,15.7897396 5.46669625,15.5784128 5.53180944,15.3869945 L6.99490628,11.0764211 L3.20298862,8.48984504 C3.034402,8.37497619 2.96054929,8.16437238 3.0207387,7.97012784 C3.08092812,7.7758833 3.26116014,7.64317755 3.465506,7.64264344 L8.14356565,7.64264344 L9.55532576,3.3210449 C9.61771728,3.12963481 9.79697838,3 9.99927182,3 C10.2015653,3 10.3808263,3.12963481 10.4432179,3.3210449 L9.99927182,13.2063208 Z" id="path-1"></path>
+        <filter x="-26.9%" y="-15.4%" width="153.7%" height="130.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.235973865 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icons/star-half-full" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Path" fill-rule="nonzero">
+            <use fill="#FFBA00" xlink:href="#path-1"></use>
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

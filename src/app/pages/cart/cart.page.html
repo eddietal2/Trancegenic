@@ -9,7 +9,83 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-col class="page-content-wrapper" size-xs="12" size-sm="10" size-md="8" size-lg="8"></ion-col>
+      <ion-col class="page-content-wrapper" size-xs="11" size-sm="10" size-md="8" size-lg="8">
+        <div class="spacer-5x"></div>
+        <h1>
+          <ion-icon slot="start" name="cart-outline" size="large"></ion-icon>
+          Cart <span *ngIf="this.userEmail">({{cartLength}})</span>
+        </h1>
+        <div class="spacer-2x"></div>
+        <h3 *ngIf="!this.userEmail">Please Log in</h3>
+        <ion-button *ngIf="!this.userEmail" (click)="goToLoginPage()">
+          Login
+        </ion-button>
+        <ion-row *ngIf="cartLength == 0">
+          <ion-col size="12">
+            <div id="add-to-cart-message">
+              <p>You have no products in your Cart. Press the 'Add To Cart'
+              button to add a Product to your Cart.
+              </p>
+              <div class="spacer-2x"></div>
+              <ion-button class="cart-button">
+                <ion-icon slot="start" name="cart-outline"></ion-icon>
+              </ion-button>
+              <div class="spacer-2x"></div>
+              <ion-button (click)="goBackToProductsPage()">
+                <span class="hr-spacer-1x"></span>
+                <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+                Go to Products Page
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row
+                *ngFor="let product of this.cart"
+                style="width: 100%;"
+                class="product-wrapper ion-justify-content-center">
+                <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
+          
+                </ion-col>
+                <ion-col size="6">
+                  <div (click)="this.goToProductPage()">
+                    <p class="product-price">${{product.price}}</p>
+                    <h6 class="product-title">{{product.title}}</h6>
+                    <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
+                    <p class="-product-duration">Duration: {{product.duration}} Mins</p>
+                    <p class="product-category"># {{product.category}}</p>
+                    <!-- user's favoriteProducts collection on has IDs -->
+                    <p class="product-reviews-length">Reviews {{product.reviews}}</p>
+                  </div>
+                </ion-col>
+ 
+                <!-- Cart + Favorites Toolbar -->
+                <div class="spacer-3x"></div>
+                <ion-toolbar>
+                  <ion-buttons slot="start">
+                    <ion-button class="cart-button" (click)="onClick()">
+                      <ion-icon slot="start" name="cart-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                  <ion-buttons slot="end">
+                    <app-favorite-icon 
+                    [id]="product._id"
+                    [email]="this.userEmail"
+                    ></app-favorite-icon>
+                  </ion-buttons>
+                </ion-toolbar> 
+
+                </ion-row>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<!-- Complete Order Button on Mobile Devices -->
+<ion-footer>
+  <ion-button class="cart-not-empty" *ngIf="this.cartLength > 0" expand="full" (click)="tryCompleteOrder()">
+    Complete Order
+  </ion-button>
+  <ion-button [disabled]="true" class="cart-empty" *ngIf="this.cartLength == 0" expand="full" (click)="tryCompleteOrder()">
+    Cart is Empty
+  </ion-button>
+</ion-footer>

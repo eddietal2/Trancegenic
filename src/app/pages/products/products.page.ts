@@ -93,6 +93,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   featuredProductsLength: any;
   favoriteProductsLength: number;
   searchLoadedProductsLength: number;
+  addToCartSub: Subscription;
 
   constructor(
     private actionSheetController: ActionSheetController,
@@ -763,4 +764,18 @@ async openFilterActionSheet() {
         this.changeDetectorRef.detectChanges();
       }, 2000);
    }
+
+   /**
+    * Add product to Cart
+    */
+    addToCart(id) {
+      this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
+      .subscribe(data => {
+        console.log(data);
+        // this.
+        // setTimeout(() => {
+        //   return this.addToCartSub.unsubscribe();
+        // }, 3000);
+      })
+    }
 }

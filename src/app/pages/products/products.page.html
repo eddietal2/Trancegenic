@@ -28,7 +28,7 @@
     </div>
 
     <!-- Products / Mobile -->
-    <ng-container >
+    <ng-container>
       <ion-accordion-group 
         class="ion-hide-lg-up"
         value="all" 
@@ -74,7 +74,7 @@
                       </ion-col>
                       <ion-toolbar *ngIf="this.authState" style="z-index: 9999;">
                       <ion-buttons slot="start">
-                        <ion-button id="cart-button" (click)="onClick()">
+                        <ion-button id="cart-button" (click)="addToCart(featuredProduct._id)">
                           <ion-icon slot="start" name="cart-outline"></ion-icon>
                         </ion-button>
                       </ion-buttons>
@@ -275,6 +275,13 @@
 
       </ion-accordion-group>
     </ng-container>
+
+    <ion-row *ngIf="!this.authState" >
+      <ion-col size="12">
+        <div class="spacer-1x"></div>
+        <p class="static-alert-yellow">Please login to see you Favorites.</p>
+      </ion-col>
+    </ion-row>
 
     <!-- Products / Lg -->
     <ion-row class="spacer-5x ion-hide-lg-down ion-justify-content-center">

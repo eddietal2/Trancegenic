@@ -1,5 +1,7 @@
 {
   "name": "aff-template",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

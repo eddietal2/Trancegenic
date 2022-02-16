@@ -26,6 +26,8 @@ export class LoginService {
   userFullName = new BehaviorSubject('none');
   userEmail = new BehaviorSubject('none');
   userPicture = new BehaviorSubject('none');
+  userCartLength = new BehaviorSubject(null);
+   
 
 
   constructor(
@@ -144,6 +146,7 @@ export class LoginService {
     this.userFullName.next(data['fullName']);
     this.userPicture.next(data['picture']);
     this.userEmail.next(data['email']);
+    // TODO wire Cart Length to Mobile Tabs bar and Desktop Toolbar
     this.authenticationState.next(true);
     
     loading.present();

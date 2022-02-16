@@ -19,7 +19,7 @@ export class ProductsService {
   BACKEND_URL = environment.url;
 
   constructor(
-    private http: HttpClient,) { }
+    private http: HttpClient) { }
 
   getAllProductsForLandingSearch() {
     return this.http.get(`${this.BACKEND_URL}/products/get-all-products`)
@@ -57,5 +57,17 @@ export class ProductsService {
 
   unFavoriteProduct(id: string, email: string) {
     return this.http.post(`${this.BACKEND_URL}/products/unfavorite-product`, {_id: id, email})
+  }
+
+  getCart(email: string) {
+    return this.http.post(`${this.BACKEND_URL}/products/get-cart`, {email})
+  }
+
+  addToCart(id: string, email: string) {
+    return this.http.post(`${this.BACKEND_URL}/products/add-to-cart`, {_id: id, email})
+  }
+
+  removeFromCart(id: string, email: string) {
+    return this.http.post(`${this.BACKEND_URL}/products/remove-from-cart`, {_id: id, email})
   }
 }
