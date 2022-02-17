@@ -13,6 +13,10 @@
     // height: 800px;
     margin: 5em;
 }
+.acc-title {    
+    display: inline-block;
+    width: 100px;
+}
 
 #featured-swiper {
     height: 30vh;
@@ -116,6 +120,198 @@
 
 #featured-products-accordian {
     margin-top: 57px;
+}
+#favorite-products-accordian {
+    .product-wrapper {
+        height: auto;
+        border-radius: 5px;
+        background: #f2f2f2;
+        margin-bottom: 10px;
+        padding: 1em;
+        opacity: 0;
+        transition: 0.5s;
+        animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+    
+        .product-duration {
+            font-size: 0.7em;
+            color: #999;
+        }
+    
+        .product-category {
+            font-size: 0.6em;
+            color: #5a5a5a;
+        }
+    
+        .product-reviews-length {
+            font-size: 0.6em;
+            color: #5a5a5a;
+        }
+    
+        .product-title {
+            height: 40px;
+            margin-bottom: 1em;
+        }
+    
+        .product-rating {
+    
+        }
+    
+        .product-price {
+            display: flex;
+            align-items: center;
+            border-left: 2px solid #0055a5;
+            font-weight: 600;
+            color: #333;
+            padding: 0.3em;
+            width: 65px;
+            height: 18px;
+            margin-top: 1em;
+        }
+        .product-photo {
+            background-image: url('../../../assets/placeholders/placeholder-logo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 200px;
+        }
+    
+        ion-toolbar {
+            // --background: none;
+            // position: absolute;
+            // bottom: 0;
+    
+            ion-buttons {
+    
+                .favorite-this-product-button {
+                    --background: #ffbbbb;
+                    --border-radius: 50px;
+                    text-align: center;
+                    border-radius: 57px;
+                    height: 40px;
+                    padding-left: 6px;
+                }
+    
+                #cart-button {
+                    height: 50px;
+                    width: 50px;
+                    --background: #999;
+                    --border-radius: 50px;
+    
+                    ion-icon {
+                        color: white;
+                    }
+                }
+                
+            }
+        }
+    
+        ion-icon {
+            font-size: 2em;
+        }
+    
+        .product-message-green {
+            border-left: 4px solid red;
+        }
+        .product-message-red {
+            border-left: 4px solid green;
+        }
+    }
+}
+#all-products-accordian {
+    .product-wrapper {
+        height: auto;
+        border-radius: 5px;
+        background: #f2f2f2;
+        margin-bottom: 10px;
+        padding: 1em;
+        opacity: 0;
+        transition: 0.5s;
+        animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+    
+        .product-duration {
+            font-size: 0.7em;
+            color: #999;
+        }
+    
+        .product-category {
+            font-size: 0.6em;
+            color: #5a5a5a;
+        }
+    
+        .product-reviews-length {
+            font-size: 0.6em;
+            color: #5a5a5a;
+        }
+    
+        .product-title {
+            height: 40px;
+            margin-bottom: 1em;
+        }
+    
+        .product-rating {
+    
+        }
+    
+        .product-price {
+            display: flex;
+            align-items: center;
+            border-left: 2px solid #0055a5;
+            font-weight: 600;
+            color: #333;
+            padding: 0.3em;
+            width: 65px;
+            height: 18px;
+            margin-top: 1em;
+        }
+        .product-photo {
+            background-image: url('../../../assets/placeholders/placeholder-logo.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 200px;
+        }
+    
+        ion-toolbar {
+            // --background: none;
+            // position: absolute;
+            // bottom: 0;
+    
+            ion-buttons {
+    
+                .favorite-this-product-button {
+                    --background: #ffbbbb;
+                    --border-radius: 50px;
+                    text-align: center;
+                    border-radius: 57px;
+                    height: 40px;
+                    padding-left: 6px;
+                }
+    
+                #cart-button {
+                    height: 50px;
+                    width: 50px;
+                    --background: #999;
+                    --border-radius: 50px;
+    
+                    ion-icon {
+                        color: white;
+                    }
+                }
+                
+            }
+        }
+    
+        ion-icon {
+            font-size: 2em;
+        }
+    
+        .product-message-green {
+            border-left: 4px solid red;
+        }
+        .product-message-red {
+            border-left: 4px solid green;
+        }
+    }
 }
 
 #featured-page-message-lg {
