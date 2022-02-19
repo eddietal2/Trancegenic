@@ -82,6 +82,12 @@ ion-skeleton-text {
     --min-width: 200vw;
     color: white;
 }
+.cart-transition-loading {
+    --background: rgb(42, 58, 42);
+    --min-height: 200vh;
+    --min-width: 200vw;
+    color: white;
+}
 
 // 
 * {

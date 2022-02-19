@@ -7,10 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: CartPage
-  },
-  {
-    path: 'order-confirmed',
-    loadChildren: () => import('./order-confirmed/order-confirmed.module').then( m => m.OrderConfirmedPageModule)
   }
 ];
 

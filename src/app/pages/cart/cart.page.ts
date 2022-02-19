@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { ProductsService } from 'src/app/services/products/products.service';
@@ -41,6 +41,7 @@ export class CartPage implements OnInit {
     private loginService: LoginService,
     // private iab: InAppBrowser,
     public alertController: AlertController,
+    public loadingController: LoadingController,
     private router: Router,
     
   ) { }
@@ -88,12 +89,58 @@ export class CartPage implements OnInit {
    * Complete Order
    */
    async tryCompleteOrder() {
+    //  Reduce Cart to just an Array of Api Param IDs.
+    let urlParams: [] = await this.cart.reduce(function (acc, cartItem) {
+      return [...acc, cartItem.apiID]
+    }, [])
+
+    console.log(urlParams);
+
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Alert',
       subHeader: 'Subtitle',
       message: 'This is an alert message.',
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+        }, {
+          text: 'Complete Order',
+          id: 'complete-order-button',
+          handler: async () => {
+            // Format each URL Param to match HypnosisDownloads.com API format
+            let formattedUrlParams = [];
+
+            urlParams.forEach(id => {
+              formattedUrlParams.push('item-' + id + '=1&amp;')
+            });
+
+            // console.log(formattedUrlParams)
+
+            // Create URL with Fomatted Params
+            let apiURL = `https://www.hypnosisdownloads.com/cgi-bin/sgx2/shop.cgi?add_to_cart_button=1&amp;${formattedUrlParams.join('')}alt_page=shopping.html#5896!stc`;
+
+            // console.log(apiURL);
+
+            // Create Loading Element
+            const loading = await this.loadingController.create({
+              cssClass: 'cart-transition-loading',
+              message: 'Navigating to Hypnosis Downloads Final Cart ...',
+              duration: 4000
+            });
+
+            // Set Client Location to Formatted URL
+            window.location.href = apiURL;
+
+            // Present Loading screen AFTER Location is changed,
+            // because it takes a few seconds for the page to reload.
+            return loading.present();
+            
+          }
+        }
+      ]
     });
 
     await alert.present();

@@ -23,7 +23,7 @@
     </a>
     <a routerLink="/cart">
       <ion-icon id="desktop-cart-icon" name="cart" style="font-size: 1.5em;"></ion-icon>
-      <ion-badge color="primary">0</ion-badge>
+      <ion-badge *ngIf="this.authState" color="primary">{{cartLength}}</ion-badge>
     </a>
     </ul>
   </div>

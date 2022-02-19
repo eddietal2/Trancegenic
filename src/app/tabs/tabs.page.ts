@@ -14,7 +14,7 @@ export class TabsPage implements OnInit {
   userFullName: string;
   userPicture: string;
   cartLength: number;
-  getCartAmountSub: any;
+  getCartLengthSub: any;
   
 
   constructor(
@@ -60,7 +60,7 @@ export class TabsPage implements OnInit {
   authState: boolean;
 
   getCartAmount() {
-    this.getCartAmountSub = this.productsService.cart$.subscribe(data => {
+    this.getCartLengthSub = this.productsService.cart$.subscribe(data => {
       console.log('Getting Cart Length: ')
       console.log(data)
       this.cartLength = data.length;

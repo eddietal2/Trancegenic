@@ -5,7 +5,6 @@ import { MobileTopToolbarComponent } from './mobile-top-toolbar/mobile-top-toolb
 import { FavoriteIconComponent } from './favorite-icon/favorite-icon.component';
 import { RatingsStarsComponent } from './ratings-stars/ratings-stars.component';
 
-
 @NgModule({
     imports: [
         CommonModule,

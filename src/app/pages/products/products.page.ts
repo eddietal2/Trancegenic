@@ -8,7 +8,6 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { catchError } from 'rxjs/operators';
-import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 
 Swiper.use([Autoplay]);
@@ -100,7 +99,6 @@ export class ProductsPage implements OnInit, AfterViewInit {
   constructor(
     private actionSheetController: ActionSheetController,
     private router: Router,
-    private iab: InAppBrowser,
     private productsService: ProductsService,
     private profileService: ProfileService,
     private loginService: LoginService,
@@ -771,12 +769,14 @@ async openFilterActionSheet() {
    /**
     * Add product to Cart
     */
-    addToCart(id, title, button) {
+    tryAddToCart(id, title, button) {
       let cartCount = document.getElementById('cart-tab-bar-count');
       let cartButton = button;
+
       this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
       .pipe(
         catchError(async e => {
+          // TODO: Handle Error for if they weren't connected to network.
           let errorMessage = e.error.msg;
           if(errorMessage == 'User already has this product in their cart.') {
             const toast = await this.toastController.create({
@@ -818,6 +818,7 @@ async openFilterActionSheet() {
           }, 800);
           
         }, 200);
+
           /**
            * Toast that displays when a user adds this Product to their Cart
            * '&#x2713;' is HTML escape character for a check mark ✓
@@ -841,6 +842,8 @@ async openFilterActionSheet() {
             ]
           });
           toast.present();
+        
+          // 
         setTimeout(() => {
           return this.addToCartSub.unsubscribe();
         }, 3000);
@@ -851,13 +854,6 @@ async openFilterActionSheet() {
      * Go to Hypnosis Download.com's Cart
      */
      hpcom() {
-      const browser = this.iab.create('https://ionicframework.com/');
-
-
-      browser.on('loadstop').subscribe(event => {
-        browser.insertCSS({ code: "body{color: red;" });
-      });
-
-      browser.close();
+      
     }
 }
