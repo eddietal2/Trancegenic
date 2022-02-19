@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LoginService } from '../services/onboarding/login.service';
-
+import { ProductsService } from '../services/products/products.service';
 
 @Component({
   selector: 'app-tabs',
@@ -12,15 +13,19 @@ export class TabsPage implements OnInit {
   userEmail: string;
   userFullName: string;
   userPicture: string;
+  cartLength: number;
+  getCartAmountSub: any;
   
 
   constructor(
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private productsService: ProductsService
   ) {}
 
   ngOnInit() {
     this.tabBarStyling();
+    this.getCartAmount();
   }
 
   /**
@@ -48,9 +53,27 @@ export class TabsPage implements OnInit {
     })
   }
 
+  /**
+   * Get Cart Amount
+   */
+  addToCartSub: Subscription;
+  authState: boolean;
 
-  
+  getCartAmount() {
+    this.getCartAmountSub = this.productsService.cart$.subscribe(data => {
+      console.log('Getting Cart Length: ')
+      console.log(data)
+      this.cartLength = data.length;
+    })
 
+    this.loginService.authenticationState.subscribe(state => {
+      this.authState = state;
+    });
+
+    setTimeout(() => {
+      return this.addToCartSub.unsubscribe();
+    }, 3000);
+  }
 
 
 }

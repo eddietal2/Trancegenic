@@ -199,6 +199,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 
 
@@ -239,7 +240,10 @@ AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
             // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_2__.AppRoutingModule
         ],
-        providers: [{ provide: _angular_router__WEBPACK_IMPORTED_MODULE_14__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__.IonicRouteStrategy }],
+        providers: [
+            // InAppBrowser,
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_14__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__.IonicRouteStrategy }
+        ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__.AppComponent],
     })
 ], AppModule);
@@ -580,6 +584,7 @@ let LoginService = class LoginService {
         this.userFullName = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject('none');
         this.userEmail = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject('none');
         this.userPicture = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject('none');
+        this.userCartLength = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(null);
     }
     /**
      * Get all the featured posts for the Landing Page
@@ -679,6 +684,7 @@ let LoginService = class LoginService {
             this.userFullName.next(data['fullName']);
             this.userPicture.next(data['picture']);
             this.userEmail.next(data['email']);
+            // TODO wire Cart Length to Mobile Tabs bar and Desktop Toolbar
             this.authenticationState.next(true);
             loading.present();
             loading.onDidDismiss()

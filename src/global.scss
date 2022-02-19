@@ -65,9 +65,16 @@ ion-skeleton-text {
     font-size: 1.2em;
 }
 .add-to-cart-toast {
-    --background: #fa6429 !important;
+    --background: #999 !important;
+    --border-style:solid !important;
+    --border-width: 2px !important;
+    --border-color: red !important;
     --color: #fff;
     font-size: 1.2em;
+
+    .ionicon .s-ion-icon {
+        fill: #fff;
+    }
 }
 .login-loading {
     --background: green;

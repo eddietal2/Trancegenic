@@ -8,6 +8,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { catchError } from 'rxjs/operators';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 
 Swiper.use([Autoplay]);
@@ -99,6 +100,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   constructor(
     private actionSheetController: ActionSheetController,
     private router: Router,
+    private iab: InAppBrowser,
     private productsService: ProductsService,
     private profileService: ProfileService,
     private loginService: LoginService,
@@ -770,16 +772,17 @@ async openFilterActionSheet() {
     * Add product to Cart
     */
     addToCart(id, title, button) {
-      let cartCount = document.getElementById('cart-count');
+      let cartCount = document.getElementById('cart-tab-bar-count');
+      let cartButton = button;
       this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
       .pipe(
         catchError(async e => {
           let errorMessage = e.error.msg;
           if(errorMessage == 'User already has this product in their cart.') {
             const toast = await this.toastController.create({
-              message: `You already have this product to your Cart!`,
+              message: `You already have this Product in your Cart!`,
               duration: 10000,
-              color: 'danger',
+              cssClass: 'danger-toast',
               position: 'top',
               buttons: [
                 {
@@ -800,11 +803,12 @@ async openFilterActionSheet() {
       )
       .subscribe(async data => {
         console.log(data);
-        button.el.style.transform = 'scale(1.4)';
-        button.el.style.color = 'red';
+        this.productsService.cart$.next(data['userCart']);
+        cartButton.el.style.transform = 'scale(1.4)';
+        cartButton.el.style.color = 'red';
         setTimeout(() => {
-          button.el.style.transform = 'scale(1)';
-          button.el.style.color = '#222';
+          cartButton.el.style.transform = 'scale(1)';
+          cartButton.el.style.color = '#222';
           cartCount.style.transform = 'scale(4)';
           cartCount.style.background = 'green';
           setTimeout(() => {
@@ -837,9 +841,23 @@ async openFilterActionSheet() {
             ]
           });
           toast.present();
-        // setTimeout(() => {
-        //   return this.addToCartSub.unsubscribe();
-        // }, 3000);
+        setTimeout(() => {
+          return this.addToCartSub.unsubscribe();
+        }, 3000);
       })
+    }
+
+    /**
+     * Go to Hypnosis Download.com's Cart
+     */
+     hpcom() {
+      const browser = this.iab.create('https://ionicframework.com/');
+
+
+      browser.on('loadstop').subscribe(event => {
+        browser.insertCSS({ code: "body{color: red;" });
+      });
+
+      browser.close();
     }
 }

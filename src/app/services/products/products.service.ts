@@ -17,6 +17,7 @@ interface Product {
 })
 export class ProductsService {
   BACKEND_URL = environment.url;
+  cart$ = new BehaviorSubject([])
 
   constructor(
     private http: HttpClient) { }

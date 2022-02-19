@@ -39,7 +39,8 @@
         <ion-accordion value="featured" id="featured-products-accordian">
           
           <ion-item id="featured-products-item" lines="none" slot="header">
-            <ion-label><span class="acc-title">Featured</span> | {{this.featuredProductsLength}}</ion-label>
+            <span class="acc-title">{{this.featuredProductsLength}}</span>
+            <ion-label>Featured</ion-label>
             <ion-icon name="pricetag-outline" slot="start"></ion-icon>
           </ion-item>
 
@@ -52,39 +53,30 @@
               id="featured-swiper"
               [config]="featuredSwiperConfig" 
               (swiper)="onSwiper($event)">
-                <ng-template swiperSlide *ngFor="let featuredProduct of featuredProducts">
-                    <ion-row 
-                    class="featured-product product-wrapper ion-justify-content-center">
-                      <ion-col class="product-photo" size="6"
-                      (click)="goToProductPage(featuredProduct)">
+                <ng-template swiperSlide  *ngFor="let featuredProduct of featuredProducts">
+                  <ion-row
+                class="product-wrapper">
+                <ion-col size="12">
+                  <img class="mobile-products-slider-img" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Related Product Photo">
+                </ion-col>
+                <ion-col size="11">
+                  <p class="product-price">${{featuredProduct.price}}</p>
+                  <h6 class="product-title">{{featuredProduct.title}}</h6>  
+                  <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
+                  <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
+                  <p class="product-category">#{{featuredProduct.category}}</p>
+                  <h5 class="product-reviews-length">Reviews: {{featuredProduct.reviews.length}}</h5>
 
-                      </ion-col>
-                      <ion-col size="6"
-                      (click)="goToProductPage(featuredProduct._id)">
-                        <div (click)="goToProductPage()">
-                          <p class="product-price">${{featuredProduct.price}}</p>
-                          
-                          <h6 class="product-title">{{featuredProduct.title}}</h6>
-                          <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
-                          <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
-                          <p class="product-category"># {{featuredProduct.category}}</p>
-                          <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews}}</h5>
-                        </div>                 
-                        
-                      </ion-col>
-                      <ion-toolbar *ngIf="this.authState" style="z-index: 9999;">
-                      <ion-buttons slot="start">
-                        <ion-button  id="cart-button" (click)="addToCart(featuredProduct._id, featuredProduct.title, cartButton)">
-                          <ion-icon #cartButton slot="start" name="cart-outline"></ion-icon>
-                        </ion-button>
-                      </ion-buttons>
-                      <ion-buttons slot="end">
-                        <app-favorite-icon
-                        [id]="featuredProduct._id"
-                        [email]="this.userEmail"></app-favorite-icon>
-                      </ion-buttons>
-                      </ion-toolbar>  
-                    </ion-row>
+                  <ion-toolbar *ngIf="this.authState">
+                    <ion-buttons #cartButton (click)="addToCart(featuredProduct._id, featuredProduct.title, cartButton)" slot="start">
+                      <img class="cart-button" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
+                    </ion-buttons>
+                  <ion-buttons slot="end">
+                    <app-favorite-icon [id]="featuredProduct._id"></app-favorite-icon>
+                  </ion-buttons>
+                  </ion-toolbar>
+                </ion-col>
+              </ion-row>
                 </ng-template>
             </swiper>
           </ion-list>
@@ -94,7 +86,8 @@
         <ion-accordion *ngIf="this.authState" value="favorites" id="favorite-products-accordian">
           
           <ion-item id="favorite-products-item" lines="none" slot="header">
-            <ion-label><span class="acc-title">Favorites</span> | {{this.favoriteProductsLength}}</ion-label>
+            <span class="acc-title">{{this.favoriteProductsLength}}</span>
+            <ion-label>Favorites</ion-label>
             <ion-icon name="heart" slot="start"></ion-icon>
           </ion-item>
       
@@ -127,10 +120,8 @@
  
                 <!-- Cart + Favorites Toolbar -->
                 <ion-toolbar>
-                  <ion-buttons slot="start">
-                    <ion-button #cartButton id="cart-button" (click)="addToCart(product._id, product.title, cartButton)()">
-                      <ion-icon slot="start" name="cart-outline"></ion-icon>
-                    </ion-button>
+                  <ion-buttons (click)="addToCart(product._id, product.title)" slot="start">
+                    <img class="cart-button" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
                   </ion-buttons>
                   <ion-buttons slot="end">
                     <app-favorite-icon 
@@ -150,7 +141,8 @@
         <ion-accordion value="all" id="all-products-accordian">
           
           <ion-item id="all-products-item" slot="header" lines="none">
-            <ion-label><span class="acc-title">All Products</span> | {{this.searchLoadedProductsLength}}</ion-label>
+            <span class="acc-title">{{this.searchLoadedProductsLength}}</span>
+            <ion-label>All Products</ion-label>
             <ion-icon name="list-outline" slot="start"></ion-icon>
           </ion-item>
       
@@ -255,10 +247,8 @@
 
                 <!-- Cart + Favorites Toolbar -->
                 <ion-toolbar *ngIf="this.authState">
-                  <ion-buttons slot="start">
-                    <ion-button #cartButton id="cart-button" (click)="addToCart(product._id, product.title, cartButton)()">
-                      <ion-icon slot="start" name="cart-outline"></ion-icon>
-                    </ion-button>
+                  <ion-buttons (click)="addToCart(product._id, product.title)" slot="start">
+                    <img class="cart-button" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
                   </ion-buttons>
                   <ion-buttons slot="end">
                     <app-favorite-icon 
@@ -280,7 +270,7 @@
     <ion-row *ngIf="!this.authState" >
       <ion-col size="12">
         <div class="spacer-1x"></div>
-        <p class="static-alert-yellow">Please login to see you Favorites.</p>
+        <p class="static-alert-yellow">Please login to see your Favorites.</p>
       </ion-col>
     </ion-row>
 

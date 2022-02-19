@@ -7,14 +7,7 @@
     // box-shadow: 1px 1px 10px #dedede;
 
     .cart-button {
-        height: 50px;
-        width: 50px;
-        --background: #999;
-        --border-radius: 50px;
-
-        ion-icon {
-            color: white;
-        }
+        width: 150px;
     }
 }
 
@@ -108,14 +101,7 @@ ion-footer {
             }
 
             .cart-button {
-                height: 50px;
-                width: 50px;
-                --background: #999;
-                --border-radius: 50px;
-
-                ion-icon {
-                    color: white;
-                }
+                width: 150px;
             }
             
         }

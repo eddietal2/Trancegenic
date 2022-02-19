@@ -27,9 +27,7 @@
               button to add a Product to your Cart.
               </p>
               <div class="spacer-2x"></div>
-              <ion-button class="cart-button">
-                <ion-icon slot="start" name="cart-outline"></ion-icon>
-              </ion-button>
+               <img class="cart-button" src="../../../assets/icons/add-to-cart.svg" alt="" srcset="">
               <div class="spacer-2x"></div>
               <ion-button (click)="goBackToProductsPage()">
                 <span class="hr-spacer-1x"></span>
@@ -61,10 +59,8 @@
                 <!-- Cart + Favorites Toolbar -->
                 <div class="spacer-3x"></div>
                 <ion-toolbar>
-                  <ion-buttons slot="start">
-                    <ion-button class="cart-button" (click)="onClick()">
-                      <ion-icon slot="start" name="cart-outline"></ion-icon>
-                    </ion-button>
+                  <ion-buttons (click)="tryRemoveFromCart(product._id, product.title)" slot="start">
+                    <img class="cart-button" src="../../../assets/icons/remove-from-cart.svg" alt="" srcset="">
                   </ion-buttons>
                   <ion-buttons slot="end">
                     <app-favorite-icon 
@@ -83,7 +79,7 @@
 <!-- Complete Order Button on Mobile Devices -->
 <ion-footer>
   <ion-button class="cart-not-empty" *ngIf="this.cartLength > 0" expand="full" (click)="tryCompleteOrder()">
-    Complete Order
+    Complete Order <span style="font-weight: 800; margin-left: 1em;">({{this.cartLength}})</span>
   </ion-button>
   <ion-button [disabled]="true" class="cart-empty" *ngIf="this.cartLength == 0" expand="full" (click)="tryCompleteOrder()">
     Cart is Empty

@@ -7,7 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { IonicStorageModule } from '@ionic/storage-angular';
-// import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
@@ -50,7 +50,7 @@ export function jwtOptionsFactory(storage) {
     // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
     AppRoutingModule],
   providers: [
-    // InAppBrowser,
+    InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

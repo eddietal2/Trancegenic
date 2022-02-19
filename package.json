@@ -22,7 +22,6 @@
     "@angular/router": "~13.1.0",
     "@auth0/angular-jwt": "^5.0.2",
     "@awesome-cordova-plugins/in-app-browser": "^5.39.1",
-    "@awesome-cordova-plugins/ionic-webview": "^5.39.1",
     "@capacitor/app": "1.1.0",
     "@capacitor/core": "3.4.1",
     "@capacitor/haptics": "1.1.4",

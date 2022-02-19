@@ -37,7 +37,7 @@ interface Review {
 export class CartPage implements OnInit {
 
   constructor(
-    private ProductsService: ProductsService,
+    private productsService: ProductsService,
     private loginService: LoginService,
     // private iab: InAppBrowser,
     public alertController: AlertController,
@@ -55,7 +55,7 @@ export class CartPage implements OnInit {
     this.cartSub.unsubscribe();
   }
 
-  cart$ = new BehaviorSubject([])
+  
   cart;
   loginSub: Subscription;
   cartSub: Subscription;
@@ -69,10 +69,10 @@ export class CartPage implements OnInit {
   tryGetCart() {
     this.loginSub = this.loginService.userEmail
       .subscribe((userEmail: string) => {
-        this.cartSub = this.ProductsService.getCart(userEmail)
+        this.cartSub = this.productsService.getCart(userEmail)
           .subscribe((cart: Array<Product>) => {
-            this.cart$.next(cart);
-            this.cart$.subscribe((cart) => {
+            this.productsService.cart$.next(cart);
+            this.productsService.cart$.subscribe((cart) => {
               this.userEmail = userEmail;
               this.cart = cart;
               this.cartLength = cart.length;
@@ -100,6 +100,49 @@ export class CartPage implements OnInit {
 
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
+   }
+
+  /**
+   * Remove From Cart
+   */
+   removeFromCartSub: Subscription;
+
+   async tryRemoveFromCart(id, title) {
+
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Remove item from cart?',
+      message: `Are you sure you want to remove ${title} from your Cart?`,
+      buttons:  [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          id: 'confirm-button',
+          handler: () => {
+            this.removeFromCartSub = this.productsService.removeFromCart(id, this.userEmail)
+            .pipe()
+            .subscribe( async updatedCart => {
+              console.log(updatedCart);
+              this.productsService.cart$.next(Object.values(updatedCart))
+      
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+    
    }
 
   goToLoginPage() {

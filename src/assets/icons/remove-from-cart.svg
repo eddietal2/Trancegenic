@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1321px" height="456px" viewBox="0 0 1321 456" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>remove-from-cart</title>
+    <g id="remove-from-cart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#FFAEAE" x="0" y="0" width="1321" height="457" rx="80"></rect>
+        <g id="Group" transform="translate(411.000000, 88.000000)">
+            <g id="cart-outline" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="32">
+                <ellipse id="Oval" cx="102.44133" cy="269.060123" rx="12.8051662" ry="12.8123868"></ellipse>
+                <ellipse id="Oval" cx="281.713657" cy="269.060123" rx="12.8051662" ry="12.8123868"></ellipse>
+                <polyline id="Path" points="0 0 51.2206649 0 89.6361635 217.810576 294.518823 217.810576"></polyline>
+                <path d="M89.6361635,166.56103 L289.268705,166.56103 C292.322041,166.563155 294.952023,164.407701 295.55124,161.412051 L318.600539,46.1005693 C318.977163,44.2177237 318.489819,42.2651313 317.272713,40.7805113 C316.055608,39.2958912 314.237107,38.4358237 312.318004,38.4371589 L64.0258311,38.4371589" id="Path"></path>
+            </g>
+            <path d="M500,133.482072 L500,148.390438 C500,150.599577 498.209139,152.390438 496,152.390438 L365.553785,152.390438 C363.344646,152.390438 361.553785,150.599577 361.553785,148.390438 L361.553785,133.482072 C361.553785,131.272933 363.344646,129.482072 365.553785,129.482072 L496,129.482072 C498.209139,129.482072 500,131.272933 500,133.482072 Z" id="Combined-Shape" fill="#000000"></path>
+        </g>
+    </g>
+</svg>
