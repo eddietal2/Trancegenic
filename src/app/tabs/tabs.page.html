@@ -51,7 +51,7 @@
 
     <ion-tab-button tab="cart">
       <ion-icon name="cart" size="large"></ion-icon>
-      <ion-badge id="cart-tab-bar-count" *ngIf="this.authState" color="primary">{{cartLength}}</ion-badge>
+      <ion-badge id="cart-tab-bar-count" *ngIf="this.authState" color="primary">{{this.cartLength}}</ion-badge>
     </ion-tab-button>
   </ion-tab-bar>
 

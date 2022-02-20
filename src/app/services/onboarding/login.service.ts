@@ -26,8 +26,7 @@ export class LoginService {
   userFullName = new BehaviorSubject('none');
   userEmail = new BehaviorSubject('none');
   userPicture = new BehaviorSubject('none');
-  userCartLength = new BehaviorSubject(null);
-   
+  userCartLength = new BehaviorSubject(0);
 
 
   constructor(
@@ -103,7 +102,7 @@ export class LoginService {
       this.authenticationState.next(false);
       this.userType.next('none');
       this.userFullName.next('none');
-      // this.userPicture.next('none');
+      this.userCartLength.next(0);
       this.userEmail.next('none');
       window.location.reload();
     });
@@ -129,6 +128,8 @@ export class LoginService {
 
   async loginSuccess(data) {
 
+    console.log(data)
+
     // Create Toast
     const toast = await this.toastController.create({
       message: 'You have successfully logged in!',
@@ -146,15 +147,12 @@ export class LoginService {
     this.userFullName.next(data['fullName']);
     this.userPicture.next(data['picture']);
     this.userEmail.next(data['email']);
-    // TODO wire Cart Length to Mobile Tabs bar and Desktop Toolbar
+    this.userCartLength.next(data['cart']);
     this.authenticationState.next(true);
+
+    console.log(data);
     
-    loading.present();
-    loading.onDidDismiss()
-      .then(() => {
-        toast.present();
-        return;
-      });
+    return loading.present();
   }
 
   /**  looks up our storage for a valid JWT and if found, changes our authenticationState
@@ -171,10 +169,12 @@ export class LoginService {
           this.user = decoded;
 
           if((decoded.email !== '')) {
+            console.log(decoded);
             this.userType.next('user');
             this.userPicture.next(decoded.picture);
             this.userEmail.next(decoded.email);
             this.userFullName.next(decoded.fullName);
+            this.userCartLength.next(decoded.cartLength);
             this.authenticationState.next(true);
           }
         } else {

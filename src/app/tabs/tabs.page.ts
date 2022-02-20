@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginService } from '../services/onboarding/login.service';
-import { ProductsService } from '../services/products/products.service';
+import { ProfileService } from '../services/profile/profile.service';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
-export class TabsPage implements OnInit {
+export class TabsPage implements OnInit, AfterViewInit {
   userEmail: string;
   userFullName: string;
   userPicture: string;
@@ -20,12 +20,14 @@ export class TabsPage implements OnInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private productsService: ProductsService
+    private profileService: ProfileService
   ) {}
+  ngAfterViewInit(): void {
+    this.getCartAmount();
+  }
 
   ngOnInit() {
     this.tabBarStyling();
-    this.getCartAmount();
   }
 
   /**
@@ -60,10 +62,11 @@ export class TabsPage implements OnInit {
   authState: boolean;
 
   getCartAmount() {
-    this.getCartLengthSub = this.productsService.cart$.subscribe(data => {
+    this.getCartLengthSub = this.loginService.userCartLength.subscribe(data => {
       console.log('Getting Cart Length: ')
       console.log(data)
-      this.cartLength = data.length;
+      this.cartLength = data;
+      return;
     })
 
     this.loginService.authenticationState.subscribe(state => {
