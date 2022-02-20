@@ -5,6 +5,7 @@ import {Howl, Howler} from 'howler';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { LoginService } from 'src/app/services/onboarding/login.service';
 
 Swiper.use([Autoplay]);
 
@@ -367,15 +368,16 @@ export class ProductPagePage implements OnInit, OnDestroy {
   };
   reviewButtonMessage: string;
   sound: any;
+  authState: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private productsService: ProductsService,
     private location: Location,
-    public toastController: ToastController,
-    public loadingController: LoadingController
-    // private auth: AuthSevice
+    private toastController: ToastController,
+    private loadingController: LoadingController,
+    private loginService: LoginService
     ) {
       // this.userEmail = this.auth.userEmail;
      }
@@ -389,7 +391,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
         this.productInfo = info;
 
         console.log(this.productInfo)
-        this.reviewButtonMessage = `Show Reviews (${this.productInfo.reviews})`;
+        this.reviewButtonMessage = `Show Reviews (${info['reviews'].length})`;
         this.sound = new Howl({
           html5: true,
           src: [this.productInfo.sample],
@@ -398,6 +400,10 @@ export class ProductPagePage implements OnInit, OnDestroy {
           },
         });
         
+      })
+
+      this.loginService.authenticationState.subscribe(state => {
+        this.authState = state
       })
 
   }
@@ -683,6 +689,16 @@ export class ProductPagePage implements OnInit, OnDestroy {
   }
 
   /**
+   * Toggle Review Input
+   */
+  reviewInputToggle = false;
+
+  addReview() {
+    this.reviewInputToggle = !this.reviewInputToggle;
+    console.log(this.reviewInputToggle);
+  }
+
+  /**
    * Toggle Product Reviews UI view
    */
 
@@ -724,9 +740,8 @@ export class ProductPagePage implements OnInit, OnDestroy {
    footerScrollIntoView = false;
 
    trackPageLocation(e) {
-     console.clear();
     let scrollDetail = e.detail;
-    console.log(scrollDetail);
+    // console.log(scrollDetail);
 
     if(scrollDetail.scrollTop >= 1300) {
       console.log('show footer');
@@ -737,6 +752,13 @@ export class ProductPagePage implements OnInit, OnDestroy {
       this.footerScrollIntoView = false;
     }
    }
+
+   /**
+    * Go to Login Page from when user scrolls near Show Reviews button (and they aren't logged in)
+    */
+  goToLoginPage() {
+    this.router.navigateByUrl('login');
+  }
 
    /**
     * Go to Contact us Page

@@ -75,11 +75,11 @@
       <ion-col id="product-info-wrapper" size-xs="11" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
 
         <div class="spacer-2x"></div>
-        <h1 class="product-title">{{productInfo.title}}</h1>
 
         <!-- Info -->
         <div id="product-info">
           <h1 class="product-price">${{productInfo.price}}</h1>
+          <h3 class="product-title">{{productInfo.title}}</h3>
           <div class="spacer-1x"></div>
           <p class="product-duration"><b>Duration: </b>{{productInfo.duration}} Mins</p>
           <!-- <p class="product-reviews-length"><b>Reviews:</b> {{productInfo.reviews.length}}</p> -->
@@ -221,7 +221,7 @@
 
       </ion-col>
 
-      <!-- Back To Products Page Button -->
+      <!-- Bottom Buttons -->
       <ion-col 
         id="product-bottom-buttons-lg" 
         class="ion-text-center" 
@@ -241,11 +241,28 @@
           Favorite
         </ion-button>
         <ion-button 
+          *ngIf="this.authState"
+          color="success"
+          id="add-review-button-lg" 
+          (click)="addReview()">
+          <!-- Add isLg property that changes class depending on viewport size -->
+          <ion-icon slot="start" name="plus"></ion-icon>
+          Add Review
+        </ion-button>
+        <ion-item *ngIf="this.reviewInputToggle" lines="none">
+          <ion-textarea rows="10" placeholder="Add message here: " id="product-page-review-input"></ion-textarea>
+        </ion-item>
+        <ion-button 
           id="reviews-button" 
           [ngClass]="this.reviewDisplay ? 'hide-reviews-button' : 'show-reviews-button'" 
           (click)="toggleReviews()">
           <ion-icon name="chatbubbles-outline"></ion-icon>
             {{reviewButtonMessage}}
+        </ion-button>
+        <div class="spacer-2x"></div>
+        <p class="static-alert-blue" *ngIf="!this.authState">Log in to post a Review</p>
+        <ion-button (click)="goToLoginPage()" expand="block" color="primary" *ngIf="!this.authState">
+          Login
         </ion-button>
       </ion-col>
 

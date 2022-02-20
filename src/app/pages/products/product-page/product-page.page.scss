@@ -6,6 +6,7 @@
     
     .product-title {
         height: 40px;
+        color: #fff;
     }
 
     #product-info {
@@ -27,7 +28,7 @@
     
         .product-category {
             font-size: 1.2em;
-            color: #fff;
+            color: #1bbbec;
         }
     
         .product-reviews-length {
@@ -265,6 +266,12 @@
         --color: #ff5353;
         display: block;
         
+    }
+
+    #product-page-review-input {
+        --background: #dedede;
+        padding: 1em;
+
     }
     
     .show-reviews-button {
