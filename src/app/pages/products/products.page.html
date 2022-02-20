@@ -68,8 +68,9 @@
                   <h5 class="product-reviews-length">Reviews: {{featuredProduct.reviews.length}}</h5>
 
                   <ion-toolbar *ngIf="this.authState">
-                    <ion-buttons #cartButton (click)="tryAddToCart(featuredProduct._id, featuredProduct.title, cartButton)" slot="start">
-                      <img class="cart-button" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
+                    <ion-buttons #cartButton  slot="start">
+                      <img class="cart-button" (click)="tryAddToCart(featuredProduct._id, featuredProduct.title, cartButton)" *ngIf="!this.cart.includes(featuredProduct._id)" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
+                      <img class="cart-button" (click)="tryAddToCart(featuredProduct._id, featuredProduct.title, cartButton)" *ngIf="this.cart.includes(featuredProduct._id)" src="../../../assets/icons/remove-from-cart.svg" alt="Hypnosis Downloads Product">
                     </ion-buttons>
                   <ion-buttons slot="end">
                     <app-favorite-icon [id]="featuredProduct._id"></app-favorite-icon>

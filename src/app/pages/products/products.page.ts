@@ -158,6 +158,8 @@ export class ProductsPage implements OnInit, AfterViewInit {
   userFavoriteProductsSub: Subscription;
   userEmailSub: Subscription;
   featuredProductsSub: Subscription;
+  userCartSub: Subscription;
+  cart = [];
 
   initializeData() {
 
@@ -202,6 +204,11 @@ export class ProductsPage implements OnInit, AfterViewInit {
               })
             })
             this.favoriteProductsLength = Object.values(data).length;
+          })
+
+          this.userCartSub = this.loginService.userCart.subscribe( data => {
+            this.cart = data;
+            console.log(data);
           })
         })
 
@@ -775,35 +782,36 @@ async openFilterActionSheet() {
 
       this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
       .pipe(
-        catchError(async e => {
-          // TODO: Handle Error for if they weren't connected to network.
-          let errorMessage = e.error.msg;
-          if(errorMessage == 'User already has this product in their cart.') {
-            const toast = await this.toastController.create({
-              message: `You already have this Product in your Cart!`,
-              duration: 10000,
-              cssClass: 'danger-toast',
-              position: 'top',
-              buttons: [
-                {
-                  side: 'end',
-                  icon: 'close',
-                  role: 'cancel',
-                  handler:  () => {
-                    toast.dismiss();
-                  }
-                }
-              ]
-            });
-            toast.present();
+        // catchError(async e => {
+        //   // TODO: Handle Error for if they weren't connected to network.
+        //   let errorMessage = e.error.msg;
+        //   if(errorMessage == 'User already has this product in their cart.') {
+        //     const toast = await this.toastController.create({
+        //       message: `You already have this Product in your Cart!`,
+        //       duration: 10000,
+        //       cssClass: 'danger-toast',
+        //       position: 'top',
+        //       buttons: [
+        //         {
+        //           side: 'end',
+        //           icon: 'close',
+        //           role: 'cancel',
+        //           handler:  () => {
+        //             toast.dismiss();
+        //           }
+        //         }
+        //       ]
+        //     });
+        //     toast.present();
             
-          }
-          throw Error(e)
-        })
+        //   }
+        //   throw Error(e)
+        // })
       )
       .subscribe(async data => {
         console.log(data);
         this.productsService.cart$.next(data['userCart']);
+        this.loginService.userCart.next(data['userCart']);
         cartButton.el.style.transform = 'scale(1.4)';
         cartButton.el.style.color = 'red';
         setTimeout(() => {
@@ -844,9 +852,9 @@ async openFilterActionSheet() {
           toast.present();
         
           // 
-        setTimeout(() => {
-          return this.addToCartSub.unsubscribe();
-        }, 3000);
+        // setTimeout(() => {
+        //   return this.addToCartSub.unsubscribe();
+        // }, 3000);
       })
     }
 

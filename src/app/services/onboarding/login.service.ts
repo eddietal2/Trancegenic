@@ -27,6 +27,7 @@ export class LoginService {
   userEmail = new BehaviorSubject('none');
   userPicture = new BehaviorSubject('none');
   userCartLength = new BehaviorSubject(0);
+  userCart = new BehaviorSubject([]);
 
 
   constructor(
@@ -103,6 +104,7 @@ export class LoginService {
       this.userType.next('none');
       this.userFullName.next('none');
       this.userCartLength.next(0);
+      this.userCart.next([]);
       this.userEmail.next('none');
       window.location.reload();
     });
@@ -147,7 +149,8 @@ export class LoginService {
     this.userFullName.next(data['fullName']);
     this.userPicture.next(data['picture']);
     this.userEmail.next(data['email']);
-    this.userCartLength.next(data['cart']);
+    this.userCartLength.next(data['cart'].length);
+    this.userCart.next(data['cart']);
     this.authenticationState.next(true);
 
     console.log(data);

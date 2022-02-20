@@ -73,6 +73,7 @@ export class CartPage implements OnInit {
         this.cartSub = this.productsService.getCart(userEmail)
           .subscribe((cart: Array<Product>) => {
             this.productsService.cart$.next(cart);
+            this.loginService.userCart.next(cart);
             this.productsService.cart$.subscribe((cart) => {
               this.userEmail = userEmail;
               this.cart = cart;
