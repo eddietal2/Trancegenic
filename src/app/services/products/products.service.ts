@@ -71,4 +71,8 @@ export class ProductsService {
   removeFromCart(id: string, email: string) {
     return this.http.post(`${this.BACKEND_URL}/products/remove-from-cart`, {_id: id, email})
   }
+
+  postReview(id: string, email: string) {
+    return this.http.post(`${this.BACKEND_URL}/products/remove-from-cart`, {_id: id, email})
+  }
 }

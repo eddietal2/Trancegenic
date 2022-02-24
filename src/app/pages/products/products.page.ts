@@ -95,6 +95,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
   favoriteProductsLength: number;
   searchLoadedProductsLength: number;
   addToCartSub: Subscription;
+  removeFromCartSub: Subscription;
 
   constructor(
     private actionSheetController: ActionSheetController,
@@ -781,37 +782,12 @@ async openFilterActionSheet() {
       let cartButton = button;
 
       this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
-      .pipe(
-        // catchError(async e => {
-        //   // TODO: Handle Error for if they weren't connected to network.
-        //   let errorMessage = e.error.msg;
-        //   if(errorMessage == 'User already has this product in their cart.') {
-        //     const toast = await this.toastController.create({
-        //       message: `You already have this Product in your Cart!`,
-        //       duration: 10000,
-        //       cssClass: 'danger-toast',
-        //       position: 'top',
-        //       buttons: [
-        //         {
-        //           side: 'end',
-        //           icon: 'close',
-        //           role: 'cancel',
-        //           handler:  () => {
-        //             toast.dismiss();
-        //           }
-        //         }
-        //       ]
-        //     });
-        //     toast.present();
-            
-        //   }
-        //   throw Error(e)
-        // })
-      )
       .subscribe(async data => {
         console.log(data);
         this.productsService.cart$.next(data['userCart']);
         this.loginService.userCart.next(data['userCart']);
+        this.cart = data['userCart'];
+        
         cartButton.el.style.transform = 'scale(1.4)';
         cartButton.el.style.color = 'red';
         setTimeout(() => {
@@ -856,6 +832,63 @@ async openFilterActionSheet() {
         //   return this.addToCartSub.unsubscribe();
         // }, 3000);
       })
+    }
+
+    tryRemoveFromCart(id, title, button) {
+      let cartCount = document.getElementById('cart-tab-bar-count');
+      let cartButton = button;
+
+      this.removeFromCartSub = this.productsService.removeFromCart(id, this.userEmail)
+      .subscribe(async data => {
+        console.log(data);
+        this.productsService.cart$.next(data['userCart']);
+        this.loginService.userCart.next(data['userCart']);
+        this.cart = data['userCart'];
+        cartButton.el.style.transform = 'scale(1.4)';
+        cartButton.el.style.color = 'red';
+        setTimeout(() => {
+          cartButton.el.style.transform = 'scale(1)';
+          cartButton.el.style.color = '#222';
+          cartCount.style.transform = 'scale(4)';
+          cartCount.style.background = 'green';
+          setTimeout(() => {
+            cartCount.style.transform = 'scale(1)';
+            cartCount.style.background = 'blue';
+            
+          }, 800);
+          
+        }, 200);
+
+          /**
+           * Toast that displays when a user adds this Product to their Cart
+           * '&#x2713;' is HTML escape character for a check mark ✓
+           */
+
+          const toast = await this.toastController.create({
+            message: `&#x2713;   You have added ${title} to your Cart!`,
+            duration: 10000,
+            color: 'success',
+            position: 'top',
+            cssClass: 'add-to-cart-toast',
+            buttons: [
+              {
+                side: 'end',
+                icon: 'close',
+                role: 'cancel',
+                handler:  () => {
+                  toast.dismiss();
+                }
+              }
+            ]
+          });
+          toast.present();
+        
+          // 
+        // setTimeout(() => {
+        //   return this.addToCartSub.unsubscribe();
+        // }, 3000);
+      })
+
     }
 
     /**

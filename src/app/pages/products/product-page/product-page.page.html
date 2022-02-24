@@ -224,7 +224,6 @@
       <!-- Bottom Buttons -->
       <ion-col 
         id="product-bottom-buttons-lg" 
-        class="ion-text-center" 
         size-xs="11" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
         <div class="spacer-5x"></div>
         <ion-button 
@@ -244,14 +243,23 @@
           *ngIf="this.authState"
           color="success"
           id="add-review-button-lg" 
-          (click)="addReview()">
+          (click)="tryAddReview()">
           <!-- Add isLg property that changes class depending on viewport size -->
           <ion-icon slot="start" name="plus"></ion-icon>
           Add Review
         </ion-button>
-        <ion-item *ngIf="this.reviewInputToggle" lines="none">
-          <ion-textarea rows="10" placeholder="Add message here: " id="product-page-review-input"></ion-textarea>
-        </ion-item>
+        <div *ngIf="this.reviewInputToggle" lines="none">
+        <app-rating-picker (sendRating)="getRating($event)"></app-rating-picker>
+          <ion-textarea 
+            #reviewInput
+            rows="10" 
+            placeholder="Add message here: " 
+            id="product-page-review-input">
+          </ion-textarea>
+          <ion-button (click)="postReview(reviewInput.value)" color="danger">
+            Post Review
+          </ion-button>
+        </div>
         <ion-button 
           id="reviews-button" 
           [ngClass]="this.reviewDisplay ? 'hide-reviews-button' : 'show-reviews-button'" 

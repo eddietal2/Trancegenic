@@ -4,6 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { MobileTopToolbarComponent } from './mobile-top-toolbar/mobile-top-toolbar.component';
 import { FavoriteIconComponent } from './favorite-icon/favorite-icon.component';
 import { RatingsStarsComponent } from './ratings-stars/ratings-stars.component';
+import { RatingPickerComponent } from './rating-picker/rating-picker.component';
+
 
 @NgModule({
     imports: [
@@ -13,12 +15,14 @@ import { RatingsStarsComponent } from './ratings-stars/ratings-stars.component';
     declarations: [
         MobileTopToolbarComponent,
         FavoriteIconComponent,
-        RatingsStarsComponent
+        RatingsStarsComponent,
+        RatingPickerComponent
     ],
     exports: [
         MobileTopToolbarComponent,
         FavoriteIconComponent,
-        RatingsStarsComponent
+        RatingsStarsComponent,
+        RatingPickerComponent
     ]
 })
 export class CustomComponentsModule {}

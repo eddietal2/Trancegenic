@@ -369,6 +369,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
   reviewButtonMessage: string;
   sound: any;
   authState: boolean;
+  reviewRating = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -412,6 +413,13 @@ export class ProductPagePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     console.log('Products Page destroyed');
     this.sound.unload();
+    this.reviewRating = null;
+  }
+
+  getRating(e) {
+    this.reviewRating = e;
+    console.log('Review Rating: ' + this.reviewRating);
+    return;
   }
 
   /**
@@ -693,9 +701,19 @@ export class ProductPagePage implements OnInit, OnDestroy {
    */
   reviewInputToggle = false;
 
-  addReview() {
+  tryAddReview() {
     this.reviewInputToggle = !this.reviewInputToggle;
     console.log(this.reviewInputToggle);
+  }
+
+  /**
+   * Post a Review
+   * @param input 
+   * @returns void
+   */
+  postReview(input: string) {
+    console.log(input);
+    return;
   }
 
   /**
