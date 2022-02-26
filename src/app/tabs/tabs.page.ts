@@ -20,7 +20,7 @@ export class TabsPage implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
   ) {}
   ngAfterViewInit(): void {
     this.getCartAmount();
@@ -28,6 +28,8 @@ export class TabsPage implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.tabBarStyling();
+
+    console.log(this.router)
   }
 
   /**
@@ -41,11 +43,11 @@ export class TabsPage implements OnInit, AfterViewInit {
         if (data.url == '/cart') {          
           cartIcon.style.color = '#3171e0';
         } 
-        if (data.url == '/products' || data.url == '/blog' || data.url == '/profile') {
-          let navWrapper = document.getElementById('nav-wrapper');
-          navWrapper.style.background = "#fff";
+        // if (data.url == '/products' || data.url == '/blog' || data.url == '/profile') {
+        //   let navWrapper = document.getElementById('nav-wrapper');
+        //   navWrapper.style.background = "#fff";
 
-        }
+        // }
         else {
           let navWrapper = document.getElementById('nav-wrapper');
           cartIcon.style.color = '#999';
@@ -74,8 +76,17 @@ export class TabsPage implements OnInit, AfterViewInit {
     });
 
     setTimeout(() => {
-      return this.addToCartSub.unsubscribe();
-    }, 3000);
+      return this.getCartLengthSub.unsubscribe();
+    }, 800);
+  }
+
+  tabDidChange(e: CustomEvent) {
+    console.log(e);
+    
+  }
+  tabWillChange(e: CustomEvent) {
+    console.log(e);
+
   }
 
 

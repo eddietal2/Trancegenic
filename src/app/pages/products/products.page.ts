@@ -112,7 +112,6 @@ export class ProductsPage implements OnInit, AfterViewInit {
    }
 
   ngOnInit() { 
-    console.clear();
     this.initializeData();
   }
   
@@ -141,10 +140,10 @@ export class ProductsPage implements OnInit, AfterViewInit {
     featuredProductsIonItem.style.background = "#ffdcca";
     // allProductsIonItem.style.background = "none";
     accordianGroup.attributes[0].value = 'featured';
-    searchBar.style.opacity = '0';
-    searchBar.style.pointerEvents = 'none';
-    filterButton.style.opacity = '0';
-    filterButton.style.pointerEvents = 'none';
+    // searchBar.style.opacity = '0';
+    // searchBar.style.pointerEvents = 'none';
+    // filterButton.style.opacity = '0';
+    // filterButton.style.pointerEvents = 'none';
     
     
   }

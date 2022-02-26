@@ -7,11 +7,26 @@
     color: var(--ion-color-primary);
 }
 
+ion-tab-bar {
+    --border: none;
+    box-shadow: 1px -4px 10px #0a0a0a21;
+    ion-tab-button {
+        --color: #888;
+        --color-selected: #00c400;
+    
+    
+        ion-label {
+            color: #888;
+        }
+    }
+}
+
+
 #nav-wrapper {
     box-shadow: 1px 1px 8px #dedede;
     padding: 1em 23% 0 23%; 
     height: 60px;
-    background: #fff;
+    background: #dedede;
     transition: 0.5s;
     position: fixed;
     width: 100%;
@@ -52,11 +67,5 @@ ion-toolbar {
 #cart-tab-bar-count {
     font-size: 1.3em;
 }
-ion-icon {
-    color: #fff;
-     margin-bttom: 0.3em;
-}
 
-ion-label {
-    color: #fff;
-}
+
