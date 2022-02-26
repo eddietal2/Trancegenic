@@ -50,7 +50,7 @@
                 color: green;
             }
         }
-        .search-item:hover {
+        .search-item-hover {
             background: #dedede;
         }
     }
@@ -165,7 +165,7 @@
             #welcome-popup {        
                 height: 95vh;
                 width: 400px;
-                margin-top: 300px;
+                margin-top: 35%;
             }
         }
 
@@ -207,18 +207,14 @@
 }
 
 // Intro Section
-#intro-inner-wrapper {
+#intro-wrapper {
     margin: 4em auto;
-    padding: 2em;
-    border-radius: 5px;
 
     .intro-section {
-        // background: blue;
-        height: 150;
-        margin: 1em 0;
 
         #why-hypnosis {
             width: 100%;
+            font-size: 1.3em;
         }
 
         #hyp-illustration {
@@ -258,6 +254,12 @@
     }
 }
 
+#growth-membership-wrapper {
+    #growth-text {
+        font-size: 1.3em;
+    }
+}
+
 // Latest Products & Blogs
 .static-alert-yellow {
     width: 100%;
@@ -293,6 +295,7 @@
     background: #dedede;
     padding:  2em 0.4em;
     transition: 0.3s;
+    font-size: 1.3em;
 }
 
 #landing-featured-swiper {
@@ -326,7 +329,7 @@
     }
 
     .product-title {
-        height: 40px;
+        height: 100px;
         margin-bottom: 1em;
     }
 

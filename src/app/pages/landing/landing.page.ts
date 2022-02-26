@@ -7,7 +7,8 @@ import {Howl, Howler} from 'howler';
 import { LandingService } from 'src/app/services/landing/landing.service';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { LoadingController, ToastController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { initialize } from '@ionic/core';
 
 Swiper.use([Autoplay]);
 
@@ -64,7 +65,6 @@ export class LandingPage implements OnInit {
   getFeaturedProductsForLandingSub: Subscription;
   searchProducts = [];
   dynanimcSearchArray = [];
-  searching = false;
   searchBarValue = "";
   authState: boolean;
   userEmail: string;
@@ -82,64 +82,147 @@ export class LandingPage implements OnInit {
   }
 
   ngOnInit() {
+    this.initializeData();
+  }
+
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
+   initializeData() {
+    // Get Products for Search bar
     this.getSearchProductsSub = this.productsService.getAllProductsForLandingSearch()
     .subscribe(searchProducts => {
       this.searchProducts = searchProducts;
     });
 
+    // Get User's Auth State
     this.loginService.authenticationState.subscribe(data => {
       this.authState = data;
     });
 
+    // Get User's Email Address
     this.loginService.userEmail.subscribe(data => {
       this.userEmail = data;
     })
 
+    // Get Featured Products
     this.getLandingFeaturedProducts();
-    this.hypIllustration = document.getElementById('hyp-illustration');
+
+    // Track Illustration
+    // this.hypIllustration = document.getElementById('hyp-illustration');
     // console.log('\nHypnosis Illustration Scrolltop: ');
     // console.log(this.hypIllustration.scrollTop);
 
+    // Set Membership Form
     this.membershipForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], 
-    })
+    });
 
-        this.landingService.getLandingFeaturedPosts();
-  }
+   }
 
   /**
    * @param e - ionChange Event for Searchbar
    */
+
+  searchLength = null;
+  searchItemIDs = [];
+
   searchUpdate(e: CustomEvent) {
+    // Get Search Items
+    this.searchBarClicked = true;
+
+    setTimeout(() => {
+
+      let searchItem = document.getElementsByClassName('search-item');
+      let searchItemIDs = [];
+
+      for (let i = 0; i < searchItem.length; i++) {
+        searchItem.item(i).addEventListener('mouseover', (e: MouseEvent) => {
+          searchItem.item(i).id = `search-item-${i}`;
+          searchItemIDs.push(searchItem.item(i).id);
+          console.log(searchItem.item(i).id)          
+        })
+
+        this.searchLength = searchItem.length;
+        this.searchItemIDs = searchItemIDs;
+        
+      }
+      
+    }, 800);
+
     this.searchBarValue = e.detail.value;
     this.dynanimcSearchArray = this.searchProducts
       .filter(product => product.title.startsWith(this.searchBarValue))
 
 
-    console.log("Search Input: " + this.searchBarValue);
-    console.log(this.dynanimcSearchArray);
-    console.log(this.dynanimcSearchArray.length);
+    // console.log("Search Input: " + this.searchBarValue);
+    // console.log(this.dynanimcSearchArray);
+    // console.log(this.dynanimcSearchArray.length);
 
     if(!this.searchBarValue) {
       console.log("Search is empty" + this.searchBarValue );
       return this.dynanimcSearchArray = [];
     }
+
+
+    
   }
 
+  searchBarClicked = false;
+  searching = false;
+
   searchingOn() {
+    console.clear();
     this.searching = true;
   }
 
-  searchingOff() {
-    this.searching = false;
+  searchingOff(e: CustomEvent) {
+
+    if (this.searchBarClicked == true) {
+      e.preventDefault();
+      console.log(this.searchLength);
+      console.log(this.searchItemIDs);
+      console.log('Default Prevented: ' + e.defaultPrevented);
+
+      setTimeout(() => {
+        this.searching = false;
+        this.searchBarClicked == false;
+
+        // Fix this (timeout time) if Search Bar Blur isn't working.
+      }, 500);
+    }
+
+    if (!e.defaultPrevented) {
+      this.searching = false;
+      // this.searchBarClicked = false;
+    }
+ 
+    
   }
 
+  goToProductPageSearchBar(id, searchBar) {
+    console.log('Going to Products Page from Search Bar');
+
+    this.searchBarClicked = true;
+
+    if(this.searchBarClicked = true) {
+      this.router.navigate(["/products/product-page", id]);
+      searchBar.value = '';
+    }
+    
+    // setTimeout(() => {
+    //   this.searchingOff();
+    //   searchBar.value = "";
+    // }, 500);
+
+  }
   goToProductPage(id, searchBar) {
     console.log(searchBar)
     this.router.navigate(["/products/product-page", id]);
     setTimeout(() => {
-      this.searchingOff();
-      searchBar.value = "";
+      searchBar.value = '';
     }, 500);
 
   }
