@@ -11,22 +11,51 @@
   <ion-grid>
   <ion-row class="ion-justify-content-center">
     <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="5">
-      <div class="spacer-2x"></div>
+
+      <!-- Info Header -->
+      <div class="spacer-4x"></div>
+      <h2>Info</h2>
       <div class="static-alert-yellow">
-        <p>Please fill out the entire form to continue.</p>
+        <p>Please fill out the entire form.</p>
       </div>
+
+      <!-- Forms -->
       <form [formGroup]="registerForm" (ngSubmit)="register()">
         <ion-item>
           <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
-          <ion-input required formControlName="firstName" type="text"></ion-input>
+          <ion-input required formControlName="firstName" maxlength="40" type="text"></ion-input>
+          <!-- Name Validation-->
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessasges.firstName">
+                  <div class="validation-error-message"
+                  *ngIf="registerForm
+                    .get('firstName')
+                    .hasError(validation.type) && (registerForm.get('firstName')
+                    .dirty || registerForm.get('firstName').touched)">
+                    {{ validation.message }}
+                  </div>
+            </ng-container>
+          </div>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
-          <ion-input required formControlName="lastName" type="text"></ion-input>
+          <ion-label position="floating">Last Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="lastName" maxlength="40" type="text"></ion-input>
+          <!-- Name Validation-->
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessasges.lastName">
+                  <div class="validation-error-message"
+                  *ngIf="registerForm
+                    .get('lastName')
+                    .hasError(validation.type) && (registerForm.get('lastName')
+                    .dirty || registerForm.get('lastName').touched)">
+                    {{ validation.message }}
+                  </div>
+            </ng-container>
+          </div>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
-          <ion-input required formControlName="email" type="email"></ion-input>
+          <ion-input required formControlName="email" maxlength="80" type="email"></ion-input>
           <!-- Email Validation-->
           <div class="validation-errors">
             <ng-container *ngFor="let validation of validationMessasges.email">
@@ -40,9 +69,15 @@
             </ng-container>
           </div>
         </ion-item>
+
+        <!-- Passwords Header -->
+        <div class="spacer-4x"></div>        
+        <h2>Passwords</h2>
+        <p class="static-alert-red">Passwords have to be at least 8 characters.</p>
+       
         <ion-item>
             <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required formControlName="password" type="password"></ion-input>
+            <ion-input required formControlName="password" maxlength="8" type="password"></ion-input>
             <!-- Password Validation-->
             <div class="validation-errors">
               <ng-container *ngFor="let validation of validationMessasges.password">
@@ -58,7 +93,7 @@
         </ion-item>
         <ion-item>
             <ion-label position="floating">Re-type Password <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required formControlName="reTypePassword" type="password"></ion-input>
+            <ion-input required formControlName="reTypePassword" maxlength="8" type="password"></ion-input>
             <!-- Password Validation-->
             <div class="validation-errors">
               <ng-container *ngFor="let validation of validationMessasges.password">
@@ -73,6 +108,7 @@
             </div>
         </ion-item>
     </form>
+
     </ion-col>
   </ion-row>
   </ion-grid>
@@ -90,6 +126,7 @@
 
 <ion-footer>
     <ion-button style="display: block;" 
+    [disabled]="!this.registerForm.valid"
     id="register-button" 
     color="success" 
     type="submit" 

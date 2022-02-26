@@ -177,17 +177,22 @@
 
 #reviews-wrapper{
 
-    // background: #999;
+    background: rgb(245, 245, 245);
     padding: 2em;
+    margin-bottom: 2em;
     color: #333;
 
+    #reviews-scroll-position {
+
+    }
+
     .review {
-        background: #dedede;
+        // background: #dedede;
         height: auto;
         width: 100%;
         padding: 0.5em;
         border-radius: 5px;
-        margin: 1em auto;
+        margin: 1em auto 4em auto;
         opacity: 0;
 
         .reviewer-name {
@@ -223,6 +228,9 @@
     .review:nth-child(5) {
         animation: review-slide-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.2s forwards;
     }
+    .review {
+        animation: review-slide-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.4s forwards;
+    }
 
     @keyframes review-slide-in {
         0% {
@@ -255,6 +263,10 @@
         }
     }
 
+    #post-review-button {
+        margin: 2em auto;
+    }
+
     #back-button-lg {
         --border-solid: #999;
         --color: #999;
@@ -273,8 +285,8 @@
     }
 
     #product-page-review-input {
-        --background: #dedede;
-        padding: 1em;
+        --background: #f6f6f6;
+        box-shadow: 1px 1px 10px #dedede;
 
     }
     

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { RegisterService } from 'src/app/services/onboarding/register.service';
+import { ToastController } from '@ionic/angular';
+
 
 interface RegisteredUSer {
   fullName: string,
@@ -21,6 +23,12 @@ export class RegisterPage implements OnInit {
   registerSuccessModal = false;
 
   validationMessasges = {
+    firstName: [
+      { type: 'text', message: 'Must be a valid Name.'}
+    ],
+    lastName: [
+      { type: 'text', message: 'Must be a valid Name.'}
+    ],
     email: [
       { type: 'email', message: 'Must be a valid email address'}
     ],
@@ -35,6 +43,7 @@ export class RegisterPage implements OnInit {
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
     private loadingController: LoadingController,
+    private toastController: ToastController,
     private router: Router,
   ) { }
 
@@ -56,7 +65,7 @@ export class RegisterPage implements OnInit {
         // at least 1 number, 1 uppercase letter, and one lowercase letter
         // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ])],
-      reTypePassword: ['Lacrosse2', Validators.compose([
+      reTypePassword: ['12345678', Validators.compose([
         Validators.minLength(8),
         Validators.maxLength(8),
         Validators.required,
@@ -77,8 +86,18 @@ export class RegisterPage implements OnInit {
    * 
    */
    async tryRegister() {
-    // Check to see if form is valid
-    // Register user
+
+    if(this.registerForm.controls.password.value != this.registerForm.controls.reTypePassword.value) {
+      console.log('Passwords do not match.');
+      const toast = await this.toastController.create({
+        message: 'Passwords do not match.',
+        cssClass: 'danger-toast',
+        duration: 4000
+      });
+      toast.present();
+      return;
+    }
+
     let registeredUser: RegisteredUSer = {
       fullName: 
         this.registerForm.controls.firstName.value 
@@ -90,7 +109,9 @@ export class RegisterPage implements OnInit {
 
     this.registerSub = await this.registerService.register(registeredUser);
     await this.showSuccessModal();
-    await this.registerSub.unsubscribe();
+    await setTimeout(() => {
+      this.registerSub.unsubscribe();
+    }, 800);
 
    }
 

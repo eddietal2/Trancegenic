@@ -6,6 +6,9 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { LoginService } from 'src/app/services/onboarding/login.service';
+import { formatDistance } from 'date-fns';
+import { BehaviorSubject } from 'rxjs';
+
 
 Swiper.use([Autoplay]);
 
@@ -24,9 +27,7 @@ interface Product {
 // Make FeaturedProduct with Timer?
 interface Review {
   _id: string,
-  reviewerUsername: string,
-  reviewerEmail: string,
-  reviewerProfilePicture: string,
+  email: string,
   date: string,
   rating: number,
   review: string,
@@ -40,6 +41,7 @@ interface Review {
 })
 export class ProductPagePage implements OnInit, OnDestroy {
 
+  reviewsSub = new BehaviorSubject([]);
   productInfo;
 
   relatedProducts: Array<Product> = [
@@ -55,29 +57,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -94,29 +90,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -133,29 +123,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -172,29 +156,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -211,29 +189,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -250,29 +222,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -289,29 +255,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -328,29 +288,23 @@ export class ProductPagePage implements OnInit, OnDestroy {
       reviews: [
         {
           _id: "1",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
           rating: 4,
           review: 'This is the review',
         },
         {
           _id: "2",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         },
         {
           _id: "3",
-          reviewerUsername: "Reviewer Name",
-          reviewerEmail: 'eddielacrosse2@gmail.com',
-          reviewerProfilePicture: "",
+          email: 'eddielacrosse2@gmail.com',
           date: "Posted 3 Days ago",
-          rating: 5,
+          rating: 4,
           review: 'This is the review',
         }
       ]
@@ -370,6 +324,9 @@ export class ProductPagePage implements OnInit, OnDestroy {
   sound: any;
   authState: boolean;
   reviewRating = null;
+  userEmail: string;
+  id: string;
+  reviewsLength: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -386,10 +343,21 @@ export class ProductPagePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.skeletonTrigger();
     // Get Post ID from navigation params on the main posts tab
-    const id  = this.activatedRoute.snapshot.paramMap.get('_id');
-    this.productsService.getProductInfo(id)
+    this.id = this.activatedRoute.snapshot.paramMap.get('_id');
+    this.productsService.getProductInfo(this.id)
       .subscribe(info => {
+        console.clear();
         this.productInfo = info;
+
+        this.productInfo.reviews.forEach(review => {
+            review.date = formatDistance(review.date, Date.now(), {includeSeconds: true, addSuffix: true})
+        });
+
+
+        this.reviewsSub.next(this.productInfo.reviews.reverse())
+        this.reviewsSub.subscribe( data => {
+          this.reviewsLength = data.length;
+        })
 
         console.log(this.productInfo)
         this.reviewButtonMessage = `Show Reviews (${info['reviews'].length})`;
@@ -400,12 +368,36 @@ export class ProductPagePage implements OnInit, OnDestroy {
             sample: [14000, 20000]
           },
         });
-        
-      })
+
 
       this.loginService.authenticationState.subscribe(state => {
         this.authState = state
       })
+
+      this.loginService.userEmail.subscribe(email => {
+        this.userEmail = email
+      })
+
+      this.loginService.userFavorites.subscribe(favorites => {
+        console.log(favorites)
+        this.favorites.next(favorites);
+        if(favorites.length == 0) {
+          console.log('User has no favorites');
+          this.favoriteButtonMessage = 'Favorite';
+          return;
+        }
+
+        favorites.forEach(fav => {
+          console.log(fav)
+          if(fav == this.id) {
+            this.favoriteButtonMessage = 'Unfavorite';
+            return;
+          }
+        })
+      })
+        
+      })
+
 
   }
 
@@ -696,6 +688,40 @@ export class ProductPagePage implements OnInit, OnDestroy {
     console.log(swiper);
   }
 
+
+  favoriteButtonMessage: string;
+  favorites = new BehaviorSubject([]);
+
+  /**
+   * Favorite the Product
+   */
+  
+  favoriteToggle() {
+    console.log(this.favorites.value);
+    console.log(this.id);
+    console.log(this.favorites.value.includes(this.id));
+
+    // User has NOT Favorited Product
+    if(!this.favorites.value.includes(this.id)) {
+      this.favoriteButtonMessage = 'Unfavorite';
+      this.productsService.favoriteProduct(this.id, this.userEmail)
+        .subscribe(data => {
+          console.log(data);
+          return;
+        })
+    }
+
+    // User HAS Favorited Product
+    if(this.favorites.value.includes(this.id)) {
+      this.favoriteButtonMessage = 'Favorite';
+      this.productsService.unFavoriteProduct(this.id, this.userEmail)
+        .subscribe(data => {
+          console.log(data);
+          return;
+        })
+    }
+  }
+
   /**
    * Toggle Review Input
    */
@@ -711,9 +737,18 @@ export class ProductPagePage implements OnInit, OnDestroy {
    * @param input 
    * @returns void
    */
-  postReview(input: string) {
-    console.log(input);
-    return;
+  postReview(review: string) {
+    this.productsService.postReview(this.id, this.userEmail, this.reviewRating, review)
+      .subscribe( updatedReviews => {
+        console.log(updatedReviews)
+        this.productInfo.reviews = updatedReviews;
+        this.productInfo.reviews.forEach(review => {
+            review.date = formatDistance(review.date, Date.now(), {includeSeconds: true, addSuffix: true})
+        });
+
+        this.reviewsSub.next(this.productInfo.reviews.reverse())
+        
+      })
   }
 
   /**
@@ -727,13 +762,13 @@ export class ProductPagePage implements OnInit, OnDestroy {
     console.clear();
     console.log('Review display: ');
     console.log(this.reviewDisplay);
-    let reviewsScrollTo = document.getElementById('reviews-scroll-to');
+    let reviewsScrollTo = document.getElementById('reviews-scroll-position');
     let reviewsButton = document.getElementById('reviews-button');
 
     // Show Reviews
     if(this.reviewDisplay == false) {
       this.reviewDisplay = true;
-      this.reviewButtonMessage = 'Hide Reviews (3)';
+      this.reviewButtonMessage = `Hide Reviews (${this.reviewsLength})`;
       reviewsScrollTo.scrollIntoView(true);
       return;
     }
@@ -742,7 +777,7 @@ export class ProductPagePage implements OnInit, OnDestroy {
     if(this.reviewDisplay == true) {
       reviewsButton.scrollIntoView(true);
       this.reviewDisplay = false;
-      this.reviewButtonMessage = 'Show Reviews (3)';
+      this.reviewButtonMessage = `Show Reviews (${this.reviewsLength})`;
       return;
     }
 

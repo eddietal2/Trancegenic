@@ -232,12 +232,12 @@
           <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
           Back to Products
         </ion-button>
-        <ion-button 
+        <ion-button *ngIf="this.authState"
           id="favorite-button-lg" 
-          (click)="favorite()">
+          (click)="favoriteToggle()">
           <!-- Add isLg property that changes class depending on viewport size -->
           <ion-icon slot="start" name="heart"></ion-icon>
-          Favorite
+          {{favoriteButtonMessage}}
         </ion-button>
         <ion-button 
           *ngIf="this.authState"
@@ -256,9 +256,11 @@
             placeholder="Add message here: " 
             id="product-page-review-input">
           </ion-textarea>
-          <ion-button (click)="postReview(reviewInput.value)" color="danger">
-            Post Review
-          </ion-button>
+          <div class="ion-text-center">
+            <ion-button id="post-review-button" (click)="postReview(reviewInput.value)" color="danger">
+              Post Review
+            </ion-button>
+          </div>
         </div>
         <ion-button 
           id="reviews-button" 
@@ -294,7 +296,6 @@
               <app-ratings-stars [rating]="review.rating"></app-ratings-stars>
               
               <ion-buttons slot="end">
-                  <app-favorite-icon></app-favorite-icon>
               </ion-buttons>
             </ion-toolbar>
 
@@ -302,6 +303,7 @@
             <p>"{{review.review}}"</p>
 
           </div>
+          <div id="reviews-scroll-position"></div>
         </div>
 
         <!-- Back to Products page button -->
@@ -356,6 +358,7 @@
 
 <!-- Mobile Add to Cart Button -->
 <ion-footer 
+  *ngIf="this.authState"
   id="add-to-cart-mobile-products-page" 
   class="ion-hide-lg-up ion-text-center" 
   (click)="addToCart()">

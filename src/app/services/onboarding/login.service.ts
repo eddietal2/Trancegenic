@@ -28,6 +28,7 @@ export class LoginService {
   userPicture = new BehaviorSubject('none');
   userCartLength = new BehaviorSubject(0);
   userCart = new BehaviorSubject([]);
+  userFavorites = new BehaviorSubject([]);
 
 
   constructor(
@@ -105,6 +106,7 @@ export class LoginService {
       this.userFullName.next('none');
       this.userCartLength.next(0);
       this.userCart.next([]);
+      this.userFavorites.next([]);
       this.userEmail.next('none');
       window.location.reload();
     });
@@ -151,6 +153,7 @@ export class LoginService {
     this.userEmail.next(data['email']);
     this.userCartLength.next(data['cart'].length);
     this.userCart.next(data['cart']);
+    this.userFavorites.next(data['favorites']);
     this.authenticationState.next(true);
 
     console.log(data);
@@ -178,6 +181,7 @@ export class LoginService {
             this.userEmail.next(decoded.email);
             this.userFullName.next(decoded.fullName);
             this.userCartLength.next(decoded.cartLength);
+            this.userFavorites.next(decoded.favorites);
             this.authenticationState.next(true);
           }
         } else {
@@ -186,6 +190,20 @@ export class LoginService {
         }
       }
     });
+  }
+
+  /**
+   * Send Register Code
+   */
+  sendRegisterCode(email: string, code: string) {
+    return this.http.post(`${this.BACKEND_URL}/auth/send-register-code`, {email, code})
+  }
+
+  /**
+   * Send Register Code
+   */
+  sendForgetCode(email: string, code: string) {
+    return this.http.post(`${this.BACKEND_URL}/auth/send-forgot-code`, {email, code})
   }
 }
 

@@ -163,10 +163,21 @@
                   <h2>{{this.userEmail}}</h2>
                 </span>
               </div>
-              <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail('eddielacrosse2@gmail.com')">
+              <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail()">
                 <ion-item>
                   <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input required formControlName="newEmail" placeholder="{{this.userEmail}}" type="email"></ion-input>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessasges.email">
+                      <div class="validation-error-message"
+                      *ngIf="changeEmailForm
+                        .get('newEmail')
+                        .hasError(validation.type) && (changeEmailForm.get('newEmail')
+                        .dirty || changeEmailForm.get('newEmail').touched)">
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                    </div>
                 </ion-item>
                 <ion-item>
                   <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>

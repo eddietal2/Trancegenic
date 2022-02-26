@@ -112,7 +112,7 @@ export class ProfileService {
   /**
    * Change User's Password
    */
-  changePassword(newPassword, oldPassword, email) {
+  changePassword(newPassword: string, oldPassword: string, email: string) {
     return this.http.post(`${this.BACKEND_URL}/user-profile/change-password`, {newPassword, oldPassword, email})
       .pipe(
         // 
@@ -129,7 +129,7 @@ export class ProfileService {
 
         // Create Loading
         const loading = await this.loadingController.create({
-          cssClass: 'default-loading',
+          cssClass: 'forgot-password-loading',
           message: 'Updating Profile ..',
           duration: 2000
         });
