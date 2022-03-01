@@ -31,38 +31,15 @@ export class RegisterService {
   register(user: RegisteredUSer) {
     return this.http.post(`${this.BACKEND_URL}/auth/register`, 
     {fullName: user.fullName, email: user.email, password: user.password})
-      .pipe(
-        catchError(e => {
-          console.error(e);
-          if (e.error.msg === 'The user already exists') {
-            this.registerErrorAlert('The User already exists', 'Please use another Email');
-          } else if (e.message.startsWith('Http failure response')) {
-            this.registerErrorAlert('Server Connection Error', 'Please try again later.');
-          } else (e.message.startsWith('Http failure response')) 
-          throw new Error(e);
-        })
-      )  
-    .subscribe(registerResponse => {
-        console.log(registerResponse);
-        return;
-      });
+    
   }
 
-  /**
-  * 
-  * @param header 
-  * @param msg 
-  */
-  async registerErrorAlert(header: string, msg: string) {
-    const alert = await this.alertController.create({
-      cssClass: 'danger-alert',
-      header,
-      message: msg,
-      buttons: [{
-        text: 'OK'
-      }]
-    });
 
-    await alert.present();
+
+  /**
+   * Send Register Code
+   */
+  sendRegisterCode(code: string, email: string) {
+    return this.http.post(`${this.BACKEND_URL}/auth/send-register-code`, { code, email })
   }
 }

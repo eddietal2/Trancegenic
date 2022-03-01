@@ -29,6 +29,9 @@
 ion-grid {
     padding: 0;
 }
+ion-button:hover {
+    transform: scale(1.05);
+}
 ion-toolbar {
     --background: none;
 }
@@ -175,21 +178,20 @@ p {
    background: #fff3ad; 
    border-left: 6px solid #ffd900;
    padding: 0.5em;
-   margin: 1em auto;
    display: block;
 }
 .static-alert-red {
    background: #ff8a8a86; 
    border-left: 6px solid #f51818;
    padding: 0.5em;
-   margin: 1em auto;
+   display: block;
 
 }
 .static-alert-blue {
    background: #a1caff; 
    border-left: 6px solid #006eff;
    padding: 0.5em;
-   margin: 1em auto;
+   display: block;
 }
 
 

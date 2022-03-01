@@ -9,18 +9,28 @@
 
 <ion-content>
   <ion-grid>
-  <ion-row class="ion-justify-content-center">
-    <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="5">
 
-      <!-- Info Header -->
-      <div class="spacer-4x"></div>
-      <h2>Info</h2>
-      <div class="static-alert-yellow">
-        <p>Please fill out the entire form.</p>
-      </div>
+  <!-- Forms -->
+  <ion-row class="ion-justify-content-center">
+    <!-- Back Button & Header -->
+    <ion-col style="padding: 0;" size-xs="11" size-sm="10" size-md="8" size-lg="6">
+      <ion-toolbar color="success">
+        <ion-buttons slot="start">
+          <ion-button (click)="backToLogin();">
+            <ion-icon name="arrow-back-outline"></ion-icon>  
+            Back
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Register</ion-title>
+      </ion-toolbar>
 
       <!-- Forms -->
-      <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <form id="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="spacer-3x"></div>
+        <h2>Info</h2>
+        <div class="static-alert-yellow">
+          <p>Please fill out the entire form.</p>
+        </div>
         <ion-item>
           <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
           <ion-input required formControlName="firstName" maxlength="40" type="text"></ion-input>
@@ -71,9 +81,11 @@
         </ion-item>
 
         <!-- Passwords Header -->
-        <div class="spacer-4x"></div>        
-        <h2>Passwords</h2>
-        <p class="static-alert-red">Passwords have to be at least 8 characters.</p>
+        <div class="spacer-4x"></div> 
+        <h2>Password</h2>
+        <div class="static-alert-red">
+          <p>Passwords have to be at least 8 characters.</p>
+        </div>
        
         <ion-item>
             <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
@@ -107,24 +119,57 @@
               </ng-container>
             </div>
         </ion-item>
-    </form>
+      </form>
+
+
+    <!-- Lg Buttom Buttons -->
+    <ion-row class="ion-hide-lg-down ion-justify-content-center" >
+      <ion-col size="5" class="ion-text-center">
+        <div class="spacer-2x"></div>
+        <ion-button 
+        [disabled]="!this.registerForm.valid"
+        id="register-button-lg" 
+        color="success" 
+        type="submit" 
+        (click)="this.tryRegister()"
+        >
+        Register
+        </ion-button>
+        <br>
+        <!-- [disabled]="contactForm.invalid" -->
+        <div class="spacer-2x"></div>
+        <ion-button id="cancel-button-lg" (click)="goToLoginPage()" color="medium">
+        Cancel
+        </ion-button>
+      </ion-col>
+    </ion-row>
 
     </ion-col>
+
+    <!-- Background Photo -->
+    <ion-col size-lg="6" class="register-background-lg ion-hide-lg-down">
+    </ion-col>
   </ion-row>
+
   </ion-grid>
 
+
+  <!-- Success Modal -->
   <ion-modal [isOpen]="this.registerSuccessModal">
     <ng-template>
       <ion-content style="--background: green;">
         <ion-button (click)="closeSuccessModal()" expand="block" fill="clear" shape="round">
           Close
         </ion-button>
+        <h1>You have successfully registered!</h1>
       </ion-content>
     </ng-template>
   </ion-modal>
 </ion-content>
 
-<ion-footer>
+<!-- Mobile Footer Buttons -->
+<ion-footer class="ion-hide-lg-up">
+  <div class="spacer-2x"></div>
     <ion-button style="display: block;" 
     [disabled]="!this.registerForm.valid"
     id="register-button" 

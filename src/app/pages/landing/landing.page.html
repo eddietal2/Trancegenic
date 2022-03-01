@@ -10,6 +10,8 @@
                 <div class="ion-text-center">
                     <h1 style="color: white;">Welcome to the Site!</h1>
                 </div>
+
+                <!-- Searchbar -->
                 <ion-searchbar
                     placeholder="Search for Product Titles"
                     (ionFocus)="searchingOn()"
@@ -19,6 +21,8 @@
                     showCancelButton="true"
                     showClearButton="true"
                 ></ion-searchbar>
+
+                <!-- Search List -->
                 <ion-list id="search-results-list" *ngIf="this.searching">
                     <ion-item lines="none">
                         <ion-spinner></ion-spinner>
@@ -44,6 +48,8 @@
                         <div class="spacer-2x"></div>
                     </ion-item>
                 </ion-list>
+
+                <!-- Try Sample Message -->
                 <div class="ion-text-center">
                     <div class="spacer-2x"></div>
                     <hr id="landing-sample-divider">
@@ -51,21 +57,34 @@
                     <div class="spacer-2x"></div>
                     <ion-icon id="landing-sample-icon" color="dark" name="musical-notes-outline"></ion-icon>
                     <div class="spacer-1x"></div>
-                  </div>
+                  
+                </div>
                 <div class="spacer-2x"></div>
+
+                <!-- Play Sample Button -->
                 <ion-button id="landing-sample-button" (click)="playSample(this.sampleButtonIcon)">
                     <ion-icon slot="start" name="Play" ></ion-icon>
                     Play
                 </ion-button>
+
                 <div class="spacer-2x"></div>
-                <!-- <ion-button *ngIf="!this.loginService.authenticationState.value;" (click)="login()">
-                    Login
-                </ion-button>
+                <hr id="landing-sample-divider">
                 <div class="spacer-2x"></div>
-                <ion-button *ngIf="!this.loginService.authenticationState.value;" color="success" (click)="register()">
-                    Register
-                </ion-button> -->
-                
+
+                <!-- Header Onboarding Buttons -->
+                <ion-row id="header-onboarding-buttons">
+                    <ion-col size="6">
+                        <ion-button *ngIf="!this.loginService.authenticationState.value;" (click)="login()">
+                            Login
+                        </ion-button>
+                        <div class="spacer-2x"></div>   
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-button *ngIf="!this.authState" color="success" (click)="register()">
+                            Register
+                        </ion-button>     
+                    </ion-col>
+                </ion-row>
                 <!-- Sample Track -->
                 <div id="landing-sample-track">
 
