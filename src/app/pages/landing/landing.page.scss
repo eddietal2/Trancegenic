@@ -307,6 +307,7 @@
 
 .landing-product-wrapper {
     height: auto;
+    background: #fff;
     width: 100%;
     box-shadow: 1px 1px 10px #dedede;
     border-radius: 10px;
@@ -399,6 +400,10 @@
     .product-message-red {
         border-left: 4px solid green;
     }
+}
+
+.landing-product-wrapper:hover {
+    transform: scale(1.04);
 }
 .landing-product-wrapper-mobile {
     height: auto;
