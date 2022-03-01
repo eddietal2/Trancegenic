@@ -515,3 +515,36 @@ animation: products-slide-up 1s cubic-bezier(0.215, 0.610, 0.355, 1) 0.3s forwar
     top: 0px;
     pointer-events: none;
 }
+
+#footer-landing-page {
+    background: #333;
+    border-radius: 20px 20px 0 0;
+    height: auto;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5em 0;
+
+    .footer-text {
+        color: #b6b6b6;
+    }
+
+    ion-item {
+        color: #fff;
+        text-align: center;
+        font-size: 1.3em;
+        height: 60px;
+
+        #footer-contact-us-button {
+            margin: 0 auto;
+            height: 50px;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        #footer-logo {
+            margin: 2em auto;
+        }
+    }
+}

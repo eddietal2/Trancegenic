@@ -24,8 +24,8 @@ ion-tab-bar {
 
 #nav-wrapper {
     box-shadow: 1px 1px 8px #dedede;
-    padding: 1em 23% 0 23%; 
-    height: 60px;
+    padding: 1.3em 23% 0 23%; 
+    height: 80px;
     background: #dedede;
     transition: 0.5s;
     position: fixed;
@@ -37,7 +37,7 @@ ion-tab-bar {
     // z-index: 9999;
 
     a {
-        font-size: 0.9em;
+        font-size: 1.1em;
         font-weight: 400;
         color: #999;
         padding: 0.6em 0.4em;
@@ -55,6 +55,17 @@ ion-tab-bar {
     ion-badge {
         position: relative;
         top: 3px;
+    }
+
+    .cart-button-lg-on {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .cart-button-lg-off {
+        opacity: 0;
+        pointer-events: none;
+
     }
 }
 

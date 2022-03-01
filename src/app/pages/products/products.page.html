@@ -223,8 +223,8 @@
             <div id="fab-visible-position"></div>
 
             <!-- Products -->
-            <div >
-                <ion-row
+            <div>
+              <ion-row
                 *ngFor="let product of this.searchLoadedProducts"
                 style="width: 100%;"
                 class="product-wrapper ion-justify-content-center">
@@ -258,7 +258,8 @@
                   </ion-buttons>
                 </ion-toolbar> 
 
-                </ion-row>
+               
+              </ion-row>
             </div>
 
           </ion-list>
@@ -268,7 +269,8 @@
       </ion-accordion-group>
     </ng-container>
 
-    <ion-row *ngIf="!this.authState" >
+    <!-- Log in message -->
+    <ion-row *ngIf="!this.authState" class="ion-hide-lg-up">
       <ion-col size="12">
         <div class="spacer-1x"></div>
         <p class="static-alert-yellow">Please login to see your Favorites.</p>
@@ -363,13 +365,17 @@
             <div>
               <p class="product-price">${{featuredProduct.price}}</p>
               <h6 class="product-title">{{featuredProduct.title}}</h6>
+              <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
               <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
               <p class="product-category"># {{featuredProduct.category}}</p>
               <p class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</p>
               
               <!-- Ratings Stars -->
               <ion-toolbar class="product-lg-lower-toolbar">
-                <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
+                
+                <ion-buttons slot="start">
+                  <!-- Todo add to cart -->
+                </ion-buttons>
                 
                 <ion-buttons slot="end">
                     <app-favorite-icon 
@@ -403,13 +409,17 @@
             <div>
               <p class="product-price">${{product.price}}</p>
               <h6 class="product-title">{{product.title}}</h6>
+              <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
               <p class="product-duration">Duration: {{product.duration}} Mins</p>
               <p class="product-category"># {{product.category}}</p>
               <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
               
               <!-- Ratings Stars -->
               <ion-toolbar class="product-lg-lower-toolbar">
-                <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
+                
+                <ion-buttons slot="start">
+                  <!-- Todo add to cart -->
+                </ion-buttons>
                 
                 <ion-buttons slot="end">
                     <app-favorite-icon 
@@ -439,13 +449,17 @@
             <div>
               <p class="product-price">${{product.price}}</p>
               <h6 class="product-title">{{product.title}}</h6>
+              <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
               <p class="product-duration">Duration: {{product.duration}} Mins</p>
               <p class="product-category"># {{product.category}}</p>
               <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
 
               <!-- Ratings Stars -->
               <ion-toolbar class="product-lg-lower-toolbar">
-                <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
+                
+                <ion-buttons slot="start">
+                  <!-- Todo add to cart -->
+                </ion-buttons>
                 
                 <ion-buttons slot="end">
                     <app-favorite-icon 
@@ -465,6 +479,41 @@
       <ion-col *ngIf="this.categoryLg == 'all' && this.searchLoadedProducts.length == 0 && !this.skeletonDataLg" size="6.7">
         <h1>No results from search was found.</h1>
       </ion-col>
+    </ion-row>
+    
+    <!-- Footer -->
+    <div class="spacer-10x"></div>
+    <ion-row class="ion-justify-content-center">
+        <ion-col id="footer-landing-page" size="12">
+            <ion-list>
+              <ion-item style="height: auto;" lines="none">
+                <img id="footer-logo" height="80" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Logo">
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <p class="footer-text">Website title - 2022</p>
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="goToContactPage()" id="footer-contact-us-button">
+                  Contact Us
+                </ion-button>
+              </ion-item>
+            </ion-list>
+        </ion-col>
     </ion-row>
 
   </ion-grid>

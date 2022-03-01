@@ -24,7 +24,13 @@
     <a routerLink="/profile" routerLinkActive="active-link">
       Profile
     </a>
-    <a routerLink="/cart">
+    <a routerLink="/login" *ngIf="!this.authState" routerLinkActive="active-link">
+      Login
+    </a>
+    <a (click)="tryLogout()" style="color: red;" *ngIf="this.authState" routerLinkActive="active-link">
+      Logout
+    </a>
+    <a routerLink="/cart" [ngClass]="!this.authState ? 'cart-button-lg-off' : 'cart-button-lg-on'">
       <ion-icon id="desktop-cart-icon" name="cart" style="font-size: 1.5em;"></ion-icon>
       <ion-badge *ngIf="this.authState" color="primary">{{cartLength}}</ion-badge>
     </a>
