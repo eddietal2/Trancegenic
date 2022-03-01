@@ -12,6 +12,9 @@
         </ion-button>
       </ion-col>
     </ion-row>
+
+
+  
   </ion-grid>
 
   <!-- Main Profile Page -->
@@ -19,37 +22,72 @@
     <div class="spacer-2x"></div>
   
     <ion-row id="profile-wrapper" class="ion-justify-content-center ion-align-items-center">
-      <ion-col id="profile" size-xs="11" size-sm="10" size-md="8" size-lg="5">
+      <ion-col id="profile" class="ion-hide-lg-down" size-xs="11" size-sm="10" size-md="8" size-lg="6">
         
         <!-- User Info -->
         <div id="user-info-header">
           <img height="60" src="../../../assets/placeholders/profile-icon.svg" alt="User Profile Icon">
           <span>
-            <h2>{{this.userFullName}}</h2>
+            <h2 style="color: #1ea3fb">{{this.userFullName}}</h2>
             <p>{{this.userEmail}}</p>
           </span>
         </div>
 
         <!-- List Buttons -->
-        <ion-item (click)="changeNameModal()" lines="none" detail="true">
+        <ion-item class="profile-item-lg" (click)="changeNameModal()" lines="none" detail="true">
           <ion-label>Change Name</ion-label>
         </ion-item>
-        <ion-item (click)="changeEmailModal()" lines="none" detail="true">
+        <ion-item class="profile-item-lg" (click)="changeEmailModal()" lines="none" detail="true">
           <ion-label>Change Email</ion-label>
         </ion-item>
         <!-- <ion-item (click)="changePictureModal()" lines="none" detail="true">
           <ion-label>Change Picture</ion-label>
         </ion-item> -->
-        <ion-item (click)="changePasswordModal()" lines="none" detail="true">
+        <ion-item class="profile-item-lg" (click)="changePasswordModal()" lines="none" detail="true">
           <ion-label>Change Password</ion-label>
         </ion-item>
         <!-- <ion-item (click)="changeNewsLetterModal()" lines="none" detail="true">
           <ion-label>Subscribe to Newsletter</ion-label>
         </ion-item> -->
-        <ion-item (click)="logout()" lines="none" detail="true">
+        <ion-item class="profile-item-lg" (click)="logout()" lines="none" detail="true">
           <ion-label>Logout</ion-label>
         </ion-item>
       </ion-col>
+    </ion-row>
+
+    <!-- Footer -->
+    <div class="spacer-10x"></div>
+    <ion-row class="ion-justify-content-center">
+        <ion-col id="footer-profile-page" size="12">
+            <ion-list>
+              <ion-item style="height: auto;" lines="none">
+                <img id="footer-logo" height="80" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Logo">
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <p class="footer-text">Website title - 2022</p>
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="goToContactPage()" id="footer-contact-us-button">
+                  Contact Us
+                </ion-button>
+              </ion-item>
+            </ion-list>
+        </ion-col>
     </ion-row>
   </ion-grid>
   

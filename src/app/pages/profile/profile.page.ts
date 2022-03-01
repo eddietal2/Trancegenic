@@ -31,6 +31,12 @@ export class ProfilePage implements OnInit {
 
 
 
+   /**
+    * Go to Contact us Page
+    */
+    goToContactPage() {
+      this.router.navigateByUrl("/contact");
+    }
 
 
   /**

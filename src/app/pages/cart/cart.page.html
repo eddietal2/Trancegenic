@@ -3,11 +3,7 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row class="ion-justify-content-center ion-hide-lg-down">
-      <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="8">
-        <h1 class="desktop-page-header">Cart</h1>
-      </ion-col>
-    </ion-row>
+    <div class="spacer-5x"></div>
     <ion-row class="ion-justify-content-center">
       <ion-col class="page-content-wrapper" size-xs="11" size-sm="10" size-md="8" size-lg="8">
         <div class="spacer-5x"></div>
@@ -73,11 +69,47 @@
                 </ion-row>
       </ion-col>
     </ion-row>
+    
+    <!-- Footer -->
+    <div class="spacer-10x"></div>
+    <ion-row class="ion-justify-content-center">
+        <ion-col id="footer-cart-page" size="12">
+            <ion-list>
+              <ion-item style="height: auto;" lines="none">
+                <img id="footer-logo" height="80" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Logo">
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label>Link</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <p class="footer-text">Website title - 2022</p>
+              </ion-item>
+              <ion-item>
+                <ion-button (click)="goToContactPage()" id="footer-contact-us-button">
+                  Contact Us
+                </ion-button>
+              </ion-item>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+
   </ion-grid>
 </ion-content>
 
 <!-- Complete Order Button on Mobile Devices -->
-<ion-footer>
+<ion-footer class="ion-hide-lg-up">
   <ion-button class="cart-not-empty" *ngIf="this.cartLength > 0" expand="full" (click)="tryCompleteOrder()">
     Complete Order <span style="font-weight: 800; margin-left: 1em;">({{this.cartLength}})</span>
   </ion-button>

@@ -327,6 +327,7 @@ export class LandingPage implements OnInit {
   goToBlogsPage() {
     this.router.navigateByUrl("/blog");
   }
+  
   goToContactPage() {
     this.router.navigateByUrl("/contact");
   }

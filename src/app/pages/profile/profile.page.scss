@@ -23,8 +23,22 @@ ion-footer {
 
    #profile {
     box-shadow: none;
-    padding: 3em 0em;
-    border-radius: 5px;
+    padding: 3em 2em;
+    border-radius: 10px;
+    background: #dedede5e;
+
+    .profile-item-lg {
+        background: #fff;
+        margin: 1em auto;
+        border-radius: 5px;
+        box-shadow: 1px 1px 5px #dedede;
+        transform: scale(1);
+    }
+
+    .profile-item-lg:hover {
+        transform: scale(1.04);
+        background: #e0f9ffbc;
+    }
    }
    
 }
@@ -68,4 +82,38 @@ span {
 #change-password-modal,
 #news-letter-modal {
     --background: #fff;
+}
+
+
+#footer-profile-page {
+    background: #333;
+    border-radius: 20px 20px 0 0;
+    height: auto;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5em 0;
+
+    .footer-text {
+        color: #b6b6b6;
+    }
+
+    ion-item {
+        color: #fff;
+        text-align: center;
+        font-size: 1.3em;
+        height: 60px;
+
+        #footer-contact-us-button {
+            margin: 0 auto;
+            height: 50px;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        #footer-logo {
+            margin: 2em auto;
+        }
+    }
 }

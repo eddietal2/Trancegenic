@@ -124,6 +124,11 @@ export class ProductsPage implements OnInit, AfterViewInit {
   }
 
 
+  goToContactPage() {
+    this.router.navigateByUrl("/contact");
+  }
+
+
   /**
    * Initialize View to highlight Featured section
    * Hide Product Searchbar & Filter Button

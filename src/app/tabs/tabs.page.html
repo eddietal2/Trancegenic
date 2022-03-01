@@ -21,7 +21,7 @@
     <!-- <a routerLink="/blog" routerLinkActive="active-link">
      Blog
     </a> -->
-    <a routerLink="/profile" routerLinkActive="active-link">
+    <a routerLink="/profile" *ngIf="this.authState" routerLinkActive="active-link">
       Profile
     </a>
     <a routerLink="/login" *ngIf="!this.authState" routerLinkActive="active-link">

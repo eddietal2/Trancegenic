@@ -816,8 +816,8 @@ export class ProductPagePage implements OnInit, OnDestroy {
    /**
     * Go to Contact us Page
     */
-    contactUs() {
-      this.router.navigateByUrl('/contact');
-    }
+  goToContactPage() {
+    this.router.navigateByUrl("/contact");
+  }
 
 }

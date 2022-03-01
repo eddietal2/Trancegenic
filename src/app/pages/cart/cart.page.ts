@@ -200,5 +200,12 @@ export class CartPage implements OnInit {
   goBackToProductsPage() {
     this.router.navigateByUrl('/products');
   }
+  
+  /**
+   * Go to Contact us Page
+   */
+ goToContactPage() {
+   this.router.navigateByUrl("/contact");
+ }
 
 }
