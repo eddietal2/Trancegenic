@@ -209,6 +209,11 @@
     height: auto;
 }
 
+.landing-section-header {
+    color: green;
+    font-size: 2em;
+}
+
 // Intro Section
 #intro-wrapper {
     margin: 4em auto;
@@ -301,10 +306,13 @@
     font-size: 1.3em;
 }
 
-#landing-featured-swiper {
+#products-featured-swiper {
     height: auto;
 }
 
+.cart-button {
+    width: 100px;
+}
 .landing-product-wrapper {
     height: auto;
     background: #fff;
@@ -366,27 +374,6 @@
         // bottom: 0;
 
         ion-buttons {
-
-            .favorite-this-product-button {
-                --background: #ffbbbb;
-                --border-radius: 50px;
-                text-align: center;
-                border-radius: 57px;
-                height: 40px;
-                padding-left: 6px;
-            }
-
-            #cart-button {
-                height: 50px;
-                width: 50px;
-                --background: #999;
-                --border-radius: 50px;
-
-                ion-icon {
-                    color: white;
-                }
-            }
-            
         }
     }
 
@@ -475,16 +462,6 @@
                 padding-left: 6px;
             }
 
-            #cart-button {
-                height: 50px;
-                width: 50px;
-                --background: #999;
-                --border-radius: 50px;
-
-                ion-icon {
-                    color: white;
-                }
-            }
             
         }
     }

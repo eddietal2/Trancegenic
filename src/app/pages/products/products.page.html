@@ -280,8 +280,9 @@
     <!-- Products / Lg -->
     <ion-row class="spacer-5x ion-hide-lg-down ion-justify-content-center">
       
-      <!-- ProductsLg Toolbar -->
+      <!-- Products Lg Toolbar -->
       <ion-col size="6.7">
+        <div class="spacer-2x"></div>
         <ion-toolbar id="product-lg-toolbar">
 
           <!-- Category Buttons -->
@@ -299,6 +300,7 @@
 
           <!-- All Products Search Bar -->
           <ion-searchbar 
+            id="products-search"
             *ngIf="this.categoryLg == 'all'" 
             placeholder="Search All Products" 
             inputmode="decimal" 
@@ -312,14 +314,14 @@
           <!-- Filter -->
           <ion-buttons *ngIf="this.categoryLg == 'all'" id="filter-button" slot="end">
             <ion-button (click)="openFilterActionSheet()">
-              <ion-icon name="filter-outline"></ion-icon>
+              Filter
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-col>
 
       <!-- Skeleton UI Lg -->
-      <ion-col size="6.7" *ngIf="this.skeletonDataLg">
+      <ion-col size="7" *ngIf="this.skeletonDataLg">
         <div class="ion-padding custom-skeleton">
           <ion-list>
             <ion-item lines="none">
@@ -342,54 +344,75 @@
         </div>
       </ion-col>
 
-      <!-- Products Message -->
+      <!-- Featured Message -->
       <ion-col *ngIf="this.categoryLg == 'featured' && !this.skeletonDataLg" size="6.7">
-        <p id="featured-page-message-lg">This is a message.</p>
+        <div class="spacer-2x"></div>
+        <div class="static-alert-blue" style="width: 100%;">
+          <p>This is a message.</p>
+        </div>
+        <div class="spacer-2x"></div>
       </ion-col>
 
       <!-- FeaturedLg -->
       <ion-col 
         *ngIf="this.categoryLg == 'featured'" 
-        size="6.7">
+        size="12">
 
-        <ion-row>
-          <ion-col 
-            *ngFor="let featuredProduct of featuredProducts"
-            (click)="goToProductPage(featuredProduct._id)"
-            class="product-lg" 
-            size-lg="3.8" size-xl="3.8">
-            <div class="product-lg-image">
+        <!-- Product -->
+        <ion-row class="ion-justify-content-center ion-hide-lg-down">
+          <ion-col size="7">
+            <ion-row>
+                <ion-col size-lg="6" size-xl="4" *ngFor="let featuredProduct of this.featuredProducts">
+                    <ion-row
+                        class="products-product-wrapper ion-justify-content-center">
+                        <ion-col class="product-photo" size="6"
+                              (click)="goToProductPage(featuredProduct._id)">
+        
+                        </ion-col>
+                        <ion-col size="6"
+                              (click)="goToProductPage(featuredProduct._id)">
+                                <div (click)="goToProductPage()">
+                                  <p class="product-price">${{featuredProduct.price}}</p>
+                                  
+                                  <h6 class="product-title">{{featuredProduct.title}}</h6>
+                                  <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
+                                  <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
+                                  <p class="product-category"># {{featuredProduct.category}}</p>
+                                  <!-- <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5> -->
+                                </div>                 
+                                
+                        </ion-col>
+        
+                        <ion-toolbar *ngIf="this.authState">
 
-            </div>
-            <div class="spacer-2x"></div>
-            <div>
-              <p class="product-price">${{featuredProduct.price}}</p>
-              <h6 class="product-title">{{featuredProduct.title}}</h6>
-              <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
-              <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
-              <p class="product-category"># {{featuredProduct.category}}</p>
-              <p class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</p>
-              
-              <!-- Ratings Stars -->
-              <ion-toolbar class="product-lg-lower-toolbar">
-                
-                <ion-buttons slot="start">
-                  <!-- Todo add to cart -->
-                </ion-buttons>
-                
-                <ion-buttons slot="end">
-                    <app-favorite-icon 
-                    *ngIf="this.authState"
-                    [id]="featuredProduct._id"
-                    [email]="this.userEmail"></app-favorite-icon>
-                </ion-buttons>
-              </ion-toolbar>
-            </div>
-          </ion-col>
+                          <ion-buttons #cartButton  slot="start">
+                            <img class="cart-button" 
+                                (click)="tryAddToCart(featuredProduct._id, featuredProduct.title, cartButton)"
+                                *ngIf="!this.cart.includes(featuredProduct._id)" 
+                                src="../../../assets/icons/add-to-cart.svg" 
+                                alt="Hypnosis Downloads Product">
+                            <img class="cart-button"
+                                (click)="tryRemoveFromCart(featuredProduct._id, featuredProduct.title, cartButton)"
+                                *ngIf="this.cart.includes(featuredProduct._id)" 
+                                src="../../../assets/icons/remove-from-cart.svg" 
+                                alt="Hypnosis Downloads Product">
+                        </ion-buttons>
+
+                              <ion-buttons slot="end">
+                                <app-favorite-icon
+                                [id]="featuredProduct._id"
+                                [email]="this.userEmail"></app-favorite-icon>
+                              </ion-buttons>
+                        </ion-toolbar>  
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-col>
         </ion-row>
+
       </ion-col>
 
-      <!-- FavoritesLg -->
+      <!-- Favorites Message -->
       <ion-col *ngIf="this.categoryLg == 'favorites' && this.favoriteProducts.length == 0 && !this.skeletonDataLg" size="6.7">
         <h1>You have no favorites! To add a favorite product, tap the Heart icon.</h1>
       </ion-col>
@@ -397,80 +420,98 @@
       <!-- FavoritesLg -->
       <ion-col
         *ngIf="this.categoryLg == 'favorites' && !this.skeletonDataLg" 
-        size="6.7">
-        <ion-row>
-          <ion-col *ngFor="let product of favoriteProducts" 
-            class="product-lg" 
-            size="3.8">
-            <div class="product-lg-image">
+        size="12">
 
-            </div>
-            <div class="spacer-2x"></div>
-            <div>
-              <p class="product-price">${{product.price}}</p>
-              <h6 class="product-title">{{product.title}}</h6>
-              <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
-              <p class="product-duration">Duration: {{product.duration}} Mins</p>
-              <p class="product-category"># {{product.category}}</p>
-              <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
-              
-              <!-- Ratings Stars -->
-              <ion-toolbar class="product-lg-lower-toolbar">
-                
-                <ion-buttons slot="start">
-                  <!-- Todo add to cart -->
-                </ion-buttons>
-                
-                <ion-buttons slot="end">
-                    <app-favorite-icon 
-                    *ngIf="this.authState"
-                    [id]="product._id"
-                    [email]="this.userEmail"></app-favorite-icon>
-                </ion-buttons>
-              </ion-toolbar>
-            </div>
-          
-          </ion-col>
+        <!-- Product -->
+        <ion-row class="ion-justify-content-center ion-hide-lg-down">
+          <ion-col size="7">
+            <ion-row>
+                <ion-col size-lg="4" *ngFor="let product of this.favoriteProducts">
+                    <ion-row
+                        class="products-product-wrapper ion-justify-content-center">
+                        <ion-col class="product-photo" size="6"
+                              (click)="goToProductPage(product._id)">
+        
+                        </ion-col>
+                        <ion-col size="6"
+                              (click)="goToProductPage(product._id)">
+                                <div (click)="goToProductPage()">
+                                  <p class="product-price">${{product.price}}</p>
+                                  
+                                  <h6 class="product-title">{{product.title}}</h6>
+                                  <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
+                                  <p class="product-duration">Duration: {{product.duration}} Mins</p>
+                                  <p class="product-category"># {{product.category}}</p>
+                                  <!-- <h5 class="product-reviews-length">Reviews {{product.reviews.length}}</h5> -->
+                                </div>                 
+                                
+                        </ion-col>
+        
+                        <ion-toolbar *ngIf="this.authState">
+                              <ion-buttons slot="start">
+                                <ion-button id="cart-button" (click)="onClick()">
+                                  <ion-icon slot="start" name="cart-outline"></ion-icon>
+                                </ion-button>
+                              </ion-buttons>
+                              <ion-buttons slot="end">
+                                <app-favorite-icon
+                                [id]="product._id"
+                                [email]="this.userEmail"></app-favorite-icon>
+                              </ion-buttons>
+                        </ion-toolbar>  
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-col>
         </ion-row>
+
       </ion-col>
 
       <!-- AllProductsLg -->
       <ion-col *ngIf="this.categoryLg == 'all' && !this.skeletonDataLg" 
-        size="6.7">
+        size="12">
 
-        <ion-row>
-          <ion-col *ngFor="let product of searchLoadedProducts" 
-            class="product-lg" 
-            size="3.8">
-            <div class="product-lg-image" alt="Hypnosis MP3 Download">
-
-            </div>
-            <div class="spacer-2x"></div>
-            <div>
-              <p class="product-price">${{product.price}}</p>
-              <h6 class="product-title">{{product.title}}</h6>
-              <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
-              <p class="product-duration">Duration: {{product.duration}} Mins</p>
-              <p class="product-category"># {{product.category}}</p>
-              <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
-
-              <!-- Ratings Stars -->
-              <ion-toolbar class="product-lg-lower-toolbar">
-                
-                <ion-buttons slot="start">
-                  <!-- Todo add to cart -->
-                </ion-buttons>
-                
-                <ion-buttons slot="end">
-                    <app-favorite-icon 
-                    *ngIf="this.authState"
-                    [id]="product._id"
-                    [email]="this.userEmail"></app-favorite-icon>
-                </ion-buttons>
-              </ion-toolbar>
-            </div>
-          
-          </ion-col>
+        <!-- Product -->
+        <ion-row class="ion-justify-content-center ion-hide-lg-down">
+          <ion-col size="7">
+            <ion-row>
+                <ion-col size-lg="4" *ngFor="let product of this.searchLoadedProducts">
+                    <ion-row
+                        class="products-product-wrapper ion-justify-content-center">
+                        <ion-col class="product-photo" size="6"
+                              (click)="goToProductPage(product._id)">
+        
+                        </ion-col>
+                        <ion-col size="6"
+                              (click)="goToProductPage(product._id)">
+                                <div (click)="goToProductPage()">
+                                  <p class="product-price">${{product.price}}</p>
+                                  
+                                  <h6 class="product-title">{{product.title}}</h6>
+                                  <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
+                                  <p class="product-duration">Duration: {{product.duration}} Mins</p>
+                                  <p class="product-category"># {{product.category}}</p>
+                                  <!-- <h5 class="product-reviews-length">Reviews {{product.reviews.length}}</h5> -->
+                                </div>                 
+                                
+                        </ion-col>
+        
+                        <ion-toolbar *ngIf="this.authState">
+                              <ion-buttons slot="start">
+                                <ion-button id="cart-button" (click)="onClick()">
+                                  <ion-icon slot="start" name="cart-outline"></ion-icon>
+                                </ion-button>
+                              </ion-buttons>
+                              <ion-buttons slot="end">
+                                <app-favorite-icon
+                                [id]="product._id"
+                                [email]="this.userEmail"></app-favorite-icon>
+                              </ion-buttons>
+                        </ion-toolbar>  
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-col>
         </ion-row>
         
       </ion-col>

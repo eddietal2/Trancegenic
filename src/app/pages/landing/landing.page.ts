@@ -7,8 +7,7 @@ import {Howl, Howler} from 'howler';
 import { LandingService } from 'src/app/services/landing/landing.service';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { LoadingController, ToastController } from '@ionic/angular';
-import { Subject, Subscription } from 'rxjs';
-import { initialize } from '@ionic/core';
+import { Subscription } from 'rxjs';
 
 Swiper.use([Autoplay]);
 
@@ -68,6 +67,10 @@ export class LandingPage implements OnInit {
   searchBarValue = "";
   authState: boolean;
   userEmail: string;
+  cart = [];
+  userCartSub: Subscription;
+  removeFromCartSub: Subscription;
+  addToCartSub: Subscription;
   
 
   constructor(
@@ -104,11 +107,18 @@ export class LandingPage implements OnInit {
 
     // Get User's Email Address
     this.loginService.userEmail.subscribe(data => {
-      this.userEmail = data;
+      console.log(data);
+      
+      this.userEmail = data;   
+      
+      // Get Cart
+      this.getCart(data);
     })
 
     // Get Featured Products
     this.getLandingFeaturedProducts();
+
+
 
     // Track Illustration
     // this.hypIllustration = document.getElementById('hyp-illustration');
@@ -119,6 +129,13 @@ export class LandingPage implements OnInit {
     this.membershipForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], 
     });
+
+
+    this.userCartSub = this.loginService.userCart.subscribe( data => {
+      this.cart = data;
+      console.log('Cart From landing page: ');
+      console.log(data);
+    })
 
    }
 
@@ -232,6 +249,20 @@ export class LandingPage implements OnInit {
       .subscribe( featuredProducts => {
         // console.log(featuredProducts)
         this.landingFeaturedProducts = Object.values(featuredProducts);
+      });
+  }
+
+  getCartSub: Subscription;
+
+  getCart(email: string) {
+    console.log(email);
+    
+    this.getCartSub = this.productsService.getCart(email)
+      .subscribe( cart => {
+        console.log('lol');
+        
+        console.log(cart)
+        this.landingFeaturedProducts = Object.values(cart);
       });
   }
 
@@ -533,4 +564,124 @@ export class LandingPage implements OnInit {
        return callback(++i, d, s);
      }
    }
+
+
+   /**
+    * Add product to Cart
+    */
+    tryAddToCart(id, title, button) {
+      let cartCount = document.getElementById('cart-tab-bar-count');
+      let cartButton = button;
+
+      this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
+      .subscribe(async data => {
+        console.log(data);
+        
+        this.productsService.cart$.next(Object.values(data));
+        this.loginService.userCart.next(Object.values(data));
+        this.loginService.userCartLength.next(Object.values(data).length);
+        
+        cartButton.el.style.transform = 'scale(1.4)';
+        cartButton.el.style.color = 'red';
+        setTimeout(() => {
+          cartButton.el.style.transform = 'scale(1)';
+          cartButton.el.style.color = '#222';
+          cartCount.style.transform = 'scale(4)';
+          cartCount.style.background = 'green';
+          setTimeout(() => {
+            cartCount.style.transform = 'scale(1)';
+            cartCount.style.background = 'blue';
+            
+          }, 800);
+          
+        }, 200);
+
+          /**
+           * Toast that displays when a user adds this Product to their Cart
+           * '&#x2713;' is HTML escape character for a check mark ✓
+           */
+
+          const toast = await this.toastController.create({
+            message: `&#x2713;   You have added ${title} to your Cart!`,
+            duration: 1500,
+            color: 'success',
+            position: 'top',
+            cssClass: 'add-to-cart-toast',
+            buttons: [
+              {
+                side: 'end',
+                icon: 'close',
+                role: 'cancel',
+                handler:  () => {
+                  toast.dismiss();
+                }
+              }
+            ]
+          });
+          toast.present();
+        
+          // 
+        // setTimeout(() => {
+        //   return this.addToCartSub.unsubscribe();
+        // }, 3000);
+      })
+    }
+
+    tryRemoveFromCart(id, title, button) {
+      let cartCount = document.getElementById('cart-tab-bar-count');
+      let cartButton = button;
+
+      this.removeFromCartSub = this.productsService.removeFromCart(id, this.userEmail)
+      .subscribe(async data => {
+        console.log(data);
+        this.productsService.cart$.next(Object.values(data));
+        this.loginService.userCart.next(Object.values(data));
+        this.loginService.userCartLength.next(Object.values(data).length);
+        
+        cartButton.el.style.transform = 'scale(1.4)';
+        cartButton.el.style.color = 'red';
+        setTimeout(() => {
+          cartButton.el.style.transform = 'scale(1)';
+          cartButton.el.style.color = '#222';
+          cartCount.style.transform = 'scale(4)';
+          cartCount.style.background = 'green';
+          setTimeout(() => {
+            cartCount.style.transform = 'scale(1)';
+            cartCount.style.background = 'blue';
+            
+          }, 800);
+          
+        }, 200);
+
+          /**
+           * Toast that displays when a user adds this Product to their Cart
+           * '&#x2713;' is HTML escape character for a check mark ✓
+           */
+
+          const toast = await this.toastController.create({
+            message: `&#x2713;   You have added ${title} to your Cart!`,
+            duration: 1500,
+            color: 'success',
+            position: 'top',
+            cssClass: 'add-to-cart-toast',
+            buttons: [
+              {
+                side: 'end',
+                icon: 'close',
+                role: 'cancel',
+                handler:  () => {
+                  toast.dismiss();
+                }
+              }
+            ]
+          });
+          toast.present();
+        
+          // 
+        // setTimeout(() => {
+        //   return this.addToCartSub.unsubscribe();
+        // }, 3000);
+      })
+
+    }
 }

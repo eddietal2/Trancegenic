@@ -91,6 +91,7 @@ export class ProductsPage implements OnInit, AfterViewInit {
     // },
     navigation: true,
   };
+
   featuredProductsLength: any;
   favoriteProductsLength: number;
   searchLoadedProductsLength: number;
@@ -214,6 +215,8 @@ export class ProductsPage implements OnInit, AfterViewInit {
           this.userCartSub = this.loginService.userCart.subscribe( data => {
             this.cart = data;
             console.log(data);
+
+            
           })
         })
 
@@ -226,11 +229,10 @@ export class ProductsPage implements OnInit, AfterViewInit {
    * Track Scroll Position
    */
   scrollPosition(e) {
-     console.clear();
      let scrollDetail = e.detail;
      let fabButton = document.getElementById('fab-button');
 
-     console.log(scrollDetail);
+    //  console.log(scrollDetail);
      if (scrollDetail.scrollTop >= 400) {
       fabButton.style.opacity = '1';
       fabButton.style.pointerEvents = 'auto';
@@ -788,9 +790,10 @@ async openFilterActionSheet() {
       this.addToCartSub = this.productsService.addToCart(id, this.userEmail)
       .subscribe(async data => {
         console.log(data);
-        this.productsService.cart$.next(data['userCart']);
-        this.loginService.userCart.next(data['userCart']);
-        this.cart = data['userCart'];
+
+        this.productsService.cart$.next(Object.values(data));
+        this.loginService.userCart.next(Object.values(data));
+        this.loginService.userCartLength.next(Object.values(data).length);
         
         cartButton.el.style.transform = 'scale(1.4)';
         cartButton.el.style.color = 'red';
@@ -845,9 +848,11 @@ async openFilterActionSheet() {
       this.removeFromCartSub = this.productsService.removeFromCart(id, this.userEmail)
       .subscribe(async data => {
         console.log(data);
-        this.productsService.cart$.next(data['userCart']);
-        this.loginService.userCart.next(data['userCart']);
-        this.cart = data['userCart'];
+
+        this.productsService.cart$.next(Object.values(data));
+        this.loginService.userCart.next(Object.values(data));
+        this.loginService.userCartLength.next(Object.values(data).length);
+
         cartButton.el.style.transform = 'scale(1.4)';
         cartButton.el.style.color = 'red';
         setTimeout(() => {

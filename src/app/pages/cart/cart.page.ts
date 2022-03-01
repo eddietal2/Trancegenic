@@ -155,7 +155,9 @@ export class CartPage implements OnInit {
    */
    removeFromCartSub: Subscription;
 
-   async tryRemoveFromCart(id, title) {
+   async tryRemoveFromCart(id, title, button) {
+    let cartCount = document.getElementById('cart-tab-bar-count');
+    let cartButton = button;
 
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -178,7 +180,9 @@ export class CartPage implements OnInit {
             .pipe()
             .subscribe( async updatedCart => {
               console.log(updatedCart);
-              this.productsService.cart$.next(Object.values(updatedCart))
+              this.productsService.cart$.next(Object.values(updatedCart));
+              this.loginService.userCart.next(Object.values(updatedCart));
+              this.loginService.userCartLength.next(Object.values(updatedCart).length);
       
             })
           }

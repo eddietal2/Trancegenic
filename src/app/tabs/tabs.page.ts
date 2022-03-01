@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { LoginService } from '../services/onboarding/login.service';
+import { ProductsService } from '../services/products/products.service';
 import { ProfileService } from '../services/profile/profile.service';
 
 @Component({
@@ -15,22 +17,26 @@ export class TabsPage implements OnInit, AfterViewInit {
   userFullName: string;
   userPicture: string;
   cartLength: number;
+  cart = [];
   getCartLengthSub: any;
+  getCartSub: Subscription;
   
 
   constructor(
     private router: Router,
     private loginService: LoginService,
     private profileService: ProfileService,
+    private productsService: ProductsService,
     private alertController: AlertController,
   ) {}
   ngAfterViewInit(): void {
-    this.getCartAmount();
+    this.initializeData();
     this.tabBarStyling();
   }
 
   ngOnInit() {
     this.getAuthState();
+    // this.getRouterLocation();
 
     // console.log(this.router)
   }
@@ -43,18 +49,39 @@ export class TabsPage implements OnInit, AfterViewInit {
       console.log();
       if(data instanceof NavigationEnd) {
         let cartIcon = document.getElementById('desktop-cart-icon');
+        let navWrapper = document.getElementById('nav-wrapper');
+        let links = document.getElementsByTagName('a');
+
         if (data.url == '/cart') {          
           cartIcon.style.color = '#3171e0';
         } 
-        // if (data.url == '/products' || data.url == '/blog' || data.url == '/profile') {
-        //   let navWrapper = document.getElementById('nav-wrapper');
-        //   navWrapper.style.background = "#fff";
+        if (data.url == '/products' || data.url == '/profile' || data.url == '/cart') {
+          // Set Active Link
+          console.log('Router Active: ');
+          console.log();
 
-        // }
+          if(this.router.isActive(data.url, false)) {
+            for (let i = 0; i < links.length; i++) {
+              if(links[i].classList.value == 'active-link') {
+                links[i].style.color = '#3880ff';
+              }
+            }
+
+          }
+
+          navWrapper.style.background = "#fff"; 
+
+          for (let i = 0; i < links.length; i++) {
+            if(links[i].classList.value != 'active-link') {
+              links[i].style.color = '#999';
+            }
+          }
+
+
+        }
         else {
           let navWrapper = document.getElementById('nav-wrapper');
           cartIcon.style.color = '#999';
-          navWrapper.style.background = "#none";
         }
       }
     })
@@ -65,12 +92,23 @@ export class TabsPage implements OnInit, AfterViewInit {
    */
   addToCartSub: Subscription;
   authState: boolean;
-
-  getCartAmount() {
+  /**
+   * Cart, Email, Favorites, State
+   * Login Service has access to JWT
+   */
+  initializeData() {
+    this.getCart()
+    
     this.getCartLengthSub = this.loginService.userCartLength.subscribe(data => {
       console.log('Getting Cart Length: ')
       console.log(data)
       this.cartLength = data;
+      return;
+    })
+    this.getCartSub = this.loginService.userCart.subscribe(data => {
+      console.log('Getting Cart: ')
+      console.log(data)
+      this.cart = data;
       return;
     })
 
@@ -78,17 +116,18 @@ export class TabsPage implements OnInit, AfterViewInit {
       this.authState = state;
     });
 
-    setTimeout(() => {
-      return this.getCartLengthSub.unsubscribe();
-    }, 800);
+    this.loginService.userEmail.subscribe(email => {
+      this.userEmail = email;
+    });
+
   }
 
   tabDidChange(e: CustomEvent) {
-    console.log(e);
+    // console.log(e);
     
   }
   tabWillChange(e: CustomEvent) {
-    console.log(e);
+    // console.log(e);
 
   }
 
@@ -97,6 +136,36 @@ export class TabsPage implements OnInit, AfterViewInit {
       this.authState = state;
     })
   }
+
+  getEmail() {
+    this.loginService.userEmail.subscribe( email => {
+      this.userEmail = email;
+    })
+  }
+  getCart() {
+    this.getCartSub = this.productsService.getCart(this.userEmail)
+      .subscribe( cart => {
+        console.log(cart);
+        
+        console.log(cart)
+        this.cart = Object.values(cart);
+      });
+  }
+
+//   routerLocation: string;
+
+//   getRouterLocation() {
+//     this.router.events
+//     .pipe(
+//       filter((e): e is NavigationEnd => e instanceof NavigationEnd), 
+//       map(e => { return e 
+//       })
+//     )
+//     .subscribe(e => {
+//       this.routerLocation = e.urlAfterRedirects;
+//       console.log(this.routerLocation);
+//     })
+// }
 
   async tryLogout() {
     const alert = await this.alertController.create({

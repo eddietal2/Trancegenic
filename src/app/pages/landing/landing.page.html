@@ -68,19 +68,19 @@
                 </ion-button>
 
                 <div class="spacer-2x"></div>
-                <hr id="landing-sample-divider">
-                <div class="spacer-2x"></div>
+                <hr *ngIf="!this.authState" id="landing-sample-divider">
+                <div *ngIf="!this.authState" class="spacer-2x"></div>
 
                 <!-- Header Onboarding Buttons -->
-                <ion-row id="header-onboarding-buttons">
+                <ion-row *ngIf="!this.authState" id="header-onboarding-buttons">
                     <ion-col size="6">
-                        <ion-button *ngIf="!this.loginService.authenticationState.value;" (click)="login()">
+                        <ion-button (click)="login()">
                             Login
                         </ion-button>
                         <div class="spacer-2x"></div>   
                     </ion-col>
                     <ion-col size="6">
-                        <ion-button *ngIf="!this.authState" color="success" (click)="register()">
+                        <ion-button color="success" (click)="register()">
                             Register
                         </ion-button>     
                     </ion-col>
@@ -139,10 +139,10 @@
     </ion-row>
 
     <!-- Products -->
-    <ion-row id="products-wrapper" class="ion-justify-content-center ion-hide-lg-down">
+    <ion-row class="ion-justify-content-center ion-hide-lg-down">
         <ion-col size="7">
             <ion-row>
-                <ion-col size-lg="4" *ngFor="let featuredProduct of this.landingFeaturedProducts">
+                <ion-col size-lg="6" size-xl="4" *ngFor="let featuredProduct of this.landingFeaturedProducts">
                     <ion-row
                         class="landing-product-wrapper ion-justify-content-center">
                         <ion-col class="product-photo" size="6"
@@ -164,16 +164,26 @@
                         </ion-col>
         
                         <ion-toolbar *ngIf="this.authState">
-                              <ion-buttons slot="start">
-                                <ion-button id="cart-button" (click)="onClick()">
-                                  <ion-icon slot="start" name="cart-outline"></ion-icon>
-                                </ion-button>
-                              </ion-buttons>
-                              <ion-buttons slot="end">
+                              
+                            <ion-buttons #cartButton  slot="start">
+                                <img class="cart-button" 
+                                    (click)="tryAddToCart(featuredProduct._id, featuredProduct.title, cartButton)"
+                                    *ngIf="!this.cart.includes(featuredProduct._id)" 
+                                    src="../../../assets/icons/add-to-cart.svg" 
+                                    alt="Hypnosis Downloads Product">
+                                <img class="cart-button"
+                                    (click)="tryRemoveFromCart(featuredProduct._id, featuredProduct.title, cartButton)"
+                                    *ngIf="this.cart.includes(featuredProduct._id)" 
+                                    src="../../../assets/icons/remove-from-cart.svg" 
+                                    alt="Hypnosis Downloads Product">
+                            </ion-buttons>
+
+                            <ion-buttons slot="end">
                                 <app-favorite-icon
                                 [id]="featuredProduct._id"
                                 [email]="this.userEmail"></app-favorite-icon>
-                              </ion-buttons>
+                            </ion-buttons>
+                            
                         </ion-toolbar>  
                     </ion-row>
                 </ion-col>
@@ -196,13 +206,13 @@
         </ion-col>
         <ion-col size-xs="11" size-sm="10" size-md="8">
             <swiper
-              id="landing-featured-swiper"
+              id="products-featured-swiper"
               [config]="config" 
               (swiper)="onSwiper($event)">
                 <ng-template swiperSlide *ngFor="let featuredProduct of this.landingFeaturedProducts">
                   <div>
                     <ion-row
-                    class="landing-product-wrapper-mobile">
+                    class="products-product-wrapper-mobile">
                       <ion-col class="product-photo" size="6"
                       (click)="goToProductPage(featuredProduct._id)">
 
@@ -249,11 +259,11 @@
 
     <!-- Intro -->
     <ion-row id="intro-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-md="10" size-lg="7">
+        <ion-col size-xs="11" size-md="10" size-lg="6.2">
             <div id="hyp-illustration"></div>
         </ion-col>
-        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="7">
-            <h1>Why Hypnosis?</h1>
+        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="6.2">
+            <h2 class="landing-section-header">Why Hypnosis?</h2>
             <p id="why-hypnosis">Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
                 Ad nihil porro error enim praesentium qui, dolorum optio vitae nobis incidunt? 
                 Velit ducimus maxime, iste doloribus quidem mollitia quod adipisci omnis!
@@ -315,17 +325,17 @@
     <!-- Growth Membership -->
     <div class="spacer-5x"></div>
     <ion-row id="growth-membership-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-md="10" size-lg="7">
+        <ion-col size-xs="11" size-md="10" size-lg="6.2">
             <ion-toolbar>
                 <ion-buttons slot="start">
-                    <h2>
+                    <h2 class="landing-section-header">
                         <ion-icon slot="start" name="leaf-outline"></ion-icon>
                         Growth Membership
                     </h2>
                 </ion-buttons>
             </ion-toolbar>
         </ion-col>
-        <ion-col size-xs="11" size-md="10" size-lg="7">
+        <ion-col size-xs="11" size-md="10" size-lg="6.2">
             <p id="growth-text">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                 Dicta sequi sapiente reprehenderit culpa adipisci obcaecati nihil,

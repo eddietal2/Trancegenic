@@ -180,7 +180,6 @@ export class LoginService {
             this.userPicture.next(decoded.picture);
             this.userEmail.next(decoded.email);
             this.userFullName.next(decoded.fullName);
-            this.userCartLength.next(decoded.cartLength);
             this.userFavorites.next(decoded.favorites);
             this.authenticationState.next(true);
           }
