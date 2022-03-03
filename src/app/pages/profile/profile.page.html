@@ -201,7 +201,7 @@
                   <h2>{{this.userEmail}}</h2>
                 </span>
               </div>
-              <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail()">
+              <form [formGroup]="changeEmailForm">
                 <ion-item>
                   <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input required formControlName="newEmail" placeholder="{{this.userEmail}}" type="email"></ion-input>

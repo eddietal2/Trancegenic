@@ -173,7 +173,7 @@
 
               <!-- Add to Cart Button -->
               <div class="related-product-add-cart-lg">
-                <ion-button class="related-product-add-cart-lg" (click)="relatedProductAddToCart()" expand="block">
+                <ion-button class="related-product-add-cart-lg" expand="block">
                   Add to Cart
                 </ion-button>
               </div>
@@ -205,12 +205,12 @@
 
                   <ion-toolbar>
                   <ion-buttons slot="start">
-                    <ion-button class="related-product-add-to-cart-products-page" (click)="addToCart(relatedProduct._id)">
+                    <ion-button class="related-product-add-to-cart-products-page">
                       <img width="30" src="../../../../assets/icons/add-to-cart.png" alt="Hypnosis Site Add Related product to cart icon">
                     </ion-button>
                   </ion-buttons>
                   <ion-buttons slot="end">
-                    <app-favorite-icon [productID]="relatedProduct._id"></app-favorite-icon>
+                    <app-favorite-icon [id]="relatedProduct._id"></app-favorite-icon>
                   </ion-buttons>
                   </ion-toolbar>
                 </ion-col>

@@ -146,12 +146,12 @@
                     <ion-row
                         class="landing-product-wrapper ion-justify-content-center">
                         <ion-col class="product-photo" size="6"
-                              (click)="goToProductPage(featuredProduct._id)">
+                              (click)="goToProductPage(featuredProduct._id, searchBar)">
         
                         </ion-col>
                         <ion-col size="6"
-                              (click)="goToProductPage(featuredProduct._id)">
-                                <div (click)="goToProductPage()">
+                              (click)="goToProductPage(featuredProduct._id, searchBar)">
+                                <div>
                                   <p class="product-price">${{featuredProduct.price}}</p>
                                   
                                   <h6 class="product-title">{{featuredProduct.title}}</h6>
@@ -214,12 +214,12 @@
                     <ion-row
                     class="products-product-wrapper-mobile">
                       <ion-col class="product-photo" size="6"
-                      (click)="goToProductPage(featuredProduct._id)">
+                      (click)="goToProductPage(featuredProduct._id, searchBar)">
 
                       </ion-col>
                       <ion-col size="6"
-                      (click)="goToProductPage(featuredProduct._id)">
-                        <div (click)="goToProductPage()">
+                      (click)="goToProductPage(featuredProduct._id, searchBar)">
+                        <div>
                           <p class="product-price">${{featuredProduct.price}}</p>
                           
                           <h6 class="product-title">{{featuredProduct.title}}</h6>
@@ -362,7 +362,7 @@
 
                 <div *ngIf="this.showMembershipFrom" id="membership-input-wrapper">
                     <h1>Sign Up for Memebership</h1>
-                    <form [formGroup]="this.membershipForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="this.membershipForm">
                         <ion-item>
                             <ion-label position="floating">First Name <ion-text color="danger">*</ion-text></ion-label>
                             <ion-input required formControlName="email" type="email"></ion-input>

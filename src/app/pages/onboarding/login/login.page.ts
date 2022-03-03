@@ -235,7 +235,7 @@ export class LoginPage implements OnInit {
   /**
    * Track the User's Code Input to be able to navigate to next slide.
    */
-   async codeInput(e: CustomEvent) {
+   async codeInput(e: any) {
     let userInputCode = e.detail.value;
 
     if(userInputCode == this.code) {
@@ -262,7 +262,7 @@ export class LoginPage implements OnInit {
   /**
    * Track the User's Password and ReTypePassword Input to successfully change password.
    */
-  newPasswordInput(e: CustomEvent) {
+  newPasswordInput(e: any) {
     let newPassword= e.detail.value;
     this.newPassword = newPassword;
     console.log('New Password: ' + newPassword);
@@ -278,7 +278,7 @@ export class LoginPage implements OnInit {
 
   passwordsMatched = false; 
 
-  async retypeNewPasswordInput(e: CustomEvent) {
+  async retypeNewPasswordInput(e: any) {
     let reTypeNewPassword = e.detail.value;
     this.reTypeNewPassword = reTypeNewPassword;
     console.log('Retyped New Password: ' + reTypeNewPassword);

@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile/profile.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { Subscription } from 'rxjs';
 
@@ -19,7 +17,7 @@ export class ProfilePage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private profileService: ProfileService,
-    private loginService: LoginService,
+    public loginService: LoginService,
     private router: Router,
     private alertController: AlertController) {}
   

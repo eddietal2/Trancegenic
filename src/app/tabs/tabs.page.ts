@@ -122,11 +122,11 @@ export class TabsPage implements OnInit, AfterViewInit {
 
   }
 
-  tabDidChange(e: CustomEvent) {
+  tabDidChange(e: any) {
     // console.log(e);
     
   }
-  tabWillChange(e: CustomEvent) {
+  tabWillChange(e: any) {
     // console.log(e);
 
   }

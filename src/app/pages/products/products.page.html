@@ -104,11 +104,11 @@
                 *ngFor="let product of favoriteProducts"
                 style="width: 100%;"
                 class="product-wrapper ion-justify-content-center">
-                <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
+                <ion-col (click)="this.goToProductPage(product._id)" class="product-photo" size="6">
           
                 </ion-col>
                 <ion-col size="6">
-                  <div (click)="this.goToProductPage()">
+                  <div (click)="this.goToProductPage(product.price)">
                     <p class="product-price">${{product.price}}</p>
                     <h6 class="product-title">{{product.title}}</h6>
                     <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
@@ -121,7 +121,7 @@
  
                 <!-- Cart + Favorites Toolbar -->
                 <ion-toolbar>
-                  <ion-buttons (click)="addToCart(product._id, product.title)" slot="start">
+                  <ion-buttons #cartButton (click)="tryAddToCart(product._id, product.title, cartButton)" slot="start">
                     <img class="cart-button" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
                   </ion-buttons>
                   <ion-buttons slot="end">
@@ -228,11 +228,11 @@
                 *ngFor="let product of this.searchLoadedProducts"
                 style="width: 100%;"
                 class="product-wrapper ion-justify-content-center">
-                <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
+                <ion-col (click)="this.goToProductPage(product._id)" class="product-photo" size="6">
           
                 </ion-col>
                 <ion-col size="6">
-                  <div (click)="this.goToProductPage()">
+                  <div (click)="this.goToProductPage(product._id)">
                     <p class="product-price">${{product.price}}</p>
                     <h6 class="product-title">{{product.title}}</h6>
                     <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
@@ -248,7 +248,7 @@
 
                 <!-- Cart + Favorites Toolbar -->
                 <ion-toolbar *ngIf="this.authState">
-                  <ion-buttons (click)="addToCart(product._id, product.title)" slot="start">
+                  <ion-buttons #cartButton (click)="tryAddToCart(product._id, product.title, cartButton)" slot="start">
                     <img class="cart-button" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
                   </ion-buttons>
                   <ion-buttons slot="end">
@@ -312,7 +312,7 @@
 
 
           <!-- Filter -->
-          <ion-buttons *ngIf="this.categoryLg == 'all'" id="filter-button" slot="end">
+          <ion-buttons #filterButton *ngIf="this.categoryLg == 'all'" id="filter-button" slot="end">
             <ion-button (click)="openFilterActionSheet()">
               Filter
             </ion-button>
@@ -371,7 +371,7 @@
                         </ion-col>
                         <ion-col size="6"
                               (click)="goToProductPage(featuredProduct._id)">
-                                <div (click)="goToProductPage()">
+                                <div>
                                   <p class="product-price">${{featuredProduct.price}}</p>
                                   
                                   <h6 class="product-title">{{featuredProduct.title}}</h6>
@@ -435,7 +435,7 @@
                         </ion-col>
                         <ion-col size="6"
                               (click)="goToProductPage(product._id)">
-                                <div (click)="goToProductPage()">
+                                <div>
                                   <p class="product-price">${{product.price}}</p>
                                   
                                   <h6 class="product-title">{{product.title}}</h6>
@@ -449,7 +449,7 @@
         
                         <ion-toolbar *ngIf="this.authState">
                               <ion-buttons slot="start">
-                                <ion-button id="cart-button" (click)="onClick()">
+                                <ion-button id="cart-button">
                                   <ion-icon slot="start" name="cart-outline"></ion-icon>
                                 </ion-button>
                               </ion-buttons>
@@ -484,7 +484,7 @@
                         </ion-col>
                         <ion-col size="6"
                               (click)="goToProductPage(product._id)">
-                                <div (click)="goToProductPage()">
+                                <div>
                                   <p class="product-price">${{product.price}}</p>
                                   
                                   <h6 class="product-title">{{product.title}}</h6>
@@ -498,7 +498,7 @@
         
                         <ion-toolbar *ngIf="this.authState">
                               <ion-buttons slot="start">
-                                <ion-button id="cart-button" (click)="onClick()">
+                                <ion-button id="cart-button">
                                   <ion-icon slot="start" name="cart-outline"></ion-icon>
                                 </ion-button>
                               </ion-buttons>

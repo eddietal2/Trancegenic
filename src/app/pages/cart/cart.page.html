@@ -37,11 +37,11 @@
                 *ngFor="let product of this.cart"
                 style="width: 100%;"
                 class="product-wrapper ion-justify-content-center">
-                <ion-col (click)="this.goToProductPage()" class="product-photo" size="6">
+                <ion-col (click)="this.goToProductPage(product._id)" class="product-photo" size="6">
           
                 </ion-col>
                 <ion-col size="6">
-                  <div (click)="this.goToProductPage()">
+                  <div (click)="this.goToProductPage(product._id)">
                     <p class="product-price">${{product.price}}</p>
                     <h6 class="product-title">{{product.title}}</h6>
                     <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
@@ -55,8 +55,8 @@
                 <!-- Cart + Favorites Toolbar -->
                 <div class="spacer-3x"></div>
                 <ion-toolbar>
-                  <ion-buttons (click)="tryRemoveFromCart(product._id, product.title)" slot="start">
-                    <img class="cart-button" src="../../../assets/icons/remove-from-cart.svg" alt="" srcset="">
+                  <ion-buttons #cartButton (click)="tryRemoveFromCart(product._id, product.title, cartButton)" slot="start">
+                    <img class="cart-button" src="../../../assets/icons/remove-from-cart.svg" alt="Hypnosis Downloads">
                   </ion-buttons>
                   <ion-buttons slot="end">
                     <app-favorite-icon 

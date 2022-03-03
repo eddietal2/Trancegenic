@@ -204,6 +204,11 @@ export class CartPage implements OnInit {
   goBackToProductsPage() {
     this.router.navigateByUrl('/products');
   }
+
+  goToProductPage(id: string) {
+    console.log(id);
+    this.router.navigate(["/products/product-page", id]);
+  }
   
   /**
    * Go to Contact us Page

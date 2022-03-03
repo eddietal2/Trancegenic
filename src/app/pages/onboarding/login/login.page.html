@@ -6,7 +6,7 @@
             <div class="ion-text-center">
                 <img height="40" src="../../../../assets/placeholders/placeholder-logo.svg">
             </div>
-            <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <form [formGroup]="loginForm">
                 <ion-item>
                   <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
                   <ion-input required formControlName="email" type="email"></ion-input>
@@ -107,7 +107,7 @@
                 <ng-template swiperSlide>
                   <div>
                     <p class="static-alert-yellow">Please enter your email. A 4 digit code will be sent to it.</p>
-                    <form [formGroup]="enterEmailForm" (ngSubmit)=changeName()>
+                    <form [formGroup]="enterEmailForm">
                       <ion-item>
                         <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
                         <ion-input type="email" formControlName="emailForgot" maxlength="80"></ion-input>
@@ -148,7 +148,7 @@
                 <ng-template swiperSlide>
                   <div>
                     <p class="static-alert-yellow">Please enter 4 digit code that was sent to:<br> {{this.enterEmailForm.value.emailForgot}}</p>
-                    <form [formGroup]="enterCodeForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="enterCodeForm">
                       <ion-item>
                         <ion-label position="floating">Code <ion-text color="danger">*</ion-text></ion-label>
                         <ion-input (ionChange)="codeInput($event)" type="text" name="code" maxlength="4" minlength="4"></ion-input>
@@ -185,7 +185,7 @@
                 <ng-template swiperSlide>
                   <div>
                     <p class="static-alert-red">Create a new password. Has to be 8 characters.</p>
-                    <form [formGroup]="newPasswordForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="newPasswordForm">
                       <ion-item>
                         <ion-label position="floating">New Password <ion-text color="danger">*</ion-text></ion-label>
                         <ion-input (ionChange)="newPasswordInput($event)" type="password" formControlName="newPassword"></ion-input>

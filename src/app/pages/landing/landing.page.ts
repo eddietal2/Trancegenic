@@ -146,7 +146,7 @@ export class LandingPage implements OnInit {
   searchLength = null;
   searchItemIDs = [];
 
-  searchUpdate(e: CustomEvent) {
+  searchUpdate(e: any) {
     // Get Search Items
     this.searchBarClicked = true;
 
@@ -195,7 +195,7 @@ export class LandingPage implements OnInit {
     this.searching = true;
   }
 
-  searchingOff(e: CustomEvent) {
+  searchingOff(e: any) {
 
     if (this.searchBarClicked == true) {
       e.preventDefault();
