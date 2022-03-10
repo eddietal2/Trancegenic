@@ -88,6 +88,8 @@ export class LandingPage implements OnInit {
     this.initializeData();
   }
 
+  
+
   /**
    * 
    * @param e 
@@ -98,44 +100,35 @@ export class LandingPage implements OnInit {
     this.getSearchProductsSub = this.productsService.getAllProductsForLandingSearch()
     .subscribe(searchProducts => {
       this.searchProducts = searchProducts;
+
+      // Get Featured Products
+      this.getLandingFeaturedProducts();
     });
 
     // Get User's Auth State
     this.loginService.authenticationState.subscribe(data => {
+      
       this.authState = data;
+
+      // Get User's Email Address
+      this.loginService.userEmail.subscribe(data => {
+        
+        this.userEmail = data;   
+        
+        // Get Cart
+        if(data != 'none') {
+          this.getCart(data);
+        }
+  
+        // Set Membership Form
+        this.membershipForm = this.formBuilder.group({
+          email: ['', [Validators.required, Validators.email]], 
+        });
+  
+        return;
+      })
     });
 
-    // Get User's Email Address
-    this.loginService.userEmail.subscribe(data => {
-      console.log(data);
-      
-      this.userEmail = data;   
-      
-      // Get Cart
-      this.getCart(data);
-    })
-
-    // Get Featured Products
-    this.getLandingFeaturedProducts();
-
-
-
-    // Track Illustration
-    // this.hypIllustration = document.getElementById('hyp-illustration');
-    // console.log('\nHypnosis Illustration Scrolltop: ');
-    // console.log(this.hypIllustration.scrollTop);
-
-    // Set Membership Form
-    this.membershipForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]], 
-    });
-
-
-    this.userCartSub = this.loginService.userCart.subscribe( data => {
-      this.cart = data;
-      console.log('Cart From landing page: ');
-      console.log(data);
-    })
 
    }
 
@@ -254,15 +247,14 @@ export class LandingPage implements OnInit {
 
   getCartSub: Subscription;
 
-  getCart(email: string) {
-    console.log(email);
-    
+  /**
+   * 
+   * @param email 
+   */
+  getCart(email: string) {    
     this.getCartSub = this.productsService.getCart(email)
-      .subscribe( cart => {
-        console.log('lol');
-        
-        console.log(cart)
-        this.landingFeaturedProducts = Object.values(cart);
+      .subscribe( cart => {        
+        this.cart = Object.values(cart);
       });
   }
 

@@ -132,8 +132,6 @@ export class LoginService {
 
   async loginSuccess(data) {
 
-    console.log(data)
-
     // Create Toast
     const toast = await this.toastController.create({
       message: 'You have successfully logged in!',
@@ -156,7 +154,7 @@ export class LoginService {
     this.userFavorites.next(data['favorites']);
     this.authenticationState.next(true);
 
-    console.log(data);
+    // console.log(data);
     
     return loading.present();
   }
@@ -175,9 +173,11 @@ export class LoginService {
           this.user = decoded;
 
           if((decoded.email !== '')) {
+            console.log('Decoded Token: ');            
             console.log(decoded);
             this.userType.next('user');
             this.userPicture.next(decoded.picture);
+            this.userCart.next(decoded.cart);
             this.userEmail.next(decoded.email);
             this.userFullName.next(decoded.fullName);
             this.userFavorites.next(decoded.favorites);

@@ -46,7 +46,6 @@ export class TabsPage implements OnInit, AfterViewInit {
    */
   tabBarStyling() {
     this.router.events.subscribe(data => {
-      console.log();
       if(data instanceof NavigationEnd) {
         let cartIcon = document.getElementById('desktop-cart-icon');
         let navWrapper = document.getElementById('nav-wrapper');
@@ -57,8 +56,8 @@ export class TabsPage implements OnInit, AfterViewInit {
         } 
         if (data.url == '/products' || data.url == '/profile' || data.url == '/cart') {
           // Set Active Link
-          console.log('Router Active: ');
-          console.log();
+          // console.log('Router Active: ');
+          // console.log();
 
           if(this.router.isActive(data.url, false)) {
             for (let i = 0; i < links.length; i++) {
@@ -97,18 +96,12 @@ export class TabsPage implements OnInit, AfterViewInit {
    * Login Service has access to JWT
    */
   initializeData() {
-    this.getCart()
-    
-    this.getCartLengthSub = this.loginService.userCartLength.subscribe(data => {
-      console.log('Getting Cart Length: ')
-      console.log(data)
-      this.cartLength = data;
-      return;
-    })
+
     this.getCartSub = this.loginService.userCart.subscribe(data => {
       console.log('Getting Cart: ')
       console.log(data)
       this.cart = data;
+      this.cartLength = data.length;
       return;
     })
 
@@ -118,6 +111,11 @@ export class TabsPage implements OnInit, AfterViewInit {
 
     this.loginService.userEmail.subscribe(email => {
       this.userEmail = email;
+
+      if(email != 'none') {
+        this.getCart(email);
+      }
+    
     });
 
   }
@@ -142,12 +140,11 @@ export class TabsPage implements OnInit, AfterViewInit {
       this.userEmail = email;
     })
   }
-  getCart() {
-    this.getCartSub = this.productsService.getCart(this.userEmail)
+  getCart(email: string) {
+    
+    this.getCartSub = this.productsService.getCart(email)
       .subscribe( cart => {
-        console.log(cart);
-        
-        console.log(cart)
+        // console.log(cart);        
         this.cart = Object.values(cart);
       });
   }

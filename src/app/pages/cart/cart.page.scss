@@ -11,24 +11,23 @@
     }
 }
 
-ion-footer {
-    .cart-not-empty {
-        height: 50px;
-        width: 100%;
-        --transition: 0.5s;
-        --border-radius: 0px;
-        --background: #b93333;
-        --ripple-color: rgb(255, 204, 128);
-    }
-    .cart-empty {
-        height: 50px;
-        width: 100%;
-        --transition: 0.5s;
-        --border-radius: 0px;
-        --background: #8b8b8b;
-        --color: #222;
-        --ripple-color: rgb(255, 204, 128);
-    }
+
+.cart-not-empty {
+    height: 50px;
+    width: 100%;
+    --transition: 0.5s;
+    --border-radius: 0px;
+    --background: #b93333;
+    --ripple-color: rgb(255, 204, 128);
+}
+.cart-empty {
+    height: 50px;
+    width: 100%;
+    --transition: 0.5s;
+    --border-radius: 0px;
+    --background: #8b8b8b;
+    --color: #222;
+    --ripple-color: rgb(255, 204, 128);
 }
 
 .product-wrapper {

@@ -7,10 +7,19 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="5">
         <div class="spacer-5x"></div>
-        <h1>
-          <ion-icon slot="start" name="cart-outline" size="large"></ion-icon>
-          Cart <span *ngIf="this.userEmail">({{cartLength}})</span>
-        </h1>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <h1>
+              <ion-icon slot="start" name="cart-outline" size="large"></ion-icon>
+              Cart <span *ngIf="this.userEmail">({{cartLength}})</span>
+            </h1>
+          </ion-buttons>
+          <ion-buttons *ngIf="this.cartLength != 0" slot="end">
+            <ion-button id="clear-cart-button-lg" color="primary" (click)="clearCart(this.userEmail)">
+              Empty Cart
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
         <div class="spacer-2x"></div>
         <h3 *ngIf="!this.userEmail">Please Log in</h3>
         <ion-button *ngIf="!this.userEmail" (click)="goToLoginPage()">
@@ -33,6 +42,20 @@
             </div>
           </ion-col>
         </ion-row>
+
+        <!-- Complete Order Lg -->
+        <ion-row class="ion-hide-lg-down">
+          <ion-col size="12">
+            <ion-button class="cart-not-empty" *ngIf="this.cartLength > 0" expand="full" (click)="tryCompleteOrder()">
+              Complete Order <span style="font-weight: 800; margin-left: 1em;">({{this.cartLength}})</span>
+            </ion-button>
+            <ion-button [disabled]="true" class="cart-empty ion-hide-lg-up" *ngIf="this.cartLength == 0" expand="full" (click)="tryCompleteOrder()">
+              Cart is Empty
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <!-- Products -->
         <ion-row
                 *ngFor="let product of this.cart"
                 style="width: 100%;"
@@ -48,7 +71,7 @@
                     <p class="-product-duration">Duration: {{product.duration}} Mins</p>
                     <p class="product-category"># {{product.category}}</p>
                     <!-- user's favoriteProducts collection on has IDs -->
-                    <p class="product-reviews-length">Reviews {{product.reviews}}</p>
+                    <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
                   </div>
                 </ion-col>
  
@@ -66,7 +89,8 @@
                   </ion-buttons>
                 </ion-toolbar> 
 
-                </ion-row>
+        </ion-row>
+
       </ion-col>
     </ion-row>
     

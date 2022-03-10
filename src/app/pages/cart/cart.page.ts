@@ -1,9 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { Browser } from '@capacitor/browser';
 
 
 interface Product {
@@ -133,7 +134,7 @@ export class CartPage implements OnInit {
             });
 
             // Set Client Location to Formatted URL
-            window.location.href = apiURL;
+            await this.openInAppBrowser(apiURL);
 
             // Present Loading screen AFTER Location is changed,
             // because it takes a few seconds for the page to reload.
@@ -149,6 +150,24 @@ export class CartPage implements OnInit {
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
    }
+
+
+  /**
+   * Open New Page in Browser
+   */
+   async openInAppBrowser(link: string) {
+    await Browser.open({
+      url: link,
+      presentationStyle: 'popover',
+      toolbarColor: '#00c400',
+      windowName: '_system'
+    }
+    )
+
+    setTimeout(() => {
+      Browser.close();
+    }, 10000);
+  }
 
   /**
    * Remove From Cart
@@ -177,8 +196,7 @@ export class CartPage implements OnInit {
           id: 'confirm-button',
           handler: () => {
             this.removeFromCartSub = this.productsService.removeFromCart(id, this.userEmail)
-            .pipe()
-            .subscribe( async updatedCart => {
+            .subscribe( updatedCart => {
               console.log(updatedCart);
               this.productsService.cart$.next(Object.values(updatedCart));
               this.loginService.userCart.next(Object.values(updatedCart));
@@ -196,6 +214,52 @@ export class CartPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
     
    }
+
+  async clearCart(email: string) {
+    console.log(email);
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Empty Cart?',
+      message: 'Are you sure you want to empty your cart?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Empty Cart',
+          id: 'confirm-button',
+          handler: async () => {
+            this.productsService.emptyCart(this.userEmail).subscribe(
+              updatedCart => {
+                this.cart = updatedCart;
+                this.productsService.cart$.next(Object.values(updatedCart));
+                this.loginService.userCart.next(Object.values(updatedCart));
+                this.loginService.userCartLength.next(Object.values(updatedCart).length);
+                return;
+              }
+             )
+
+            const loading = await this.loadingController.create({
+              duration: 1500,
+              spinner: 'circles'
+            });
+
+
+            await loading.present();
+            }
+
+        }
+      ]
+    });
+
+    await alert.present();
+
+    
+  }
 
   goToLoginPage() {
     this.router.navigateByUrl('/login');

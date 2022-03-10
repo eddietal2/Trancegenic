@@ -72,6 +72,10 @@ export class ProductsService {
     return this.http.post(`${this.BACKEND_URL}/products/remove-from-cart`, {_id: id, email})
   }
 
+  emptyCart(email: string) {
+    return this.http.post(`${this.BACKEND_URL}/products/empty-cart`, {email})
+  }
+
   postReview(id: string, email: string, rating: number, review: string) {
     return this.http.post(`${this.BACKEND_URL}/products/add-review`, {_id: id, email, rating, review})
   }
