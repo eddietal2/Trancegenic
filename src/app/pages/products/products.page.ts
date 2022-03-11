@@ -7,7 +7,6 @@ import { FavoriteIconComponent } from 'src/app/components/favorite-icon/favorite
 import { ProductsService } from 'src/app/services/products/products.service';
 import { LoginService } from 'src/app/services/onboarding/login.service';
 import { ProfileService } from 'src/app/services/profile/profile.service';
-import { catchError } from 'rxjs/operators';
 
 
 Swiper.use([Autoplay]);
