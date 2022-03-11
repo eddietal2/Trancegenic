@@ -32,13 +32,22 @@
                     <ion-skeleton-text class="is-square" animated></ion-skeleton-text>
                   </h3>
                   <p>
-                    <ion-skeleton-text class="is-text" animated style="width: 80%"></ion-skeleton-text>
+                    <ion-skeleton-text class="is-text" animated style="width: 90%"></ion-skeleton-text>
                   </p>
                   <p>
-                    <ion-skeleton-text class="is-text" animated style="width: 70%"></ion-skeleton-text>
+                    <ion-skeleton-text class="is-text" animated style="width: 90%"></ion-skeleton-text>
                   </p>
                   <p>
-                    <ion-skeleton-text class="is-text" animated style="width: 60%"></ion-skeleton-text>
+                    <ion-skeleton-text class="is-text" animated style="width: 90%"></ion-skeleton-text>
+                  </p>
+                  <p>
+                    <ion-skeleton-text class="is-text" animated style="width: 90%"></ion-skeleton-text>
+                  </p>
+                  <p>
+                    <ion-skeleton-text class="is-text" animated style="width: 90%"></ion-skeleton-text>
+                  </p>
+                  <p>
+                    <ion-skeleton-text class="is-text" animated style="width: 90%"></ion-skeleton-text>
                   </p>
                 </ion-label>
               </ion-item>
@@ -85,11 +94,23 @@
           <!-- <p class="product-reviews-length"><b>Reviews:</b> {{productInfo.reviews.length}}</p> -->
           <p class="product-category">#{{productInfo.category}}</p>
         </div>
+
+        <!-- Back Button -->
+        <div class="ion-text-center" style="border-bottom: 1px solid #999;">
+          <div class="spacer-2x"></div>
+          <ion-button 
+            id="back-button-lg" 
+            (click)="close()">
+            <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+            Back to Products
+          </ion-button>
+          <div class="spacer-2x"></div>
+        </div>
         
-        <div class="spacer-5x"></div>
+        <div class="spacer-2x"></div>
 
         <!-- Product Sample -->
-        <div class="ion-text-center">
+        <div class="ion-text-center" id="product-page-sample-wrapper">
 
           <!-- Sample Icon -->
           <div class="ion-text-center">
@@ -130,25 +151,10 @@
 
         </div>
 
-        <!-- Back Button -->
-        <div class="ion-text-center">
-          <ion-button 
-            id="back-button-lg" 
-            (click)="close()">
-            <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
-            Back to Products
-          </ion-button>
-          <div class="spacer-5x"></div>
-        </div>
+        <div class="spacer-2x"></div>
 
         <p class="description">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
-          Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          <br><br>
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. 
-          Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. 
-          In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
-          Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
+          {{productInfo.description}}
         </p>
         
       </ion-col>
@@ -203,16 +209,17 @@
                   <p class="product-category">#{{relatedProduct.category}}</p>
                   <h5 class="product-reviews-length">Reviews: {{relatedProduct.reviews.length}}</h5>
 
-                  <ion-toolbar>
-                  <ion-buttons slot="start">
-                    <ion-button class="related-product-add-to-cart-products-page">
-                      <img width="30" src="../../../../assets/icons/add-to-cart.png" alt="Hypnosis Site Add Related product to cart icon">
-                    </ion-button>
-                  </ion-buttons>
+                 
+                  <ion-toolbar *ngIf="this.authState">
+                    <ion-buttons #cartButton  slot="start">
+                      <img class="cart-button" (click)="tryAddToCart(relatedProduct._id, relatedProduct.title, cartButton)" *ngIf="!this.cart.includes(relatedProduct._id)" src="../../../assets/icons/add-to-cart.svg" alt="Hypnosis Downloads Product">
+                      <img class="cart-button" (click)="tryRemoveFromCart(relatedProduct._id, relatedProduct.title, cartButton)" *ngIf="this.cart.includes(relatedProduct._id)" src="../../../assets/icons/remove-from-cart.svg" alt="Hypnosis Downloads Product">
+                    </ion-buttons>
                   <ion-buttons slot="end">
                     <app-favorite-icon [id]="relatedProduct._id"></app-favorite-icon>
                   </ion-buttons>
                   </ion-toolbar>
+
                 </ion-col>
               </ion-row>
             </ng-template>
@@ -223,7 +230,7 @@
 
       <!-- Bottom Buttons -->
       <ion-col 
-        id="product-bottom-buttons-lg" 
+        id="product-bottom-buttons" 
         size-xs="11" size-sm="11" size-md="10" size-lg="8" size-xl="6.7">
         <div class="spacer-5x"></div>
         <ion-button 
@@ -269,11 +276,14 @@
           <ion-icon name="chatbubbles-outline"></ion-icon>
             {{reviewButtonMessage}}
         </ion-button>
-        <div class="spacer-2x"></div>
-        <p class="static-alert-blue" *ngIf="!this.authState">Log in to post a Review</p>
-        <ion-button (click)="goToLoginPage()" expand="block" color="primary" *ngIf="!this.authState">
-          Login
-        </ion-button>
+        
+        <div class="spacer-4x"></div>
+        <div id="product-page-login-wrapper">
+          <p class="static-alert-blue" style="width: 250px; margin: 0 auto;" *ngIf="!this.authState">Log in to post a Review</p>
+          <ion-button id="product-page-login-button" color="primary" (click)="goToLoginPage()" expand="block" *ngIf="!this.authState">
+            Login
+          </ion-button>
+        </div>
       </ion-col>
 
       <!-- Reviews -->

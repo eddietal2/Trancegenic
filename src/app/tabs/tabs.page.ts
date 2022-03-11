@@ -98,8 +98,6 @@ export class TabsPage implements OnInit, AfterViewInit {
   initializeData() {
 
     this.getCartSub = this.loginService.userCart.subscribe(data => {
-      console.log('Getting Cart: ')
-      console.log(data)
       this.cart = data;
       this.cartLength = data.length;
       return;

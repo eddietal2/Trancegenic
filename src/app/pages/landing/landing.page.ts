@@ -51,11 +51,12 @@ export class LandingPage implements OnInit {
   };
 
   config: SwiperOptions = {
-    slidesPerView: 1.5,
-    spaceBetween: 2,
+    slidesPerView: 1.3,
+    spaceBetween: 20,
+    // autoplay: {
+    //   delay: 3000,
+    // },
     navigation: true,
-    pagination: { clickable: true },
-    scrollbar: { draggable: true },
   };
   hypIllustration: HTMLElement;
 
@@ -107,7 +108,7 @@ export class LandingPage implements OnInit {
 
     // Get User's Auth State
     this.loginService.authenticationState.subscribe(data => {
-      
+
       this.authState = data;
 
       // Get User's Email Address

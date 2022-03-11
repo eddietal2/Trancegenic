@@ -28,17 +28,18 @@
 }
 
 #featured-swiper {
-    height: 50vh;
+    height: auto;
     transition: 0.3s;
-    padding: 0.5em;
+    padding: 1em;
 
     .product-wrapper {
-        background-size: contain;
-        background-repeat: no-repeat;
+    
+        min-height: 500px;
+        text-align: left;
         width: 100%;
         box-shadow: 1px 1px 10px #dedede;
         border-radius: 10px;
-        margin: 1em auto;
+        padding: 0.75em;
 
         .mobile-products-slider-img {
             width: 200px;
@@ -51,10 +52,9 @@
     }
 }
 
-#featured-products-accordian {
-    margin-top: 57px;
-}
+
 #favorite-products-accordian {
+    margin-top: 57px;
     .product-wrapper {
         height: auto;
         border-radius: 5px;

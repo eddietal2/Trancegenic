@@ -318,7 +318,10 @@ export class ProductPagePage implements OnInit, OnDestroy {
   relatedProductsSwiperConfig: SwiperOptions = {
     slidesPerView: 1.3,
     spaceBetween: 20,
-    navigation: true
+    // autoplay: {
+    //   delay: 3000,
+    // },
+    navigation: true,
   };
   reviewButtonMessage: string;
   sound: any;
@@ -797,11 +800,11 @@ export class ProductPagePage implements OnInit, OnDestroy {
     // console.log(scrollDetail);
 
     if(scrollDetail.scrollTop >= 1300) {
-      console.log('show footer');
+      // console.log('show footer');
       this.footerScrollIntoView = true;
     }
     else {
-      console.log('hide footer');
+      // console.log('hide footer');
       this.footerScrollIntoView = false;
     }
    }
