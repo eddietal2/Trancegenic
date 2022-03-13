@@ -28,8 +28,16 @@ export class LandingService {
    * Get all the featured posts for the Landing Page
    * @returns Landing Page Featured Products Observerable
    */
+  langingPageInfoHTTP() {
+    return this.http.get(`${this.BACKEND_URL}/landing-page/landing-page-info`)
+  }
+  
+  /**
+   * Get all the featured posts for the Landing Page
+   * @returns Landing Page Featured Products Observerable
+   */
   getLandingFeaturedPosts() {
-    return this.http.get(`${this.BACKEND_URL}/products/get-featured-products`)
+    return this.http.get(`${this.BACKEND_URL}/landing-page/get-featured-products`)
       .subscribe( (featuredProducts) => {
         // console.log(featuredProducts);
       });
@@ -40,10 +48,8 @@ export class LandingService {
    * @param user MembershipUser
    * @returns Landing Page Featured Products Observerable
    */
-
-  
   membershipSignUp(user: MembershipUser) {
-    return this.http.post(`${this.BACKEND_URL}/products/membership-sign-up`, user)
+    return this.http.post(`${this.BACKEND_URL}/landing-page/membership-sign-up`, user)
       .subscribe( (membershipSignUpResponse) => {
         // console.log(membershipSignUpResponse);
       })

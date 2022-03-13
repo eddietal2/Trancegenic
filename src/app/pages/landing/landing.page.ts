@@ -11,6 +11,14 @@ import { Subscription } from 'rxjs';
 
 Swiper.use([Autoplay]);
 
+interface LandingPageInfo {
+  welcomeMessage: string,
+  sample: string,
+  featuredProducts: Array<String>,
+  whyHypnosis: string,
+  membershipMessage: string,
+}
+
 interface Product {
   _id: string,
   title: string,
@@ -72,6 +80,8 @@ export class LandingPage implements OnInit {
   userCartSub: Subscription;
   removeFromCartSub: Subscription;
   addToCartSub: Subscription;
+  getLandingPageInfoSub: Subscription;
+  landingPageInfo: LandingPageInfo;
   
 
   constructor(
@@ -89,7 +99,6 @@ export class LandingPage implements OnInit {
     this.initializeData();
   }
 
-  
 
   /**
    * 
@@ -97,6 +106,7 @@ export class LandingPage implements OnInit {
    * @returns 
    */
    initializeData() {
+
     // Get Products for Search bar
     this.getSearchProductsSub = this.productsService.getAllProductsForLandingSearch()
     .subscribe(searchProducts => {
@@ -129,6 +139,24 @@ export class LandingPage implements OnInit {
         return;
       })
     });
+
+
+
+    // Get Landing Page Info
+    this.getLandingPageInfoSub = this.landingService.langingPageInfoHTTP().subscribe(
+      landingPageInfo => {
+        console.log(landingPageInfo['landingPageInfo']);
+        this.landingPageInfo = {
+          
+          welcomeMessage: landingPageInfo['landingPageInfo'][0].welcomeMessage,
+          sample: landingPageInfo['landingPageInfo'][0].sample,
+          featuredProducts: landingPageInfo['landingPageInfo'][0].featuredProducts,
+          whyHypnosis: landingPageInfo['landingPageInfo'][0].whyHypnosis,
+          membershipMessage: landingPageInfo['landingPageInfo'][0].membershipMessage,
+        }; 
+
+      }
+    )
 
 
    }
