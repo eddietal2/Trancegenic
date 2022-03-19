@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'products',
-        loadChildren: () => import('../pages/products/products-routing.module').then(m => m.ProductsPageRoutingModule)
+        loadChildren: () => import('../pages/products/products.module').then(m => m.ProductsPageModule)
       },
       {
         path: 'blog',
@@ -31,7 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: () => import('../pages/profile/profile-routing.module').then(m => m.ProfilePageRoutingModule)
+        loadChildren: () => import('../pages/profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
         path: 'cart',
