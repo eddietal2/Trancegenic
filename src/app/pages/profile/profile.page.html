@@ -1,4 +1,5 @@
 <ion-content>
+
   <!-- If User is NOT Logged in -->
   <ion-grid>
     <div class="spacer-5x"></div>
@@ -14,18 +15,13 @@
           Login
         </ion-button>
       </ion-col>
-    </ion-row>
-
-
-  
+    </ion-row>  
   </ion-grid>
 
   <!-- Main Profile Page -->
-  <ion-grid *ngIf="this.loginService.authenticationState.value">
-    <div class="spacer-2x"></div>
-  
+  <ion-grid *ngIf="this.loginService.authenticationState.value">  
     <ion-row id="profile-wrapper" class="ion-justify-content-center ion-align-items-center">
-      <ion-col id="profile" class="ion-hide-lg-down" size-xs="11" size-sm="10" size-md="8" size-lg="6">
+      <ion-col id="profile" size-xs="11" size-sm="10" size-md="8" size-lg="6">
         
         <!-- User Info -->
         <div id="user-info-header">
