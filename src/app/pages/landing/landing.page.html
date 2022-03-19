@@ -8,7 +8,7 @@
             id="header-background-photo" >
             <div id="welcome-popup">
                 <div class="ion-text-center">
-                    <h1 style="color: white;">{{landingPageInfo.welcomeMessage}}</h1>
+                    <h1 style="color: white;">{{welcomeMessage}}</h1>
                 </div>
 
                 <!-- Searchbar -->
@@ -138,13 +138,13 @@
         </ion-col>
     </ion-row>
 
-    <!-- Products -->
+    <!-- Featured Products -->
     <ion-row class="ion-justify-content-center ion-hide-lg-down">
         <ion-col size="7">
             <ion-row>
                 <ion-col size-lg="6" size-xl="4" *ngFor="let featuredProduct of this.landingFeaturedProducts">
                     <ion-row
-                        class="landing-product-wrapper ion-justify-content-center">
+                        class="ion-justify-content-center">
                         <ion-col class="product-photo" size="6"
                               (click)="goToProductPage(featuredProduct._id, searchBar)">
         
@@ -181,6 +181,7 @@
                             <ion-buttons slot="end">
                                 <app-favorite-icon
                                 [id]="featuredProduct._id"
+                                [userFavorites]="this.userFavorites"
                                 [email]="this.userEmail"></app-favorite-icon>
                             </ion-buttons>
                             
@@ -215,7 +216,7 @@
               [config]="config" 
               (swiper)="onSwiper($event)">
 
-              <ng-template swiperSlide  *ngFor="let featuredProduct of landingFeaturedProducts">
+              <ng-template swiperSlide *ngFor="let featuredProduct of landingFeaturedProducts">
                 
                 <!-- Products -->
                 <ion-row class="landing-product-wrapper">
@@ -264,7 +265,7 @@
         <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="6.2">
             <h2 class="landing-section-header">Why Hypnosis?</h2>
             <p id="why-hypnosis">
-                {{landingPageInfo.whyHypnosis}}
+                {{whyHypnosis}}
             </p>
         </ion-col>
     </ion-row>
@@ -284,7 +285,7 @@
         </ion-col>
         <ion-col size-xs="11" size-md="10" size-lg="6.2">
             <p id="growth-text">
-                {{landingPageInfo.membershipMessage}}
+                {{membershipMessage}}
             </p>
             <div class="row-margin"></div>
             <div class="ion-text-center">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,13 +11,13 @@ import { Subscription } from 'rxjs';
 
 Swiper.use([Autoplay]);
 
-interface LandingPageInfo {
-  welcomeMessage: string,
-  sample: string,
-  featuredProducts: Array<String>,
-  whyHypnosis: string,
-  membershipMessage: string,
-}
+// interface LandingPageInfo {
+//   welcomeMessage: string,
+//   sample: string,
+//   featuredProducts: Array<String>,
+//   whyHypnosis: string,
+//   membershipMessage: string,
+// }
 
 interface Product {
   _id: string,
@@ -50,7 +50,6 @@ interface Review {
   encapsulation: ViewEncapsulation.None,
 })
 export class LandingPage implements OnInit {
-  membershipForm: FormGroup;
   sample = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
   validationMessasges = {
     email: [
@@ -68,20 +67,13 @@ export class LandingPage implements OnInit {
   };
   hypIllustration: HTMLElement;
 
-  landingFeaturedProducts = [];
-  getSearchProductsSub: Subscription;
-  getFeaturedProductsForLandingSub: Subscription;
-  searchProducts = [];
   dynanimcSearchArray = [];
   searchBarValue = "";
-  authState: boolean;
-  userEmail: string;
-  cart = [];
+
   userCartSub: Subscription;
   removeFromCartSub: Subscription;
   addToCartSub: Subscription;
   getLandingPageInfoSub: Subscription;
-  landingPageInfo: LandingPageInfo;
   
 
   constructor(
@@ -100,64 +92,79 @@ export class LandingPage implements OnInit {
   }
 
 
+  authState: boolean;
+  userEmail: string;
+  welcomeMessage: any;
+  featuredProducts: any;
+  whyHypnosis: any;
+  membershipMessage: any;
+  cart = [];
+  userFavorites = [];
+  landingFeaturedProducts = [];
+  searchProducts = [];
+  getFeaturedProductsForLandingSub: Subscription;
+  getSearchProductsSub: Subscription;
+  membershipForm: FormGroup;
+
   /**
    * 
    * @param e 
    * @returns 
    */
-   initializeData() {
+   async initializeData() {
 
-    // Get Products for Search bar
-    this.getSearchProductsSub = this.productsService.getAllProductsForLandingSearch()
-    .subscribe(searchProducts => {
-      this.searchProducts = searchProducts;
+      // Get User's Auth State
+      await this.loginService.authenticationState.subscribe(data => {
+        this.authState = data;
+      });
 
-      // Get Featured Products
-      this.getLandingFeaturedProducts();
-    });
+      // Get Landing Page Info
+      this.getLandingPageInfoSub = await this.landingService.langingPageInfoHTTP().subscribe(
+        landingPageInfo => {
+          console.log(landingPageInfo['landingPageInfo']);    
+          this.welcomeMessage = landingPageInfo['landingPageInfo'][0].welcomeMessage;
+          this.sample = landingPageInfo['landingPageInfo'][0].sample;
+          this.featuredProducts = landingPageInfo['landingPageInfo'][0].featuredProducts;
+          this.whyHypnosis = landingPageInfo['landingPageInfo'][0].whyHypnosis;
+          this.membershipMessage = landingPageInfo['landingPageInfo'][0].membershipMessage;
 
-    // Get User's Auth State
-    this.loginService.authenticationState.subscribe(data => {
+        }
+      )
 
-      this.authState = data;
+      // Get User's Favorite Products (for Featured Posts)
+      await this.loginService.userFavorites.subscribe(data => {
+        this.userFavorites = data;
+      })
 
       // Get User's Email Address
-      this.loginService.userEmail.subscribe(data => {
-        
-        this.userEmail = data;   
-        
-        // Get Cart
-        if(data != 'none') {
-          this.getCart(data);
-        }
-  
-        // Set Membership Form
-        this.membershipForm = this.formBuilder.group({
-          email: ['', [Validators.required, Validators.email]], 
-        });
-  
-        return;
-      })
-    });
-
-
-
-    // Get Landing Page Info
-    this.getLandingPageInfoSub = this.landingService.langingPageInfoHTTP().subscribe(
-      landingPageInfo => {
-        console.log(landingPageInfo['landingPageInfo']);
-        this.landingPageInfo = {
+      await this.loginService.userEmail.subscribe(data => {
           
-          welcomeMessage: landingPageInfo['landingPageInfo'][0].welcomeMessage,
-          sample: landingPageInfo['landingPageInfo'][0].sample,
-          featuredProducts: landingPageInfo['landingPageInfo'][0].featuredProducts,
-          whyHypnosis: landingPageInfo['landingPageInfo'][0].whyHypnosis,
-          membershipMessage: landingPageInfo['landingPageInfo'][0].membershipMessage,
-        }; 
+          this.userEmail = data;   
+          
+          // Get Cart
+          if(data != 'none') {
+            this.getCart(data);
+          }
+    
+    
+          return;
+      })
 
-      }
-    )
+      // Get Featured Products
+      await this.getLandingFeaturedProducts();
 
+      // Get Products for Search bar
+      this.getSearchProductsSub = await this.productsService.getAllProductsForLandingSearch()
+      .subscribe(searchProducts => {
+        // Use searchProducts with Favorite Icon Components on Landing Page
+        this.searchProducts = searchProducts;
+      });
+
+
+      // Set Membership Form
+      this.membershipForm = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]], 
+      });
 
    }
 

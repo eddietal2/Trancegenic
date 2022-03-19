@@ -10,10 +10,20 @@ ion-footer {
     
 }
 
+#login-icon {
+    height: 150px;
+    width: 150px;
+    background: lightgrey;
+    margin: 0 auto;
+}
+#profile-login-button-lg {
+    width: 200px;
+}
+
 .modal-button {
     display: block;
     width: 200px;
-    height: 150px;
+    height: 50px;
     margin: 1em auto;
 }
 

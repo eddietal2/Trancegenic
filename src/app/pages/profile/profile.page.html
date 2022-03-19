@@ -1,13 +1,16 @@
 <ion-content>
   <!-- If User is NOT Logged in -->
   <ion-grid>
-    <ion-row>
+    <div class="spacer-5x"></div>
+    <ion-row class="ion-justify-content-center">
       <ion-col 
+        class="ion-text-center"
         size-xs="11" size-md="10" size-lg="6"
         *ngIf="!this.loginService.authenticationState.value">
         <div class="spacer-5x"></div>
+        <div id="login-icon"></div>
         <h1>Please Log in</h1>
-        <ion-button (click)="goToLoginPage()" expand="block" color="success">
+        <ion-button id="profile-login-button-lg" (click)="goToLoginPage()" color="success">
           Login
         </ion-button>
       </ion-col>

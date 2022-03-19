@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { LoginService } from 'src/app/services/onboarding/login.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-favorite-icon',
@@ -30,11 +32,15 @@ export class FavoriteIconComponent implements OnInit, AfterViewInit {
   public iconName = 'heart';
   @Input() id;
   @Input() email;
+  @Input() userFavorites;
   @Output() favoritedAnimation = new EventEmitter<Object>();
   @Output() unFavoritedAnimation = new EventEmitter<Object>();
+  favStateOnSub: Subscription;
+  favStateOffSub: Subscription;
 
   constructor(
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private loginService: LoginService
   ) { }
 
   ngAfterViewInit(): void {
@@ -44,43 +50,70 @@ export class FavoriteIconComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.checkFavroiteState(this.userFavorites, this.id)
+
   }
 
+  /**
+   * 
+   * @param userFavorites 
+   * @param id 
+   */
+  checkFavroiteState(userFavorites: any, id: string) {
+    console.log(id);
+    console.log(userFavorites);
+    
+
+    if(userFavorites.includes(id)) {
+      this.setFavoriteStateOn();
+    }
+    if(!userFavorites.includes(id)) {
+      this.setFavoriteStateOff();
+
+    }
+    return;
+    
+  }
 
   toggleLikeState() {
-    if (this.favoriteState === 'unfavorited') {
+    if (this.favoriteState == 'unfavorited') {
       this.setFavoriteStateOn()
-      // return this.jobs.favoriteThisJob(this.job);
     }
     else {
       this.setFavoriteStateOff()
-      // return this.jobs.unFavoriteThisJob(this.job);
     }
 
   }
+
   setFavoriteStateOn() {
-    this.productsService.favoriteProduct(this.id, this.email)
+    this.favStateOnSub = this.productsService.favoriteProduct(this.id, this.email)
       .subscribe(data => {
         this.favoriteState = 'favorited';
-        console.log('Favorited:' + data)
+        // this.loginService.userFavorites.next(Object.values(data));
         this.favoritedAnimation.emit({
           favorited: true,
           });
           return;
-
       })
+
+      setTimeout(() => {
+        this.favStateOnSub.unsubscribe()
+      }, 0);
  }
   setFavoriteStateOff() {
-    this.productsService.unFavoriteProduct(this.id, this.email)
+    this.favStateOffSub = this.productsService.unFavoriteProduct(this.id, this.email)
       .subscribe(data => {
         this.favoriteState = 'unfavorited';
-        console.log('Unfavorited:' + data)
+        // this.loginService.userFavorites.next(Object.values(data));
         this.unFavoritedAnimation.emit({
           favorited: false,
           });
           return;
-
       })
+
+      setTimeout(() => {
+        this.favStateOffSub.unsubscribe()
+      }, 0);
   }
 
 }
