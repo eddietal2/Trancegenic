@@ -165,7 +165,9 @@ export class LandingPage implements OnInit {
         email: ['', [Validators.required, Validators.email]], 
       });
 
-      // Tra
+      // Testing
+      console.log(this.sampleDuration);
+      
 
    }
 
@@ -420,7 +422,6 @@ export class LandingPage implements OnInit {
 
     sampleToggle = false;
     timeInterval = null;
-    sampleProgressBarType = 'determinate';
     sampleButtonText = 'Play Sample';
     sampleButtonIcon = 'play';
     sampleDuration = 0;
@@ -476,12 +477,9 @@ export class LandingPage implements OnInit {
    
    playSample(buttonIcon) {
  
-     console.clear();
      console.log('Sample button icon state: ' + buttonIcon)
  
-     let sampleTrackWrapper = document.getElementById('landing-sample-track');
-     let sampleIcon = document.getElementById('landing-sample-icon');
-     
+     let sampleIcon = document.getElementById('landing-sample-music-icon');
  
      // 
      if(!this.sampleToggle) {
@@ -489,19 +487,18 @@ export class LandingPage implements OnInit {
      
          // Fires every interval to update sample time and UI
          updateSampleTime(this.sound, () => {
-           this.sampleDuration++;
+           this.sampleDuration = this.sampleDuration + 0.005;
            console.log(this.sampleDuration);
            console.log(this.sound);
    
            // When sample is finished playing, change sample button to
            // refresh, change UI timer to 0, stop progress bar animation,
            // unload song, and stop Interval timer.
-           if(this.sampleDuration == 20) {
+           if(this.sampleDuration >= 1) {
              
-             this.sampleDuration = 0;
+             this.sampleDuration = 1;
              this.sampleButtonIcon = 'refresh-outline';
-             this.sampleButtonText = 'Replay Sample';
-             this.sampleProgressBarType = 'determinate';
+
              clearInterval(this.timeInterval);
              this.sound.pause();
              return;
@@ -515,7 +512,7 @@ export class LandingPage implements OnInit {
    
          }); 
    
-       }, 1000);
+       }, 100);
      }
  
      function updateSampleTime(sound, callback) {
@@ -531,22 +528,14 @@ export class LandingPage implements OnInit {
  
        // Toggle Track Player & Volume Control display
        this.sampleToggle = true;
- 
- 
-       // Display Sample Track Wrapper
-       sampleTrackWrapper.style.opacity = '1';
-       sampleTrackWrapper.style.pointerEvents = 'auto';
- 
+  
        // Increase size of Sample Icon
-       sampleIcon.style.color = 'red';
-       sampleIcon.style.transform = 'scale(1.4)';
+       sampleIcon.style.color = '#ff9158';
+       sampleIcon.style.transform = 'scale(1.25)';
  
        // Change Icon & Text in Sample Button to Pause
        this.sampleButtonText = 'Stop Sample';
-       this.sampleButtonIcon = 'stop';
- 
-       // Change progress bar type
-       this.sampleProgressBarType = 'indeterminate';
+       this.sampleButtonIcon = 'pause';
  
        // Play Track
        this.sound.play('sample');
@@ -559,16 +548,13 @@ export class LandingPage implements OnInit {
        this.sampleToggle = false;
  
        // Return sample icon to normal size when sample is paused
-       sampleIcon.style.color = '#333';
+       sampleIcon.style.color = '#fff';
        sampleIcon.style.transform = 'scale(1)';
  
        // Change Icon & Text in Sample Button to Play
        // Change progress bar type
        this.sampleButtonIcon = 'play';
        this.sampleButtonText = 'Play Sample';
- 
-       // Change progress bar type
-       this.sampleProgressBarType = 'determinate';
  
        // Pause Track
        this.sound.stop();
@@ -595,7 +581,6 @@ export class LandingPage implements OnInit {
        return callback(++i, d, s);
      }
    }
-
 
    /**
     * Add product to Cart

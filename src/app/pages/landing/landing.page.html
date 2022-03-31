@@ -49,24 +49,6 @@
                     </ion-item>
                 </ion-list>
 
-                <!-- Try Sample Message -->
-                <div class="ion-text-center">
-                    <div class="spacer-2x"></div>
-                    <hr id="landing-sample-divider">
-                    <h4 id="landing-sample-message">Try out a sample track!</h4>
-                    <div class="spacer-2x"></div>
-                    <ion-icon id="landing-sample-icon" color="dark" name="musical-notes-outline"></ion-icon>
-                    <div class="spacer-1x"></div>
-                  
-                </div>
-                <div class="spacer-2x"></div>
-
-                <!-- Play Sample Button -->
-                <ion-button id="landing-sample-button" (click)="playSample(this.sampleButtonIcon)">
-                    <ion-icon slot="start" name="Play" ></ion-icon>
-                    Play
-                </ion-button>
-
                 <div class="spacer-2x"></div>
                 <hr *ngIf="!this.authState" id="landing-sample-divider">
                 <div *ngIf="!this.authState" class="spacer-2x"></div>
@@ -85,30 +67,6 @@
                         </ion-button>     
                     </ion-col>
                 </ion-row>
-                <!-- Sample Track -->
-                <div id="landing-sample-track">
-
-                <div class="spacer-1x"></div>
-                <div *ngIf="this.sampleToggle" id="landing-sample-timer" class="ion-text-center">
-                <div class="spacer-3x"></div>
-                <h3 style="color: #fff;">0:0{{sampleDuration}} / 0:20</h3>
-                <ion-progress-bar  type="{{this.sampleProgressBarType}}"></ion-progress-bar>
-                </div>
-                <div class="spacer-2x"></div>
-
-                <!-- Volume -->
-                <div *ngIf="this.sampleToggle" id="landing-volume-track">
-                <div class="spacer-1x"></div>
-                <h5>Volume</h5>
-                <ion-icon #decreaseVolumeButton (click)="decreaseVolume(decreaseVolumeButton)" class="sample-volume-button" name="arrow-down-circle-outline"></ion-icon>
-                <ion-icon #inecreaseVolumeButton (click)="increaseVolume(inecreaseVolumeButton)" class="sample-volume-button" name="arrow-up-circle-outline"></ion-icon>
-                <div class="spacer-1x"></div>
-                
-                <ion-progress-bar value="{{this.sampleMasterVolume}}"></ion-progress-bar>
-                <div class="spacer-1x"></div>
-                </div>
-                <div class="spacer-5x"></div>
-                </div>
             </div>
         </ion-col>
     </ion-row>
@@ -370,4 +328,34 @@
     </ion-row>
 
     </ion-grid>
+
 </ion-content>
+
+<!-- Sample Player Progress -->
+<ion-row id="landing-sample-track-progress-bar-wrapper" class="ion-justify-content-center">
+    <ion-col size-xs="12" size-lg="6">
+        <ion-progress-bar id="sample-track-progress-bar" value="{{this.sampleDuration}}" #sampleMusicProgress></ion-progress-bar>
+    </ion-col>
+</ion-row>
+
+<!-- Sample Player -->
+<ion-row id="landing-sample-player-wrapper" class="ion-justify-content-center">
+    <ion-col size-xs="12" size-lg="6">
+        <ion-row>
+            <ion-col size-xs="1.5" size-lg="0.5" class="ion-text-center">
+                <ion-icon id="landing-sample-music-icon" name="musical-notes-outline"></ion-icon>
+            </ion-col>
+            <ion-col size-xs="6.5" size-lg="9" class="ion-text-center" >
+                <p style="color: #6eff6e; float: left; padding: 8px 0 0 8px;">Sample Track</p>
+            </ion-col>
+            <ion-col size-xs="4" size-lg="2" class="ion-text-center">
+                <!-- Play Sample Button -->
+                <ion-button id="landing-sample-button" (click)="playSample(this.sampleButtonIcon)">
+                    <ion-icon slot="start" name="{{this.sampleButtonIcon}}" ></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-col>
+</ion-row>
+
+
