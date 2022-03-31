@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -160,11 +160,12 @@ export class LandingPage implements OnInit {
         this.searchProducts = searchProducts;
       });
 
-
       // Set Membership Form
       this.membershipForm = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]], 
       });
+
+      // Tra
 
    }
 
@@ -254,8 +255,10 @@ export class LandingPage implements OnInit {
     this.searchBarClicked = true;
 
     if(this.searchBarClicked = true) {
+      console.log('Navigating');
       this.router.navigate(["/products/product-page", id]);
       searchBar.value = '';
+      return;
     }
     
     // setTimeout(() => {
@@ -265,11 +268,11 @@ export class LandingPage implements OnInit {
 
   }
   goToProductPage(id, searchBar) {
-    console.log(searchBar)
     this.router.navigate(["/products/product-page", id]);
     setTimeout(() => {
       searchBar.value = '';
     }, 500);
+    return;
 
   }
 

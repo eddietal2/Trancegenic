@@ -43,45 +43,45 @@ export class TabsPage implements OnInit, AfterViewInit {
    * Handles Tabbar Icon Styling
    */
   tabBarStyling() {
-    // this.router.events.subscribe(data => {
-    //   if(data instanceof NavigationEnd) {
-    //     let cartIcon = document.getElementById('desktop-cart-icon');
-    //     let navWrapper = document.getElementById('nav-wrapper');
-    //     let links = document.getElementsByTagName('a');
+    this.router.events.subscribe(data => {
+      if(data instanceof NavigationEnd) {
+        let cartIcon = document.getElementById('desktop-cart-icon');
+        let navWrapper = document.getElementById('nav-wrapper');
+        let links = document.getElementsByTagName('a');
 
-    //     if (data.url == '/cart') {          
-    //       cartIcon.style.color = '#3171e0';
-    //     } 
-    //     // if (data.url == '/products' || data.url == '/profile' || data.url == '/cart') {
-    //     //   // Set Active Link
-    //     //   // console.log('Router Active: ');
-    //     //   // console.log();
+        if (data.url == '/cart') {          
+          cartIcon.style.color = '#3171e0';
+        } 
+        // if (data.url == '/products' || data.url == '/profile' || data.url == '/cart') {
+        //   // Set Active Link
+        //   // console.log('Router Active: ');
+        //   // console.log();
 
-    //     //   if(this.router.isActive(data.url, false)) {
-    //     //     for (let i = 0; i < links.length; i++) {
-    //     //       if(links[i].classList.value == 'active-link') {
-    //     //         links[i].style.color = '#3880ff';
-    //     //       }
-    //     //     }
+        //   if(this.router.isActive(data.url, false)) {
+        //     for (let i = 0; i < links.length; i++) {
+        //       if(links[i].classList.value == 'active-link') {
+        //         links[i].style.color = '#3880ff';
+        //       }
+        //     }
 
-    //     //   }
+        //   }
 
-    //     //   navWrapper.style.background = "#fff"; 
+        //   navWrapper.style.background = "#fff"; 
 
-    //     //   for (let i = 0; i < links.length; i++) {
-    //     //     if(links[i].classList.value != 'active-link') {
-    //     //       links[i].style.color = '#999';
-    //     //     }
-    //     //   }
+        //   for (let i = 0; i < links.length; i++) {
+        //     if(links[i].classList.value != 'active-link') {
+        //       links[i].style.color = '#999';
+        //     }
+        //   }
 
 
-    //     // }
-    //     else {
-    //       let navWrapper = document.getElementById('nav-wrapper');
-    //       cartIcon.style.color = '#999';
-    //     }
-    //   }
-    // })
+        // }
+        else {
+          let navWrapper = document.getElementById('nav-wrapper');
+          cartIcon.style.color = '#999';
+        }
+      }
+    })
   }
 
   /**

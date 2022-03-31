@@ -86,7 +86,7 @@ export class ContactPage implements OnInit {
 
   // Cancel
   cancel() {
-    this.router.navigateByUrl('/landing')
+    this.router.navigateByUrl('/home')
   }
 
 }

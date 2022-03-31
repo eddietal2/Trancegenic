@@ -256,7 +256,6 @@
         </ion-col>
     </ion-row>
 
-
     <!-- Intro -->
     <ion-row id="intro-wrapper" class="ion-justify-content-center">
         <ion-col size-xs="11" size-md="10" size-lg="6.2">
@@ -289,7 +288,7 @@
             </p>
             <div class="row-margin"></div>
             <div class="ion-text-center">
-                <ion-button id="membership-button" (click)="membershipFormToggle()" color="success" expand="full">
+                <ion-button *ngIf="!this.showMembershipFrom" id="membership-button" (click)="membershipFormToggle()" color="success" expand="full">
                     Join
                 </ion-button>
                 <div class="spacer-2x"></div>
@@ -322,8 +321,12 @@
                             <ion-input required formControlName="email" type="email"></ion-input>
                         </ion-item>
                         <div class="spacer-1x"></div>
-                        <ion-button block color="primary" type="submit" [disabled]="membershipForm.invalid">
+                        <ion-button color="primary" type="submit" [disabled]="membershipForm.invalid">
                             Sign Up
+                        </ion-button>
+                        <div class="spacer-1x"></div>
+                        <ion-button color="light" (click)="membershipFormToggle()">
+                            Cancel
                         </ion-button>
                     </form>
                 </div>

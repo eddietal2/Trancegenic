@@ -355,7 +355,6 @@ export class ProductPagePage implements OnInit, OnDestroy {
     this.id = this.activatedRoute.snapshot.paramMap.get('_id');
     this.productsService.getProductInfo(this.id)
       .subscribe(info => {
-        console.clear();
         this.productInfo = info;
 
         this.productInfo.reviews.forEach(review => {
