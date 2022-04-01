@@ -3,7 +3,7 @@
 
 // Header
 #header-wrapper {
-    background-image: linear-gradient(#3C3E89, #6265E4);
+    // background-image: linear-gradient(#3C3E89, #6265E4);
     height: auto;
 
     #top-bar {
@@ -108,74 +108,68 @@
     }
 
     #header-onboarding-buttons {
+        ion-button {
+            width: 250px;
+        }
     }
 
     // Mobile Photo
     #header-background-photo {
-        background-image: linear-gradient(#222428b3, #ffffff00), 
+        background-image:  
             url('https://media-cdn.tripadvisor.com/media/photo-m/1280/1a/4d/d2/76/palm-trees-marigot-bay.jpg');
         height: 100vh;
-        // background-attachment: fixed;
+        background-attachment: fixed;
         background-size: cover;
         background-repeat: no-repeat;
         display: flex;
         align-items: center;
-
-
-        #welcome-popup {
-            height: 200px;
-            width: 80%;
-            padding: 1em;
-            margin-top: 100px;
-            // background: #999;
-            border-radius: 5px;
-            margin: 0 auto;
-            opacity: 0;
-            animation: welcome-fade-in 1s ease 2s forwards;
-
-            ion-searchbar {
-                width: 100%;
-                margin: 0 auto;
-                // background: #fff;
-                color: #333;
-            }
-
-            ion-button {
-                display: block;
-            }
-        }
-
-        @media screen and (min-width: 996px) {
-            #welcome-popup {        
-                height: 95vh;
-                width: 400px;
-                margin-top: 35%;
-            }
-        }
-
-        @keyframes welcome-fade-in {
-            0% {
-                opacity: 0;
-                transform: translateY(100px);
-                
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(-100px);
-
-            }
-        }
     }
+
 
     // Desktop Photo
     @media screen and (min-width: 996px) {
         #header-background-photo {        
             height: 95vh;
-            background-image: linear-gradient(#222428b3, #ffffff00), url('https://s3.amazonaws.com/gazelle.cdn.yolocare.com/sites/376/2018/07/16160435/yolo-1900x1000-4.jpg');
+            background-image: url('https://s3.amazonaws.com/gazelle.cdn.yolocare.com/sites/376/2018/07/16160435/yolo-1900x1000-4.jpg');
             
             #welcome-popup {
                 
             }
+        }
+    }
+
+
+    #welcome-popup {
+        background: white;
+        padding: 4em;
+        margin: 9em;
+        border-radius: 10px;
+        box-shadow: 1px 14px 30px #dddddd;
+        opacity: 0;
+        animation: welcome-fade-in 1s ease 2s forwards;
+
+        ion-searchbar {
+            width: 100%;
+            margin: 0 auto;
+            // background: #fff;
+            color: #333;
+        }
+    }
+
+    @media screen and (min-width: 996px) {
+       
+    }
+
+    @keyframes welcome-fade-in {
+        0% {
+            opacity: 0;
+            transform: translateY(100px);
+            
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0px);
+
         }
     }
 }
@@ -371,11 +365,17 @@
     background: #f4f4f4;
 
     #landing-featured-products-inner-wrapper-lg {
-        box-shadow: 1px 1px 30px #d0d0d0;
         background: #fff;
-        padding: 2em;
+        padding: 1em;
         margin-top: 2em;
+    }
+
+    .product-lg {
+        margin: 1em;
+        box-shadow: 1px 1px 15px #d0d0d0;
         border-radius: 10px;
+        padding: 1em;
+        min-height: 350px;
     }
 
 
@@ -545,11 +545,11 @@
 }
 
 #landing-sample-player-wrapper {
-    background: linear-gradient(#dddddd, #fff);
-    box-shadow: 1px -10px 20px rgb(218, 218, 218);
+    background: white;
+    box-shadow: 1px 1px 8px #dedede;
     height: 65px;
     padding-top: 8px;
-
+    z-index: 9;
     #landing-sample-music-icon {
         margin: 0 auto;
         font-size: 2em;
@@ -564,6 +564,7 @@
     #sample-track-text {
         font-size: 1em;
         padding-bottom: 0.3em;
+        color: #b4b4b4;
     }
 
 }

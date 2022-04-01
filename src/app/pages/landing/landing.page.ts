@@ -305,36 +305,36 @@ export class LandingPage implements OnInit {
 
 
     // When user has scrolled passed Header
-    if(scrollTop > 330) {
+    // if(scrollTop > 330) {
 
-      let navWrapper = document.getElementById('nav-wrapper');
-      let links = document.getElementsByTagName('a');
+    //   let navWrapper = document.getElementById('nav-wrapper');
+    //   let links = document.getElementsByTagName('a');
       
-      navWrapper.style.background = "#fff"
-      navWrapper.style.boxShadow = "1px 1px 10px #cec7c7"
+    //   navWrapper.style.background = "#fff"
+    //   navWrapper.style.boxShadow = "1px 1px 10px #cec7c7"
       
-      for (let i = 0; i < links.length; i++) {
-        if(links[i].classList.value != 'active-link') {
-          links[i].style.color = '#999';
-        }
-      }
-    } 
+    //   for (let i = 0; i < links.length; i++) {
+    //     if(links[i].classList.value != 'active-link') {
+    //       links[i].style.color = '#999';
+    //     }
+    //   }
+    // } 
 
     // When user has scrolled back to Header
-    else {
-      let navWrapper = document.getElementById('nav-wrapper');
-      let links = document.getElementsByTagName('a');
+    // else {
+    //   let navWrapper = document.getElementById('nav-wrapper');
+    //   let links = document.getElementsByTagName('a');
 
-      navWrapper.style.background = "none"      
-      navWrapper.style.boxShadow = "none"
+    //   navWrapper.style.background = "none"      
+    //   navWrapper.style.boxShadow = "none"
 
 
-      for (let i = 0; i < links.length; i++) {
-        if(links[i].classList.value != 'active-link') {
-          links[i].style.color = 'white';
-        }
-      }
-    }
+    //   for (let i = 0; i < links.length; i++) {
+    //     if(links[i].classList.value != 'active-link') {
+    //       links[i].style.color = 'white';
+    //     }
+    //   }
+    // }
     // console.log('Scroll Position: ' + scrollTop)
   }
   // Header

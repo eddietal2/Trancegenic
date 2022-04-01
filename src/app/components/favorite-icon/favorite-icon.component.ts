@@ -63,8 +63,7 @@ export class FavoriteIconComponent implements OnInit, AfterViewInit {
     console.log(id);
     console.log(userFavorites);
 
-    if( id == null || undefined ) {
-      console.clear();
+    if( id || userFavorites == null || undefined ) {
       console.log('FavoriteIconComponent: User is not Logged in!')
       return;
     }

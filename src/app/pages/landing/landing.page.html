@@ -3,12 +3,13 @@
 
     <!-- Header -->
     <ion-row id="header-wrapper" class="ion-justify-content-center">
-        <ion-col 
-            class="ion-align-items-center" 
-            id="header-background-photo" >
+
+        <!-- Welcome Message & Search -->
+        <ion-col size="12" size-lg="6">
+            <div class="spacer-10x"></div>
             <div id="welcome-popup">
                 <div class="ion-text-center">
-                    <h1 style="color: white;">{{welcomeMessage}}</h1>
+                    <h1 style="color: #333;">{{welcomeMessage}}</h1>
                 </div>
 
                 <!-- Searchbar -->
@@ -50,30 +51,35 @@
                 </ion-list>
 
                 <div class="spacer-2x"></div>
+
                 <hr *ngIf="!this.authState" id="landing-sample-divider">
                 <div *ngIf="!this.authState" class="spacer-2x"></div>
 
                 <!-- Header Onboarding Buttons -->
                 <ion-row *ngIf="!this.authState" id="header-onboarding-buttons">
-                    <ion-col size="6">
+                    <ion-col class="ion-text-center" size="12">
                         <ion-button (click)="login()">
                             Login
                         </ion-button>
                         <div class="spacer-2x"></div>   
-                    </ion-col>
-                    <ion-col size="6">
                         <ion-button color="success" (click)="register()">
                             Register
-                        </ion-button>     
+                        </ion-button>  
                     </ion-col>
                 </ion-row>
             </div>
+        </ion-col>
+        <!-- Header Photo -->
+        <ion-col
+            size="12" size-lg="6" 
+            class="ion-align-items-center" 
+            id="header-background-photo" >
         </ion-col>
     </ion-row>
 
     <!-- Featured Products -->
     <ion-row id="landing-featured-products-wrapper-lg" class="ion-justify-content-center ion-hide-lg-down">
-        <ion-col size="8">
+        <ion-col size-lg="10" size-xl="8">
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <h2>
@@ -91,16 +97,17 @@
             </ion-toolbar>
 
             <ion-row id="landing-featured-products-inner-wrapper-lg">
-                <ion-col size-lg="6" size-xl="4" *ngFor="let featuredProduct of this.landingFeaturedProducts">
+                <ion-col size="4" 
+                *ngFor="let featuredProduct of this.landingFeaturedProducts">
                     <ion-row
-                        class="ion-justify-content-center">
+                        class="ion-justify-content-center"
+                        class="product-lg">
                         <ion-col class="product-photo" size="6"
-                              (click)="goToProductPage(featuredProduct._id, searchBar)">
-        
+                            (click)="goToProductPage(featuredProduct._id, searchBar)">
                         </ion-col>
                         <ion-col size="6"
-                              (click)="goToProductPage(featuredProduct._id, searchBar)">
-                                <div>
+                            (click)="goToProductPage(featuredProduct._id, searchBar)">
+                            <div>
                                   <p class="product-price">${{featuredProduct.price}}</p>
                                   
                                   <h6 class="product-title">{{featuredProduct.title}}</h6>
@@ -108,13 +115,13 @@
                                   <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
                                   <p class="product-category"># {{featuredProduct.category}}</p>
                                   <!-- <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5> -->
-                                </div>                 
+                            </div>                 
                                 
                         </ion-col>
         
                         <ion-toolbar *ngIf="this.authState">
                               
-                            <ion-buttons #cartButton  slot="start">
+                            <ion-buttons #cartButton  slot="end">
                                 <img class="cart-button" 
                                     (click)="tryAddToCart(featuredProduct._id, featuredProduct.title, cartButton)"
                                     *ngIf="!this.cart.includes(featuredProduct._id)" 
@@ -125,15 +132,11 @@
                                     *ngIf="this.cart.includes(featuredProduct._id)" 
                                     src="../../../assets/icons/remove-from-cart.svg" 
                                     alt="Hypnosis Downloads Product">
+                                    <!-- <app-favorite-icon
+                                    [id]="featuredProduct._id"
+                                    [userFavorites]="this.userFavorites"
+                                    [email]="this.userEmail"></app-favorite-icon> -->
                             </ion-buttons>
-
-                            <ion-buttons slot="end">
-                                <app-favorite-icon
-                                [id]="featuredProduct._id"
-                                [userFavorites]="this.userFavorites"
-                                [email]="this.userEmail"></app-favorite-icon>
-                            </ion-buttons>
-                            
                         </ion-toolbar>  
                     </ion-row>
                 </ion-col>

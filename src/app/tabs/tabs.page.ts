@@ -34,54 +34,9 @@ export class TabsPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // this.getRouterLocation();
+    this.initializeData();
 
     // console.log(this.router)
-  }
-
-  /**
-   * Handles Tabbar Icon Styling
-   */
-  tabBarStyling() {
-    this.router.events.subscribe(data => {
-      if(data instanceof NavigationEnd) {
-        let cartIcon = document.getElementById('desktop-cart-icon');
-        let navWrapper = document.getElementById('nav-wrapper');
-        let links = document.getElementsByTagName('a');
-
-        if (data.url == '/cart') {          
-          cartIcon.style.color = '#3171e0';
-        } 
-        // if (data.url == '/products' || data.url == '/profile' || data.url == '/cart') {
-        //   // Set Active Link
-        //   // console.log('Router Active: ');
-        //   // console.log();
-
-        //   if(this.router.isActive(data.url, false)) {
-        //     for (let i = 0; i < links.length; i++) {
-        //       if(links[i].classList.value == 'active-link') {
-        //         links[i].style.color = '#3880ff';
-        //       }
-        //     }
-
-        //   }
-
-        //   navWrapper.style.background = "#fff"; 
-
-        //   for (let i = 0; i < links.length; i++) {
-        //     if(links[i].classList.value != 'active-link') {
-        //       links[i].style.color = '#999';
-        //     }
-        //   }
-
-
-        // }
-        else {
-          let navWrapper = document.getElementById('nav-wrapper');
-          cartIcon.style.color = '#999';
-        }
-      }
-    })
   }
 
   /**
@@ -114,6 +69,10 @@ export class TabsPage implements OnInit, AfterViewInit {
     
     });
 
+    console.log('Auth State:');
+    console.log(this.authState);
+    
+
   }
 
   tabDidChange(e: any) {
@@ -144,21 +103,6 @@ export class TabsPage implements OnInit, AfterViewInit {
         this.cart = Object.values(cart);
       });
   }
-
-//   routerLocation: string;
-
-//   getRouterLocation() {
-//     this.router.events
-//     .pipe(
-//       filter((e): e is NavigationEnd => e instanceof NavigationEnd), 
-//       map(e => { return e 
-//       })
-//     )
-//     .subscribe(e => {
-//       this.routerLocation = e.urlAfterRedirects;
-//       console.log(this.routerLocation);
-//     })
-// }
 
   async tryLogout() {
     const alert = await this.alertController.create({
