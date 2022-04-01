@@ -433,7 +433,7 @@
 }
 
 #landing-featured-products-wrapper-lg {
-    padding-top: 20vh;
+    padding-top: 10vh;
     height: 120vh;
     background: #f4f4f4;
 
@@ -442,13 +442,19 @@
         margin-top: 2em;
     }
 
+    ion-toolbar {
+        // --background: none;
+        // position: absolute;
+        // bottom: 0;
+    }
+
     .product-lg {        
         background: #fff;
         margin: 1em;
         box-shadow: 1px 1px 15px #d0d0d0;
         border-radius: 10px;
         padding: 1em;
-        min-height: 500px;
+        min-height: 555px;
     }
 
     .product-photo {

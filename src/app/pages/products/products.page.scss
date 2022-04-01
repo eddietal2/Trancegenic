@@ -1,6 +1,63 @@
 @import 'swiper/scss';
 @import "~swiper/css";
 
+#products-page-wrapper {
+    height: 50vh;
+    padding: 0% 13% 0 13%;
+}
+
+#products-page-header {
+    height: 50vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0px -200px;
+    background-image: url('https://wallpapercave.com/wp/wp1931486.jpg')
+}
+
+#product-lg-toolbar {
+    margin-top: 5em;
+    background: #352c2cf2;
+    padding: 0% 13% 0 13%;
+    height: 40px;
+    position: fixed;
+    
+    ion-buttons {
+        ion-button {
+            --background: #868686;
+            --color: #fff;
+            width: 90px;
+            height: 25px;
+            margin: 0 0.4em;
+            font-size: 0.7em;
+        }
+        .active-category-lg {
+            --background: #0055a5;
+            --color: #e6f3ff;
+            width: 83px;
+            font-size: 0.7em;
+        }
+    }
+}
+
+.searchbar-input {
+    color: #333 !important;
+    height: 25px;
+}
+.filter-action-sheet {
+    --color: #333;
+    --button-color: #0270ff;
+    --background: #f1f1f1;
+
+    .action-sheet-title {
+        background: #e4e4e4;
+        font-weight: 600;
+    }
+
+    .filter-action-sheet-cancel-button {
+        color: #999;
+    }
+}
+
 #featured-products-item,
 #favorite-products-item,
 #all-products-item {
@@ -376,23 +433,7 @@
     margin: 1em auto;
 }
 
-.searchbar-input {
-    color: #333 !important;
-}
-.filter-action-sheet {
-    --color: #333;
-    --button-color: #0270ff;
-    --background: #f1f1f1;
 
-    .action-sheet-title {
-        background: #e4e4e4;
-        font-weight: 600;
-    }
-
-    .filter-action-sheet-cancel-button {
-        color: #999;
-    }
-}
 
 .featured-product {
     width: 95%;
@@ -438,25 +479,7 @@
     }
 }
 
-#product-lg-toolbar {
-    padding-bottom: 1em;
-    border-bottom: 1px solid #e3e3e3;
-    
-    ion-buttons {
-        ion-button {
-            --background: #e6f3ff;
-            --color: #0055a5;
-            width: 83px;
-            font-size: 0.7em;
-        }
-        .active-category-lg {
-            --background: #0055a5;
-            --color: #e6f3ff;
-            width: 83px;
-            font-size: 0.7em;
-        }
-    }
-}
+
 .product-lg {
     height: 500px;
     width: auto;

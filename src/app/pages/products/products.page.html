@@ -27,6 +27,47 @@
       </div>
     </div>
 
+
+    <ion-toolbar id="product-lg-toolbar">
+
+      <!-- Category Buttons -->
+      <ion-buttons slot="start" style="position: relative; top: -8px;">
+        <ion-button [ngClass]="this.categoryLg == 'featured' ? 'active-category-lg' : ''" (click)="featuredLg()">
+          Featured
+        </ion-button>
+        <ion-button [ngClass]="this.categoryLg == 'favorites' ? 'active-category-lg' : ''" (click)="favoritesLg()">
+          Favorites
+        </ion-button>
+        <ion-button [ngClass]="this.categoryLg == 'all' ? 'active-category-lg' : ''" (click)="allLg()">
+          All
+        </ion-button>
+      </ion-buttons>
+
+      <!-- All Products Search Bar -->
+      <ion-searchbar 
+        id="products-search"
+        *ngIf="this.categoryLg == 'all'" 
+        placeholder="Search All Products" 
+        inputmode="decimal" 
+        type="decimal" 
+        (ionChange)="onSearchChange($event, 'lg')" 
+        [debounce]="250" 
+        showCancelButton="always">
+      </ion-searchbar>
+
+
+      <!-- Filter -->
+      <ion-buttons #filterButton *ngIf="this.categoryLg == 'all'" id="filter-button" slot="end">
+        <ion-button (click)="openFilterActionSheet()">
+          Filter
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+    <ion-row>
+      <ion-col id="products-page-header" size="12"></ion-col>
+    </ion-row>
+
     <!-- Products / Mobile -->
     <ng-container>
 
@@ -281,49 +322,14 @@
         </ion-accordion>
 
       </ion-accordion-group>
+
     </ng-container>
 
     <!-- Products / Lg -->
-    <ion-row class="spacer-5x ion-hide-lg-down ion-justify-content-center">
+    <ion-row id="products-page-wrapper" class="ion-hide-lg-down ion-justify-content-center">
       
       <!-- Products Lg Toolbar -->
       <ion-col size="6.7">
-        <div class="spacer-2x"></div>
-        <ion-toolbar id="product-lg-toolbar">
-
-          <!-- Category Buttons -->
-          <ion-buttons slot="start">
-            <ion-button [ngClass]="this.categoryLg == 'featured' ? 'active-category-lg' : ''" (click)="featuredLg()">
-              Featured
-            </ion-button>
-            <ion-button [ngClass]="this.categoryLg == 'favorites' ? 'active-category-lg' : ''" (click)="favoritesLg()">
-              Favorites
-            </ion-button>
-            <ion-button [ngClass]="this.categoryLg == 'all' ? 'active-category-lg' : ''" (click)="allLg()">
-              All
-            </ion-button>
-          </ion-buttons>
-
-          <!-- All Products Search Bar -->
-          <ion-searchbar 
-            id="products-search"
-            *ngIf="this.categoryLg == 'all'" 
-            placeholder="Search All Products" 
-            inputmode="decimal" 
-            type="decimal" 
-            (ionChange)="onSearchChange($event, 'lg')" 
-            [debounce]="250" 
-            showCancelButton="always">
-          </ion-searchbar>
-
-
-          <!-- Filter -->
-          <ion-buttons #filterButton *ngIf="this.categoryLg == 'all'" id="filter-button" slot="end">
-            <ion-button (click)="openFilterActionSheet()">
-              Filter
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
       </ion-col>
 
       <!-- Skeleton UI Lg -->
@@ -351,13 +357,12 @@
       </ion-col>
 
       <!-- Featured Message -->
-      <ion-col *ngIf="this.categoryLg == 'featured' && !this.skeletonDataLg" size="6.7">
-        <div class="spacer-2x"></div>
+      <!-- <ion-col *ngIf="this.categoryLg == 'featured' && !this.skeletonDataLg" size="6.7">
         <div class="static-alert-blue" style="width: 100%;">
           <p>This is a message.</p>
         </div>
         <div class="spacer-2x"></div>
-      </ion-col>
+      </ion-col> -->
 
       <!-- FeaturedLg -->
       <ion-col 
@@ -365,10 +370,8 @@
         size="12">
 
         <!-- Product -->
-        <ion-row class="ion-justify-content-center ion-hide-lg-down">
-          <ion-col size="7">
-            <ion-row>
-                <ion-col size-lg="6" size-xl="4" *ngFor="let featuredProduct of this.featuredProducts">
+        <ion-row  class="ion-justify-content-center ion-hide-lg-down">
+            <ion-col size-lg="4" size-xl="4" *ngFor="let featuredProduct of this.featuredProducts">
                     <ion-row
                         class="products-product-wrapper ion-justify-content-center">
                         <ion-col class="product-photo" size="6"
@@ -411,9 +414,7 @@
                               </ion-buttons>
                         </ion-toolbar>  
                     </ion-row>
-                </ion-col>
-            </ion-row>
-        </ion-col>
+            </ion-col>
         </ion-row>
 
       </ion-col>
