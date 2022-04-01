@@ -71,13 +71,9 @@
         </ion-col>
     </ion-row>
 
-    <!-- Latest Products -->
-
-    <!-- Products Header -->
-    <div class="spacer-5x"></div>
-    <div class="spacer-5x"></div>
-    <ion-row class="ion-hide-lg-down ion-justify-content-center">
-        <ion-col size-lg="7">
+    <!-- Featured Products -->
+    <ion-row id="landing-featured-products-wrapper-lg" class="ion-justify-content-center ion-hide-lg-down">
+        <ion-col size="8">
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <h2>
@@ -93,13 +89,8 @@
                     </ion-button>
                 </ion-buttons>
             </ion-toolbar>
-        </ion-col>
-    </ion-row>
 
-    <!-- Featured Products -->
-    <ion-row class="ion-justify-content-center ion-hide-lg-down">
-        <ion-col size="7">
-            <ion-row>
+            <ion-row id="landing-featured-products-inner-wrapper-lg">
                 <ion-col size-lg="6" size-xl="4" *ngFor="let featuredProduct of this.landingFeaturedProducts">
                     <ion-row
                         class="ion-justify-content-center">
@@ -150,7 +141,7 @@
         </ion-col>
     </ion-row>
 
-    <!-- Mobile Products -->
+    <!-- Mobile Featured Products -->
     <ion-row class="ion-hide-lg-up">
 
         <!-- Featured Products Header -->
@@ -214,38 +205,40 @@
         </ion-col>
     </ion-row>
 
-    <!-- Intro -->
-    <ion-row id="intro-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-md="10" size-lg="6.2">
-            <div id="hyp-illustration"></div>
+    <!-- Description -->
+    <ion-row id="description-wrapper" class="ion-justify-content-center">
+        <ion-col id="description-photo" size-xs="11" size-md="10" size-lg="6">
         </ion-col>
-        <ion-col class="intro-section" size-xs="11" size-md="10" size-lg="6.2">
+        <ion-col 
+            class="ion-align-items-center"
+            id="description-text-wrapper" 
+            size-xs="11" size-md="10" size-lg="6">
+            <div class="spacer-4x"></div>
+            <div id="description-illustration"></div>
             <h2 class="landing-section-header">Why Hypnosis?</h2>
-            <p id="why-hypnosis">
+            <p id="description-text">
                 {{whyHypnosis}}
             </p>
         </ion-col>
     </ion-row>
 
-    <!-- Growth Membership -->
-    <div class="spacer-5x"></div>
-    <ion-row id="growth-membership-wrapper" class="ion-justify-content-center">
-        <ion-col size-xs="11" size-md="10" size-lg="6.2">
-            <ion-toolbar>
-                <ion-buttons slot="start">
-                    <h2 class="landing-section-header">
-                        <ion-icon slot="start" name="leaf-outline"></ion-icon>
-                        Growth Membership
-                    </h2>
-                </ion-buttons>
-            </ion-toolbar>
+    <!-- Membership -->
+    <ion-row id="membership-wrapper" class="ion-justify-content-center">
+
+        <ion-col id="membership-photo" size-xs="11" size-md="10" size-lg="6">
         </ion-col>
-        <ion-col size-xs="11" size-md="10" size-lg="6.2">
-            <p id="growth-text">
+        <ion-col 
+            class="ion-align-items-center"
+            id="membership-text-wrapper" 
+            size-xs="11" size-md="10" size-lg="6">
+            <div class="spacer-4x"></div>
+            <div id="membership-illustration"></div>
+            <h2 class="landing-section-header">Why Hypnosis?</h2>
+            <p id="membership-text">
                 {{membershipMessage}}
             </p>
-            <div class="row-margin"></div>
             <div class="ion-text-center">
+                <div class="spacer-1x"></div>
                 <ion-button *ngIf="!this.showMembershipFrom" id="membership-button" (click)="membershipFormToggle()" color="success" expand="full">
                     Join
                 </ion-button>
@@ -291,7 +284,7 @@
             </div>
         </ion-col>
     </ion-row>
-    <div class="spacer-5x"></div>
+
     
     <!-- Footer -->
     <ion-row class="ion-justify-content-center">
@@ -331,24 +324,20 @@
 
 </ion-content>
 
-<!-- Sample Player Progress -->
-<ion-row id="landing-sample-track-progress-bar-wrapper" class="ion-justify-content-center">
-    <ion-col size-xs="12" size-lg="6">
-        <ion-progress-bar id="sample-track-progress-bar" value="{{this.sampleDuration}}" #sampleMusicProgress></ion-progress-bar>
-    </ion-col>
-</ion-row>
-
 <!-- Sample Player -->
 <ion-row id="landing-sample-player-wrapper" class="ion-justify-content-center">
-    <ion-col size-xs="12" size-lg="6">
+    <ion-col size-xs="12" size-lg="5">
         <ion-row>
             <ion-col size-xs="1.5" size-lg="0.5" class="ion-text-center">
                 <ion-icon id="landing-sample-music-icon" name="musical-notes-outline"></ion-icon>
             </ion-col>
-            <ion-col size-xs="6.5" size-lg="9" class="ion-text-center" >
-                <p style="color: #6eff6e; float: left; padding: 8px 0 0 8px;">Sample Track</p>
+            <ion-col size-xs="9" size-lg="8.5">
+                <div style="padding: 0em 1em;">
+                    <p id="sample-track-text">Sample Track</p>
+                    <ion-progress-bar id="sample-track-progress-bar" value="{{this.sampleDuration}}" #sampleMusicProgress></ion-progress-bar>
+                </div>
             </ion-col>
-            <ion-col size-xs="4" size-lg="2" class="ion-text-center">
+            <ion-col size-xs="1.5" size-lg="1" class="ion-text-center">
                 <!-- Play Sample Button -->
                 <ion-button id="landing-sample-button" (click)="playSample(this.sampleButtonIcon)">
                     <ion-icon slot="start" name="{{this.sampleButtonIcon}}" ></ion-icon>

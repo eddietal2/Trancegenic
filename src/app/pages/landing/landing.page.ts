@@ -548,7 +548,7 @@ export class LandingPage implements OnInit {
        this.sampleToggle = false;
  
        // Return sample icon to normal size when sample is paused
-       sampleIcon.style.color = '#fff';
+       sampleIcon.style.color = '#666';
        sampleIcon.style.transform = 'scale(1)';
  
        // Change Icon & Text in Sample Button to Play
