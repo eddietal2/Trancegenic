@@ -3,7 +3,6 @@
 
 // Header
 #header-wrapper {
-    // background-image: linear-gradient(#3C3E89, #6265E4);
     height: auto;
 
     #top-bar {
@@ -131,10 +130,29 @@
         #header-background-photo {        
             height: 95vh;
             background-image: url('https://s3.amazonaws.com/gazelle.cdn.yolocare.com/sites/376/2018/07/16160435/yolo-1900x1000-4.jpg');
-            
+
             #welcome-popup {
                 
             }
+        }
+    }
+
+    
+
+    #welcome-wrapper {
+        --border-right: 5px solid orangered;
+        transform: translateX(-1000px);
+        background: linear-gradient(-242.42372303396746deg, rgba(0, 212, 39,1) 28.5%,rgba(62, 158, 69,1) 69.05555555555556%,rgba(63, 158, 70,1) 69.05555555555556%);
+        animation: header-background-slide-in  1s ease-out 1s forwards;
+
+    }
+
+    @keyframes header-background-slide-in {
+        0% {
+            transform: translateX(-1000px);
+        }
+        100% {
+            transform: translateX(0px);
         }
     }
 
@@ -144,7 +162,7 @@
         padding: 4em;
         margin: 6em;
         border-radius: 10px;
-        box-shadow: 1px 14px 30px #dddddd;
+        box-shadow: 1px 14px 30px #2e2e2e54;
         opacity: 0;
         animation: welcome-fade-in-lg 1s ease 2s forwards;
 
@@ -357,6 +375,7 @@
 .view-all-button {
     border: 2px solid #222;
     padding: 0.2em;
+    --background: orangered;
 }
 
 // Memebership 
@@ -629,20 +648,42 @@
 }
 
 #landing-sample-player-wrapper {
-    background: white;
-    box-shadow: 1px 1px 8px #dedede;
-    height: 65px;
-    padding-top: 8px;
+
+    background: #666;
+    box-shadow: 1px 1px 8px #1f1d1d;
+    transform: translateY(100px);
+    height: 80px;
+    padding-top: 16px;
     z-index: 9;
+    animation: sample-warpper-slide-up  1s ease-out 4s forwards;
+
+
+
+
+    @keyframes sample-warpper-slide-up {
+        0% {
+            transform: translateY(100px);
+        }
+        100% {
+            transform: translateY(0px);
+            background: #111;
+        }
+    }
+
     #landing-sample-music-icon {
         margin: 0 auto;
         font-size: 2em;
-        color: #666;
+        color: #fff;
     }
 
     #landing-sample-button {
         --background: #00c400;
         float: right;
+        --border-radius: 100px;
+        height: 50px;
+        width: 50px;
+        position: relative;
+        top: -10px;
     }
 
     #sample-track-text {

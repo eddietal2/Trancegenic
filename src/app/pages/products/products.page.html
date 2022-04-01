@@ -32,6 +32,7 @@
 
       <!-- Category Buttons -->
       <ion-buttons slot="start" style="position: relative; top: -8px;">
+        <ion-title color="dark">Products</ion-title>
         <ion-button [ngClass]="this.categoryLg == 'featured' ? 'active-category-lg' : ''" (click)="featuredLg()">
           Featured
         </ion-button>
@@ -480,7 +481,10 @@
 
         <!-- Product -->
         <ion-row class="ion-justify-content-center ion-hide-lg-down">
-          <ion-col size="7">
+          <ion-col size="12">
+            <div class="static-alert-yellow">
+              Please Login to purchase products.
+            </div>
             <ion-row>
                 <ion-col size-lg="4" *ngFor="let product of this.searchLoadedProducts">
                     <ion-row

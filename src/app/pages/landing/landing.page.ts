@@ -166,9 +166,24 @@ export class LandingPage implements OnInit {
       });
 
       // Testing
-      console.log(this.sampleDuration);
+      // this.triggerHeaderVisualAnimation();
       
 
+   }
+
+   /**
+    * Header Photo Visual Effect Animation
+    */
+   triggerHeaderVisualAnimation() {
+
+     let headerBackgroundPhoto = document.getElementById('header-background-photo');
+     console.log('Starting Header Visual Animation');
+     console.log(headerBackgroundPhoto);
+    
+     let visualInterval = setInterval(() => {
+      headerBackgroundPhoto.style.backgroundPositionX = '1000px'
+     }, 100)
+     
    }
 
   /**
@@ -557,7 +572,7 @@ export class LandingPage implements OnInit {
        this.sampleToggle = false;
  
        // Return sample icon to normal size when sample is paused
-       sampleIcon.style.color = '#666';
+       sampleIcon.style.color = '#fff';
        sampleIcon.style.transform = 'scale(1)';
  
        // Change Icon & Text in Sample Button to Play
