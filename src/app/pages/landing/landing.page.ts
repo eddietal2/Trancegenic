@@ -165,26 +165,10 @@ export class LandingPage implements OnInit {
         email: ['', [Validators.required, Validators.email]], 
       });
 
-      // Testing
-      // this.triggerHeaderVisualAnimation();
-      
+      // Testing      
 
    }
 
-   /**
-    * Header Photo Visual Effect Animation
-    */
-   triggerHeaderVisualAnimation() {
-
-     let headerBackgroundPhoto = document.getElementById('header-background-photo');
-     console.log('Starting Header Visual Animation');
-     console.log(headerBackgroundPhoto);
-    
-     let visualInterval = setInterval(() => {
-      headerBackgroundPhoto.style.backgroundPositionX = '1000px'
-     }, 100)
-     
-   }
 
   /**
    * @param e - ionChange Event for Searchbar

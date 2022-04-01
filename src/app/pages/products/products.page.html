@@ -44,21 +44,25 @@
         </ion-button>
       </ion-buttons>
 
+
+      <!-- Filter -->
+      <ion-buttons style="position: relative; top: -8px;" #filterButton *ngIf="this.categoryLg == 'all'" slot="end">
+        
+        <ion-select id="category-select" *ngIf="this.categoryLg == 'all'" placeholder="Choose Category">
+          <ion-select-option value="peperoni">Peperoni</ion-select-option>
+          <ion-select-option value="hawaii">Hawaii</ion-select-option>
+        </ion-select>
+
       <!-- All Products Search Bar -->
       <ion-searchbar 
         id="products-search"
         *ngIf="this.categoryLg == 'all'" 
-        placeholder="Search All Products" 
-        inputmode="decimal" 
-        type="decimal" 
+        placeholder="Search" 
+        type="text" 
         (ionChange)="onSearchChange($event, 'lg')" 
         [debounce]="250" 
         showCancelButton="always">
       </ion-searchbar>
-
-
-      <!-- Filter -->
-      <ion-buttons #filterButton *ngIf="this.categoryLg == 'all'" id="filter-button" slot="end">
         <ion-button (click)="openFilterActionSheet()">
           Filter
         </ion-button>

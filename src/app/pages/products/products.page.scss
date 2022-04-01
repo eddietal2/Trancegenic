@@ -21,6 +21,13 @@
     padding: 0% 13% 0 13%;
     height: 40px;
     position: fixed;
+
+    #category-select {
+        color: #fff;
+        background: #999;
+        height: 25px;
+        width: 100px;
+    }
     
     ion-buttons {
         ion-button {
@@ -44,7 +51,7 @@
 
 .searchbar-input {
     color: #333 !important;
-    height: 25px;
+    height: 25px !important;
 }
 .filter-action-sheet {
     --color: #333;
@@ -451,8 +458,7 @@
 #products-search {
     max-width: 300px;
     font-size: 0.6em;
-    float: right;
-    margin-right: 1em;
+    height: 25px;
 }
 
 #no-search-results {
