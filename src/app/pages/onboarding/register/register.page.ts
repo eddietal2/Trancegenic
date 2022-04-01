@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { RegisterService } from 'src/app/services/onboarding/register.service';
 import { ToastController, AlertController } from '@ionic/angular';
 import { catchError } from 'rxjs/operators';
-
+import { Location } from '@angular/common';
 
 interface RegisteredUSer {
   fullName: string,
@@ -49,6 +49,7 @@ export class RegisterPage implements OnInit {
     private toastController: ToastController,
     private alertController: AlertController,
     private router: Router,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -304,7 +305,7 @@ export class RegisterPage implements OnInit {
     console.log('Loading dismissed!');
   }
 
-  backToLogin(){
-    this.router.navigateByUrl('/login')
+  backToLastPage(){
+    return this.location.back();
   }
 }
