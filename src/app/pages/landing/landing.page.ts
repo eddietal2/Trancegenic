@@ -59,7 +59,7 @@ export class LandingPage implements OnInit {
 
   config: SwiperOptions = {
     slidesPerView: 1.3,
-    spaceBetween: 20,
+    spaceBetween: 15,
     // autoplay: {
     //   delay: 3000,
     // },
@@ -203,7 +203,10 @@ export class LandingPage implements OnInit {
 
     this.searchBarValue = e.detail.value;
     this.dynanimcSearchArray = this.searchProducts
-      .filter(product => product.title.startsWith(this.searchBarValue))
+      .filter(
+        product => {
+          product.title.startsWith(this.searchBarValue.toLowerCase())
+        })
 
 
     // console.log("Search Input: " + this.searchBarValue);
@@ -269,6 +272,12 @@ export class LandingPage implements OnInit {
     // }, 500);
 
   }
+
+  viewProduct(id) {
+    console.log('Going to Products Page from Featured Product on Landing Page.');
+    this.router.navigate(["/products/product-page", id]);
+  }
+  
   goToProductPage(id, searchBar) {
     this.router.navigate(["/products/product-page", id]);
     setTimeout(() => {

@@ -4,10 +4,11 @@
     <!-- Header -->
     <ion-row id="header-wrapper" class="ion-justify-content-center">
 
+        <!-- Desktop -->
         <!-- Welcome Message & Search -->
-        <ion-col size="12" size-lg="6">
+        <ion-col class="ion-hide-lg-down" size-md="12" size-lg="6">
             <div class="spacer-10x"></div>
-            <div id="welcome-popup">
+            <div id="welcome-popup-lg">
                 <div class="ion-text-center">
                     <h1 style="color: #333;">{{welcomeMessage}}</h1>
                 </div>
@@ -67,19 +68,93 @@
                         </ion-button>  
                     </ion-col>
                 </ion-row>
+                
             </div>
         </ion-col>
+
         <!-- Header Photo -->
         <ion-col
             size="12" size-lg="6" 
-            class="ion-align-items-center" 
+            class="ion-align-items-center ion-hide-lg-down" 
             id="header-background-photo" >
         </ion-col>
+
+        <!-- Mobile -->
+        <ion-col
+            size="12" size-lg="6" 
+            class="ion-align-items-center ion-hide-lg-up" 
+            id="header-background-photo">
+            <div class="spacer-1x"></div>
+
+            <div id="welcome-popup">
+                <div class="ion-text-center">
+                    <h1 style="color: #444;">{{welcomeMessage}}</h1>
+                </div>
+
+                <!-- Searchbar -->
+                <ion-searchbar
+                    placeholder="Search for Product Titles"
+                    (ionFocus)="searchingOn()"
+                    (ionBlur)="searchingOff($event)"
+                    (ionChange)="searchUpdate($event)"
+                    #searchBar
+                    showCancelButton="true"
+                    showClearButton="true"
+                ></ion-searchbar>
+
+                <!-- Search List -->
+                <ion-list id="search-results-list" *ngIf="this.searching">
+                    <ion-item lines="none">
+                        <ion-spinner></ion-spinner>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="this.dynanimcSearchArray.length == 0 && this.searching == true">
+                        No Results with that search. Try again.
+                    </ion-item>
+
+                    <!-- Search Results -->
+                    <ion-item
+                        class="search-item" 
+                        lines="none" 
+                        detail="true"
+                        *ngFor="let results of this.dynanimcSearchArray"
+                        (click)="this.goToProductPageSearchBar(results._id, searchBar)">
+                        <ion-avatar slot="start">
+                            <img src="{{results.picture}}" />
+                          </ion-avatar>
+                        <ion-label>
+                            <h2>{{results.title}} <span class="search-results-type">MP3</span></h2>
+                            <h2 class="search-results-price">${{results.price}}</h2>
+                        </ion-label>
+                        <div class="spacer-2x"></div>
+                    </ion-item>
+                </ion-list>
+
+                <div class="spacer-2x"></div>
+
+                <hr *ngIf="!this.authState" id="landing-sample-divider">
+                <div *ngIf="!this.authState" class="spacer-2x"></div>
+
+                <!-- Header Onboarding Buttons -->
+                <ion-row *ngIf="!this.authState" id="header-onboarding-buttons">
+                    <ion-col class="ion-text-center" size="12">
+                        <ion-button (click)="login()">
+                            Login
+                        </ion-button>
+                        <div class="spacer-2x"></div>   
+                        <ion-button color="success" (click)="register()">
+                            Register
+                        </ion-button>  
+                    </ion-col>
+                </ion-row>
+                
+            </div>
+        </ion-col>
+
     </ion-row>
 
     <!-- Featured Products -->
     <ion-row id="landing-featured-products-wrapper-lg" class="ion-justify-content-center ion-hide-lg-down">
-        <ion-col size-lg="10" size-xl="8">
+        <ion-col size-lg="10" size-xl="9">
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <h2>
@@ -102,10 +177,10 @@
                     <ion-row
                         class="ion-justify-content-center"
                         class="product-lg">
-                        <ion-col class="product-photo" size="6"
+                        <ion-col class="product-photo" size="12"
                             (click)="goToProductPage(featuredProduct._id, searchBar)">
                         </ion-col>
-                        <ion-col size="6"
+                        <ion-col size="12"
                             (click)="goToProductPage(featuredProduct._id, searchBar)">
                             <div>
                                   <p class="product-price">${{featuredProduct.price}}</p>
@@ -114,7 +189,7 @@
                                   <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
                                   <p class="product-duration">Duration: {{featuredProduct.duration}} Mins</p>
                                   <p class="product-category"># {{featuredProduct.category}}</p>
-                                  <!-- <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5> -->
+                                  <h5 class="product-reviews-length">Reviews {{featuredProduct.reviews.length}}</h5>
                             </div>                 
                                 
                         </ion-col>
@@ -132,31 +207,42 @@
                                     *ngIf="this.cart.includes(featuredProduct._id)" 
                                     src="../../../assets/icons/remove-from-cart.svg" 
                                     alt="Hypnosis Downloads Product">
-                                    <!-- <app-favorite-icon
+                                    <app-favorite-icon
                                     [id]="featuredProduct._id"
                                     [userFavorites]="this.userFavorites"
-                                    [email]="this.userEmail"></app-favorite-icon> -->
+                                    [email]="this.userEmail"></app-favorite-icon>
                             </ion-buttons>
                         </ion-toolbar>  
                     </ion-row>
+                    <div class="ion-text-center">
+                        <ion-button (click)="viewProduct(featuredProduct._id)" class="view-product-button">
+                            View Product
+                        </ion-button>
+                    </div>
                 </ion-col>
             </ion-row>
+
         </ion-col>
+
+        <div class="spacer-10x"></div>
     </ion-row>
 
     <!-- Mobile Featured Products -->
-    <ion-row class="ion-hide-lg-up">
+    <ion-row class="ion-hide-lg-up ion-justify-content-center">
 
         <!-- Featured Products Header -->
-        <ion-col size-xs="11" size-sm="10" size-md="8">
+        <ion-col size-xs="11" size-sm="10" size-md="8">        
+            <div class="spacer-5x"></div>
             <h2>
+                <p *ngIf="!this.authState" class="static-alert-yellow">Please log in to favorite or buy a product</p>
+                
+                <div class="spacer-1x"></div>
                 <ion-icon slot="start" name="pricetag"></ion-icon>
                 <span></span>
                 Featured Products
                 <span width="10"></span>
                 <span class="file-type">MP3</span>
             </h2>
-            <p *ngIf="!this.authState" class="static-alert-yellow">Please log in to favorite or buy a product</p>
             
         </ion-col>
 
@@ -171,11 +257,10 @@
               <ng-template swiperSlide *ngFor="let featuredProduct of landingFeaturedProducts">
                 
                 <!-- Products -->
-                <ion-row class="landing-product-wrapper">
-                    <ion-col size="12">
-                        <img class="mobile-products-slider-img" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Related Product Photo">
+                <ion-row class="landing-product-wrapper ion-justify-content-center">
+                    <ion-col class="mobile-products-slider-img" size="12">
                     </ion-col>
-                    <ion-col size="11">
+                    <ion-col size="10">
                         <p class="product-price">${{featuredProduct.price}}</p>
                         <h6 class="product-title">{{featuredProduct.title}}</h6>  
                         <app-ratings-stars [rating]="featuredProduct.rating"></app-ratings-stars>
@@ -201,16 +286,19 @@
         </ion-col>
 
         <!-- View All Products Button -->
-        <ion-col size-xs="11" size-sm="10" size-md="8">
+        <ion-col class="ion-text-center" size-xs="11" size-sm="10" size-md="8">
             <ion-button expand="full" (click)="goToProductsPage()">
                 View All Products
-            </ion-button>
+            </ion-button>      
+            <div class="spacer-5x"></div>
         </ion-col>
+
     </ion-row>
 
     <!-- Description -->
+    <hr style="border-bottom: 3px solid #666;">
     <ion-row id="description-wrapper" class="ion-justify-content-center">
-        <ion-col id="description-photo" size-xs="11" size-md="10" size-lg="6">
+        <ion-col id="description-photo" size-xs="12" size-md="12" size-lg="6">
         </ion-col>
         <ion-col 
             class="ion-align-items-center"
@@ -225,10 +313,13 @@
         </ion-col>
     </ion-row>
 
+    <div class="spacer-5x"></div>
+    <hr style="border-bottom: 3px solid #666;">
+
     <!-- Membership -->
     <ion-row id="membership-wrapper" class="ion-justify-content-center">
 
-        <ion-col id="membership-photo" size-xs="11" size-md="10" size-lg="6">
+        <ion-col id="membership-photo" size-xs="12" size-md="12" size-lg="6">
         </ion-col>
         <ion-col 
             class="ion-align-items-center"
@@ -236,7 +327,7 @@
             size-xs="11" size-md="10" size-lg="6">
             <div class="spacer-4x"></div>
             <div id="membership-illustration"></div>
-            <h2 class="landing-section-header">Why Hypnosis?</h2>
+            <h2 class="landing-section-header">Membership</h2>
             <p id="membership-text">
                 {{membershipMessage}}
             </p>
@@ -288,6 +379,7 @@
         </ion-col>
     </ion-row>
 
+    <div class="spacer-5x"></div>
     
     <!-- Footer -->
     <ion-row class="ion-justify-content-center">

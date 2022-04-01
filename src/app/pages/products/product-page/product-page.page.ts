@@ -421,9 +421,9 @@ export class ProductPagePage implements OnInit, OnDestroy {
     console.log('Products Page destroyed');
     this.sound.unload();
     this.reviewRating = null;
-    this.addToCartSub.unsubscribe();
-    this.removeFromCartSub.unsubscribe();
-    this.userCartSub.unsubscribe();
+    // this.addToCartSub.unsubscribe();
+    // this.removeFromCartSub.unsubscribe();
+    // this.userCartSub.unsubscribe();
   }
 
   getRating(e) {

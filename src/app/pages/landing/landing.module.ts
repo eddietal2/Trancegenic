@@ -2,12 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { LandingPageRoutingModule } from './landing-routing.module';
-
-import { LandingPage } from './landing.page';
 
 @NgModule({
   imports: [
