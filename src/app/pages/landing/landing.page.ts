@@ -15,7 +15,7 @@ Swiper.use([Autoplay]);
 //   welcomeMessage: string,
 //   sample: string,
 //   featuredProducts: Array<String>,
-//   whyHypnosis: string,
+//   description: string,
 //   membershipMessage: string,
 // }
 
@@ -50,7 +50,7 @@ interface Review {
   encapsulation: ViewEncapsulation.None,
 })
 export class LandingPage implements OnInit {
-  sample = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+  sample = "https://affiliate-site001.s3.us-east-2.amazonaws.com/mp3s/feel_good_inc.mp3";
   validationMessasges = {
     email: [
       { type: 'email', message: 'Must be a valid email address'}
@@ -96,7 +96,7 @@ export class LandingPage implements OnInit {
   userEmail: string;
   welcomeMessage: any;
   featuredProducts: any;
-  whyHypnosis: any;
+  description: any;
   membershipMessage: any;
   cart = [];
   userFavorites = [];
@@ -125,7 +125,7 @@ export class LandingPage implements OnInit {
           this.welcomeMessage = landingPageInfo['landingPageInfo'][0].welcomeMessage;
           this.sample = landingPageInfo['landingPageInfo'][0].sample;
           this.featuredProducts = landingPageInfo['landingPageInfo'][0].featuredProducts;
-          this.whyHypnosis = landingPageInfo['landingPageInfo'][0].whyHypnosis;
+          this.description = landingPageInfo['landingPageInfo'][0].description;
           this.membershipMessage = landingPageInfo['landingPageInfo'][0].membershipMessage;
 
         }

@@ -52,7 +52,7 @@ ion-skeleton-text {
 }
 .is-text {
     width: 100%;
-    line-height: 15px;
+    line-height: 20px;
 }
 .ion-accordion-toggle-icon {
     color: #333 !important;
@@ -178,23 +178,23 @@ p {
    background: #fff3ad; 
    border-left: 6px solid #ffd900;
    padding: 0.5em;
-   display: block;
    margin: 1em 0;
+   width: 200px;
 }
 .static-alert-red {
    background: #ff8a8a86; 
    border-left: 6px solid #f51818;
    padding: 0.5em;
-   display: block;
    margin: 1em 0;
+   width: 200px;
 
 }
 .static-alert-blue {
    background: #a1caff; 
    border-left: 6px solid #006eff;
    padding: 0.5em;
-   display: block;
    margin: 1em 0;
+   width: 200px;
 }
 
 

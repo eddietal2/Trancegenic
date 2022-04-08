@@ -657,9 +657,6 @@
     z-index: 9;
     animation: sample-warpper-slide-up  1s ease-out 4s forwards;
 
-
-
-
     @keyframes sample-warpper-slide-up {
         0% {
             transform: translateY(100px);
@@ -670,7 +667,7 @@
         }
     }
 
-    #landing-sample-music-icon {
+    .landing-sample-music-icon {
         margin: 0 auto;
         font-size: 2em;
         color: #fff;
@@ -687,9 +684,9 @@
     }
 
     #sample-track-text {
-        font-size: 1em;
+        font-size: 1.2em;
         padding-bottom: 0.3em;
-        color: #b4b4b4;
+        color: #fff;
     }
 
 }

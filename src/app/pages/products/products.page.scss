@@ -16,17 +16,20 @@
 }
 
 #product-lg-toolbar {
-    margin-top: 5em;
-    background: #352c2cf2;
-    padding: 0% 13% 0 13%;
-    height: 40px;
-    position: fixed;
+    background: #000;
+    padding: 1.2% 13% 0 13%;
+    height: 70px;
+    position: sticky;
+    top: 80px;
 
     #category-select {
-        color: #fff;
-        background: #999;
+        --color: #fff;
+        --placeholder-color: #fff;
+        background: none;
+        border: 2px solid #fff;
+        border-radius: 5px;
         height: 25px;
-        width: 100px;
+        width: 200px;
     }
     
     ion-buttons {

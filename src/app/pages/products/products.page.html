@@ -27,6 +27,9 @@
       </div>
     </div>
 
+    <ion-row>
+      <ion-col id="products-page-header" size="12"></ion-col>
+    </ion-row>
 
     <ion-toolbar id="product-lg-toolbar">
 
@@ -68,10 +71,6 @@
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
-
-    <ion-row>
-      <ion-col id="products-page-header" size="12"></ion-col>
-    </ion-row>
 
     <!-- Products / Mobile -->
     <ng-container>
@@ -332,13 +331,9 @@
 
     <!-- Products / Lg -->
     <ion-row id="products-page-wrapper" class="ion-hide-lg-down ion-justify-content-center">
-      
-      <!-- Products Lg Toolbar -->
-      <ion-col size="6.7">
-      </ion-col>
 
       <!-- Skeleton UI Lg -->
-      <ion-col size="7" *ngIf="this.skeletonDataLg">
+      <ion-col size="9" *ngIf="this.skeletonDataLg">
         <div class="ion-padding custom-skeleton">
           <ion-list>
             <ion-item lines="none">
@@ -350,10 +345,19 @@
                   <ion-skeleton-text class="is-text" animated style="width: 80%"></ion-skeleton-text>
                 </p>
                 <p>
-                  <ion-skeleton-text class="is-text" animated style="width: 70%"></ion-skeleton-text>
+                  <ion-skeleton-text class="is-text" animated style="width: 80%"></ion-skeleton-text>
                 </p>
                 <p>
-                  <ion-skeleton-text class="is-text" animated style="width: 60%"></ion-skeleton-text>
+                  <ion-skeleton-text class="is-text" animated style="width: 80%"></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text class="is-text" animated style="width: 80%"></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text class="is-text" animated style="width: 80%"></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text class="is-text" animated style="width: 80%"></ion-skeleton-text>
                 </p>
               </ion-label>
             </ion-item>
@@ -373,7 +377,7 @@
       <ion-col 
         *ngIf="this.categoryLg == 'featured'" 
         size="12">
-
+        <div class="spacer-5x"></div>
         <!-- Product -->
         <ion-row  class="ion-justify-content-center ion-hide-lg-down">
             <ion-col size-lg="4" size-xl="4" *ngFor="let featuredProduct of this.featuredProducts">
@@ -426,7 +430,9 @@
 
       <!-- Favorites Message -->
       <ion-col *ngIf="this.categoryLg == 'favorites' && this.favoriteProducts.length == 0 && !this.skeletonDataLg" size="6.7">
-        <h1>You have no favorites! To add a favorite product, tap the Heart icon.</h1>
+        
+        <div class="spacer-5x"></div>
+        <div class="static-alert-yellow">You have no favorites! To add a favorite product, tap the Heart icon.</div>
       </ion-col>
       
       <!-- FavoritesLg -->
@@ -486,9 +492,11 @@
         <!-- Product -->
         <ion-row class="ion-justify-content-center ion-hide-lg-down">
           <ion-col size="12">
+            <div class="spacer-5x"></div>
             <div class="static-alert-yellow">
               Please Login to purchase products.
             </div>
+            <div class="spacer-1x"></div>
             <ion-row>
                 <ion-col size-lg="4" *ngFor="let product of this.searchLoadedProducts">
                     <ion-row
