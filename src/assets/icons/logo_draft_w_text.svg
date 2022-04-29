@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="506px" height="476px" viewBox="0 0 506 476" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>logo_draft_1</title>
-    <g id="logo_draft_1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+<svg width="1598px" height="476px" viewBox="0 0 1598 476" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo_draft_w_text</title>
+    <g id="logo_draft_w_text" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Group" transform="translate(47.000000, 39.000000)" fill="#04AF10">
             <path d="M0,0 L356,0 C386.375661,-5.57991845e-15 411,24.6243388 411,55 L411,66 L411,66 L205.5,50.8588235 L59.041428,61.6498458 C28.7478827,63.8818649 2.38070312,41.1335032 0.148684066,10.8399579 C0.0495948733,9.49509351 -6.94028253e-15,8.14703978 0,6.7985299 L0,0 L0,0 Z" id="Path-3-Copy"></path>
             <path d="M39.5,166.5 L207.49152,166.5 L339.5,166.5 C357.173112,166.5 371.5,180.826888 371.5,198.5 C371.5,216.173112 357.173112,230.5 339.5,230.5 L205.37878,230.5 L205.37878,230.5 L39.5,230.5 L39.5,166.5 Z" id="Path-3-Copy-2" transform="translate(205.500000, 198.500000) rotate(90.000000) translate(-205.500000, -198.500000) "></path>
         </g>
+        <text id="rancegenic" font-family="Helvetica-Light, Helvetica" font-size="180" font-weight="300" fill="#00E910">
+            <tspan x="384" y="316">rancegenic</tspan>
+        </text>
     </g>
 </svg>

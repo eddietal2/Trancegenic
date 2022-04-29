@@ -8,6 +8,7 @@
         <!-- Welcome Message & Search -->
         <ion-col class="ion-hide-lg-down" id="welcome-wrapper" size-md="12" size-lg="6">
             <div class="spacer-10x"></div>
+            <div class="spacer-5x"></div>
             <div id="welcome-popup-lg">
                 <div class="ion-text-center">
                     <h1 style="color: #333;">{{welcomeMessage}}</h1>
@@ -59,11 +60,11 @@
                 <!-- Header Onboarding Buttons -->
                 <ion-row *ngIf="!this.authState" id="header-onboarding-buttons">
                     <ion-col class="ion-text-center" size="12">
-                        <ion-button (click)="login()">
+                        <ion-button style="--background: #00c400;" (click)="login()">
                             Login
                         </ion-button>
                         <div class="spacer-2x"></div>   
-                        <ion-button color="success" (click)="register()">
+                        <ion-button style="--background: #b0b0b0;" (click)="register()">
                             Register
                         </ion-button>  
                     </ion-col>
@@ -175,7 +176,6 @@
                 <ion-col size="4" 
                 *ngFor="let featuredProduct of this.landingFeaturedProducts">
                     <ion-row
-                        class="ion-justify-content-center"
                         class="product-lg">
                         <ion-col class="product-photo" size="12"
                             (click)="goToProductPage(featuredProduct._id, searchBar)">
@@ -224,7 +224,7 @@
 
         </ion-col>
 
-        <div class="spacer-10x"></div>
+        <div class="spacer-5x"></div>
     </ion-row>
 
     <!-- Mobile Featured Products -->
@@ -296,28 +296,24 @@
     </ion-row>
 
     <!-- Description -->
-    <hr style="border-bottom: 3px solid #666;">
-    <ion-row id="description-wrapper" class="ion-justify-content-center">
-        <ion-col id="description-photo" size-xs="12" size-md="12" size-lg="6">
-        </ion-col>
+    <!-- <hr style="border-bottom: 3px solid #666;"> -->
+    <ion-row id="description-wrapper">
         <ion-col 
-            class="ion-align-items-center"
+            class="ion-align-items-left"
             id="description-text-wrapper" 
-            size-xs="11" size-md="10" size-lg="6">
-            <div class="spacer-4x"></div>
-            <div id="description-illustration"></div>
-            <h2 class="landing-section-header">Description</h2>
+            size-xs="12" size-md="12" size-lg="5">
             <p id="description-text">
-                {{description}}
+            <img height="100" src="../../../assets/icons/logo_draft_w_text_dark.svg" alt="" srcset="">
+            <br><br>
+            {{description}}
             </p>
         </ion-col>
     </ion-row>
 
-    <div class="spacer-5x"></div>
-    <hr style="border-bottom: 3px solid #666;">
-
+    <!-- <div class="spacer-5x"></div> -->
+    <!-- <hr style="border-bottom: 3px solid #666;"> -->
     <!-- Membership -->
-    <ion-row id="membership-wrapper" class="ion-justify-content-center">
+    <!-- <ion-row id="membership-wrapper" class="ion-justify-content-center">
 
         <ion-col id="membership-photo" size-xs="12" size-md="12" size-lg="6">
         </ion-col>
@@ -325,8 +321,7 @@
             class="ion-align-items-center"
             id="membership-text-wrapper" 
             size-xs="11" size-md="10" size-lg="6">
-            <div class="spacer-4x"></div>
-            <div id="membership-illustration"></div>
+            <div class="spacer-2x"></div>
             <h2 class="landing-section-header">Membership</h2>
             <p id="membership-text">
                 {{membershipMessage}}
@@ -377,16 +372,16 @@
                 </div>
             </div>
         </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <div class="spacer-5x"></div>
+ 
     
     <!-- Footer -->
     <ion-row class="ion-justify-content-center">
         <ion-col id="footer-landing-page" size="12">
-            <ion-list>
+            <ion-list id="footer-list">
               <ion-item style="height: auto;" lines="none">
-                <img id="footer-logo" height="80" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Logo">
+                <img id="footer-logo" height="80" src="../../../assets/icons/logo_draft_w_text.svg" alt="Hypnosis Site Logo">
               </ion-item>
               <ion-item lines="none">
                 <ion-label>Link</ion-label>
@@ -402,14 +397,14 @@
               </ion-item>
               <ion-item lines="none">
                 <ion-label>Link</ion-label>
-              </ion-item>
-              <ion-item lines="none">
-                <p class="footer-text">Website title - 2022</p>
               </ion-item>
               <ion-item>
                 <ion-button (click)="goToContactPage()" id="footer-contact-us-button">
                   Contact Us
                 </ion-button>
+              </ion-item>
+              <ion-item lines="none" class="ion-text-center">
+                <p class="footer-text">TranceGenic - 2022</p>
               </ion-item>
             </ion-list>
         </ion-col>

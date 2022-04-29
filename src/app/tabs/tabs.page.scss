@@ -2,7 +2,7 @@
 #logo {
     height: 50px;
     position: relative;
-    bottom: 10px;
+    bottom: 5px;
     font-weight: 600;
     color: var(--ion-color-primary);
 }
@@ -24,7 +24,7 @@ ion-tab-bar {
 
 #nav-wrapper {
     box-shadow: 1px 1px 8px #dedede;
-    padding: 1.5% 13% 0 13%;
+    padding: 1.2% 13% 0 13%;
     height: 80px;
     background: #fff;
     transition: 0.5s;
@@ -37,15 +37,15 @@ ion-tab-bar {
     // z-index: 9999;
 
     a {
-        font-size: 1.1em;
+        font-size: 1.3em;
         font-weight: 400;
         color: #999;
-        padding: 0.6em 0.4em;
+        padding: 0.5em 0.4em;
         text-decoration: none;
     }
     .active-link {
-        color: var(--ion-color-primary);
-        font-weight: 400;
+        color: #00c400;
+        font-weight: 600;
     }
     #desktop-cart-icon {
         margin-right: 4px;
