@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="506px" height="476px" viewBox="0 0 506 476" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>login-icon</title>
+    <g id="login-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M190,160 L190,120 C190,97.90861 207.90861,80 230,80 L390,80 C412.09139,80 430,97.90861 430,120 L430,360 C430,382.09139 412.09139,400 390,400 L238,400 C215.91,400 190,382.09 190,360 L190,320" id="login-icon-outer" stroke="#00C400" stroke-width="32"></path>
+        <path d="M286,320 L366,240 L286,160 M78,240 L350,240" id="login-icon-arrow" stroke="#054F05" stroke-width="32"></path>
+    </g>
+</svg>

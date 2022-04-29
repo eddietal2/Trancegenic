@@ -9,13 +9,19 @@
         size-xs="11" size-md="10" size-lg="6"
         *ngIf="!this.loginService.authenticationState.value">
         <div class="spacer-5x"></div>
-        <div id="login-icon"></div>
+        <svg height="100" viewBox="0 0 506 476" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <title>login-icon</title>
+          <g id="login-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M190,160 L190,120 C190,97.90861 207.90861,80 230,80 L390,80 C412.09139,80 430,97.90861 430,120 L430,360 C430,382.09139 412.09139,400 390,400 L238,400 C215.91,400 190,382.09 190,360 L190,320" id="login-icon-outer" stroke="#00C400" stroke-width="32"></path>
+              <path d="M286,320 L366,240 L286,160 M78,240 L350,240" id="login-icon-arrow" stroke="#054F05" stroke-width="32"></path>
+          </g>
+        </svg>
         <h1>Please Log in</h1>
-        <ion-button id="profile-login-button-lg" (click)="goToLoginPage()" color="success">
+        <ion-button id="profile-login-button-lg" (click)="goToLoginPage()">
           Login
         </ion-button>
       </ion-col>
-    </ion-row>  
+    </ion-row> 
   </ion-grid>
 
   <!-- Main Profile Page -->
@@ -54,41 +60,40 @@
       </ion-col>
     </ion-row>
 
-    <!-- Footer -->
-    <div class="spacer-10x"></div>
-    <ion-row class="ion-justify-content-center">
-        <ion-col id="footer-profile-page" size="12">
-            <ion-list>
-              <ion-item style="height: auto;" lines="none">
-                <img id="footer-logo" height="80" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Logo">
-              </ion-item>
-              <ion-item lines="none">
-                <ion-label>Link</ion-label>
-              </ion-item>
-              <ion-item lines="none">
-                <ion-label>Link</ion-label>
-              </ion-item>
-              <ion-item lines="none">
-                <ion-label>Link</ion-label>
-              </ion-item>
-              <ion-item lines="none">
-                <ion-label>Link</ion-label>
-              </ion-item>
-              <ion-item lines="none">
-                <ion-label>Link</ion-label>
-              </ion-item>
-              <ion-item lines="none">
-                <p class="footer-text">Website title - 2022</p>
-              </ion-item>
-              <ion-item>
-                <ion-button (click)="goToContactPage()" id="footer-contact-us-button">
-                  Contact Us
-                </ion-button>
-              </ion-item>
-            </ion-list>
-        </ion-col>
-    </ion-row>
+    <div class="spacer-5x"></div>
   </ion-grid>
+
+  <!-- Footer -->
+  <ion-row>
+        <!-- Footer -->
+        <ion-col id="footer-profile-page" size="12">
+          <ion-list>
+            <ion-item style="height: auto;" lines="none">
+              <img id="footer-logo" height="80" src="../../../../assets/icons/logo_draft_w_text_dark.svg" alt="Hypnosis Site Logo">
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Link</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Link</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Link</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Link</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Link</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-button (click)="goToContactPage()" class="footer-contact-us-button">
+                Contact Us
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-col> 
+  </ion-row>
   
   <!-- Change Name Modal -->
   <ion-modal [isOpen]="this.changeNameModalOpen">

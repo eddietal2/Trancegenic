@@ -36,6 +36,27 @@ export class ProfilePage implements OnInit {
       this.router.navigateByUrl("/contact");
     }
 
+  /**
+   * Track scroll location of page for animations
+   * @param e - Event Object
+   */
+
+   footerScrollIntoView = false;
+
+   trackPageLocation(e) {
+    let scrollDetail = e.detail;
+    // console.log(scrollDetail);
+
+    if(scrollDetail.scrollTop >= 1300) {
+      // console.log('show footer');
+      this.footerScrollIntoView = true;
+    }
+    else {
+      // console.log('hide footer');
+      this.footerScrollIntoView = false;
+    }
+   }
+
 
   /**
    * Direct user to Login Page from Profile page
