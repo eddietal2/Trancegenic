@@ -7,6 +7,8 @@
       <ion-col size-xs="11" size-sm="10" size-md="8" size-lg="5">
         <div class="spacer-5x ion-hide-lg-down"></div>
         <div class="spacer-3x ion-hide-lg-up"></div>
+
+        <!-- Toolbar -->
         <ion-toolbar>
           <ion-buttons slot="start">
             <h1>
@@ -14,18 +16,34 @@
               Cart <span *ngIf="this.userEmail">({{cartLength}})</span>
             </h1>
           </ion-buttons>
-          <ion-buttons *ngIf="this.cartLength != 0" slot="end">
-            <ion-button id="clear-cart-button-lg" color="primary" (click)="clearCart(this.userEmail)">
+          <ion-buttons *ngIf="this.cartLength > 0" slot="end">
+            <ion-button color="danger" (click)="clearCart(this.userEmail)">
               Empty Cart
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
-        <div class="spacer-2x"></div>
-        <h3 *ngIf="!this.userEmail">Please Log in</h3>
-        <ion-button *ngIf="!this.userEmail" (click)="goToLoginPage()">
-          Login
-        </ion-button>
+
+        <!-- Please Login -->
+        <ion-row class="ion-justify-content-center" *ngIf="!this.userEmail">
+          <ion-col size-xs="11" size-md="10" size-lg="6" class="ion-text-center">
+            <div class="spacer-5x"></div>
+            <svg height="100" viewBox="0 0 506 476" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>login-icon</title>
+              <g id="login-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M190,160 L190,120 C190,97.90861 207.90861,80 230,80 L390,80 C412.09139,80 430,97.90861 430,120 L430,360 C430,382.09139 412.09139,400 390,400 L238,400 C215.91,400 190,382.09 190,360 L190,320" id="login-icon-outer" stroke="#00C400" stroke-width="32"></path>
+                  <path d="M286,320 L366,240 L286,160 M78,240 L350,240" id="login-icon-arrow" stroke="#054F05" stroke-width="32"></path>
+              </g>
+            </svg>
+            <h1>Please Log in</h1>
+            <ion-button id="profile-login-button-lg" (click)="goToLoginPage()">
+              Login
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <!-- No Products In Cart -->
         <ion-row *ngIf="cartLength == 0">
+        <div class="spacer-10x"></div>
           <ion-col size="12">
             <div id="add-to-cart-message">
               <p>You have no products in your Cart. Press the 'Add To Cart'
@@ -56,51 +74,51 @@
         </ion-row>
 
         <!-- Products -->
-        <ion-row
-                *ngFor="let product of this.cart"
-                style="width: 100%;"
-                class="product-wrapper ion-justify-content-center">
-                <ion-col (click)="this.goToProductPage(product._id)" class="product-photo" size="6">
-          
-                </ion-col>
-                <ion-col size="6">
-                  <div (click)="this.goToProductPage(product._id)">
-                    <p class="product-price">${{product.price}}</p>
-                    <h6 class="product-title">{{product.title}}</h6>
-                    <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
-                    <p class="-product-duration">Duration: {{product.duration}} Mins</p>
-                    <p class="product-category"># {{product.category}}</p>
-                    <!-- user's favoriteProducts collection on has IDs -->
-                    <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
-                  </div>
-                </ion-col>
- 
-                <!-- Cart + Favorites Toolbar -->
-                <div class="spacer-3x"></div>
-                <ion-toolbar>
-                  <ion-buttons #cartButton (click)="tryRemoveFromCart(product._id, product.title, cartButton)" slot="start">
-                    <img class="cart-button" src="../../../assets/icons/remove-from-cart.svg" alt="Hypnosis Downloads">
-                  </ion-buttons>
-                  <ion-buttons slot="end">
-                    <app-favorite-icon 
-                    [id]="product._id"
-                    [email]="this.userEmail"
-                    ></app-favorite-icon>
-                  </ion-buttons>
-                </ion-toolbar> 
+        <div class="spacer-2x"></div>
+          <ion-row
+          *ngFor="let product of this.cart"
+          style="width: 100%;"
+          class="product-wrapper ion-justify-content-center">
 
-        </ion-row>
+          <ion-col (click)="this.goToProductPage(product._id)" class="product-photo" size="6">
+      
+          </ion-col>
+          <ion-col size="6">
+            <div (click)="this.goToProductPage(product._id)">
+              <p class="product-price">${{product.price}}</p>
+              <h6 class="product-title">{{product.title}}</h6>
+              <app-ratings-stars [rating]="product.rating"></app-ratings-stars>
+              <p class="-product-duration">Duration: {{product.duration}} Mins</p>
+              <p class="product-category"># {{product.category}}</p>
+              <!-- user's favoriteProducts collection on has IDs -->
+              <p class="product-reviews-length">Reviews {{product.reviews.length}}</p>
+            </div>
+          </ion-col>
+          <!-- Cart + Favorites Toolbar -->
+          <div class="spacer-3x"></div>
+          <ion-toolbar>
+            <ion-buttons #cartButton (click)="tryRemoveFromCart(product._id, product.title, cartButton)" slot="start">
+              <img height="30" class="cart-button" src="../../../assets/icons/remove-from-cart.svg" alt="Hypnosis Downloads">
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <app-favorite-icon 
+              [id]="product._id"
+              [email]="this.userEmail"
+              ></app-favorite-icon>
+            </ion-buttons>
+          </ion-toolbar> 
+          </ion-row>
+        <div class="spacer-5x"></div>
 
       </ion-col>
     </ion-row>
     
     <!-- Footer -->
-    <div class="spacer-10x"></div>
-    <ion-row class="ion-justify-content-center">
-        <ion-col id="footer-cart-page" size="12">
+    <ion-row>
+          <ion-col id="footer-cart-page" size="12">
             <ion-list>
               <ion-item style="height: auto;" lines="none">
-                <img id="footer-logo" height="80" src="../../../../assets/placeholders/placeholder-logo.svg" alt="Hypnosis Site Logo">
+                <img id="footer-logo" height="80" src="../../../../assets/icons/logo_draft_w_text_dark.svg" alt="Hypnosis Site Logo">
               </ion-item>
               <ion-item lines="none">
                 <ion-label>Link</ion-label>
@@ -116,24 +134,21 @@
               </ion-item>
               <ion-item lines="none">
                 <ion-label>Link</ion-label>
-              </ion-item>
-              <ion-item lines="none">
-                <p class="footer-text">Website title - 2022</p>
               </ion-item>
               <ion-item>
-                <ion-button (click)="goToContactPage()" id="footer-contact-us-button">
+                <ion-button (click)="goToContactPage()" class="footer-contact-us-button">
                   Contact Us
                 </ion-button>
               </ion-item>
             </ion-list>
-        </ion-col>
+          </ion-col> 
     </ion-row>
 
   </ion-grid>
 </ion-content>
 
 <!-- Complete Order Button on Mobile Devices -->
-<ion-footer class="ion-hide-lg-up">
+<ion-footer *ngIf="this.userEmail" class="ion-hide-lg-up">
   <ion-button class="cart-not-empty" *ngIf="this.cartLength > 0" expand="full" (click)="tryCompleteOrder()">
     Complete Order <span style="font-weight: 800; margin-left: 1em;">({{this.cartLength}})</span>
   </ion-button>

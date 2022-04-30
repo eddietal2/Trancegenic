@@ -1,80 +1,100 @@
 <ion-content>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-        <ion-col id="login-page-form-wrapper"
-        size-xs="12" size-sm="9" size-md="7" size-lg="5" size-xl="4">
-            <div class="ion-text-center">
-                <img height="40" src="../../../../assets/placeholders/placeholder-logo.svg">
-            </div>
-            <form [formGroup]="loginForm">
-                <ion-item>
-                  <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
-                  <ion-input required formControlName="email" type="email"></ion-input>
-                  <!-- Email Validation-->
-                  <div class="validation-errors">
-                    <ng-container *ngFor="let validation of validationMessasges.email">
-                          <div class="validation-error-message"
-                          *ngIf="loginForm
-                            .get('email')
-                            .hasError(validation.type) && (loginForm.get('email')
-                            .dirty || loginForm.get('email').touched)">
-                            {{ validation.message }}
-                          </div>
-                    </ng-container>
-                  </div>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
-                    <ion-input required formControlName="password" type="password" maxlength="8" minlength="8"></ion-input>
-                    <!-- Password Validation-->
-                    <div class="validation-errors">
-                      <ng-container *ngFor="let validation of validationMessasges.password">
-                            <div class="validation-error-message"
-                            *ngIf="loginForm
-                              .get('password')
-                              .hasError(validation.type) && (loginForm.get('password')
-                              .dirty || loginForm.get('password').touched)">
-                              {{ validation.message }}
-                            </div>
-                      </ng-container>
-                    </div>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-checkbox (ionChange)="stayLoggedIn($event)"></ion-checkbox>
-                  <span class="hr-spacer-1x"></span>
-                  <ion-label>Stay Logged In?</ion-label>
-                </ion-item>
-            </form>
-              <div class="ion-text-center">
-                <div class="spacer-3x"></div>
-                <ion-button color="danger" expand="full" 
-                (click)="login(loginForm.controls.email.value,
-                               loginForm.controls.password.value)">
-                    Login
-                </ion-button>
-              </div>
-              <div class="ion-text-center">
+
+        <ion-col id="login-page-form-wrapper-outer"
+        size-xs="12" size-sm="9" size-lg="5">
+            <ion-row class="ion-justify-content-center">
+              <ion-col id="login-page-form-wrapper-inner" size="7">
+                <!-- Logo -->
+                <div class="ion-text-center">
+                  <img height="80" src="../../../../assets/icons/logo_draft_1.svg">
+                </div>
+
+                <!-- Form -->
+                <form [formGroup]="loginForm">
+                    <ion-item lines="none">
+                      <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+                      <ion-input required formControlName="email" type="email"></ion-input>
+                      <!-- Email Validation-->
+                      <div class="validation-errors">
+                        <ng-container *ngFor="let validation of validationMessasges.email">
+                              <div class="validation-error-message"
+                              *ngIf="loginForm
+                                .get('email')
+                                .hasError(validation.type) && (loginForm.get('email')
+                                .dirty || loginForm.get('email').touched)">
+                                {{ validation.message }}
+                              </div>
+                        </ng-container>
+                      </div>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input required formControlName="password" type="password" maxlength="8" minlength="8"></ion-input>
+                        <!-- Password Validation-->
+                        <div class="validation-errors">
+                          <ng-container *ngFor="let validation of validationMessasges.password">
+                                <div class="validation-error-message"
+                                *ngIf="loginForm
+                                  .get('password')
+                                  .hasError(validation.type) && (loginForm.get('password')
+                                  .dirty || loginForm.get('password').touched)">
+                                  {{ validation.message }}
+                                </div>
+                          </ng-container>
+                        </div>
+                    </ion-item>
+                    <ion-item lines="none">
+                      <ion-checkbox (ionChange)="stayLoggedIn($event)"></ion-checkbox>
+                      <span class="hr-spacer-1x"></span>
+                      <ion-label>Stay Logged In?</ion-label>
+                    </ion-item>
+                </form>
+
+                <!-- Buttons -->
+                <div id="login-buttons-wrapper">
+                  <div class="ion-text-center">
+                    <div class="spacer-3x"></div>
+                    <ion-button
+                    style="width: 200px; --background: #00c400;" 
+                    (click)="login(loginForm.controls.email.value,
+                                  loginForm.controls.password.value)">
+                        Login
+                    </ion-button>
+                </div>
+                <div class="ion-text-center">
+                    <div class="spacer-1x"></div>
+                    <ion-button
+                    style="width: 200px; border: 2px solid #00c400; --background: #fff; color: #00c400;" 
+                    (click)="goToRegisterPage()">
+                        Register
+                    </ion-button>
+                </div>
+                <div class="ion-text-center">
+                    <div class="spacer-1x"></div>
+                    <ion-button
+                    style="width: 200px; --background: none; color: #888; --box-shadow: none;"
+                    (click)="showForgotPasswordModal()">
+                        Forgot Password
+                    </ion-button>
+                </div>
                 <div class="spacer-1x"></div>
-                <ion-button color="success" expand="full" 
-                (click)="goToRegisterPage()">
-                    Register
-                </ion-button>
-              </div>
-              <div class="ion-text-center">
-                <div class="spacer-1x"></div>
-                <ion-button expand="full" color="light"
-                (click)="showForgotPasswordModal()">
-                    Forgot Password
-                </ion-button>
-              </div>
-              <div class="spacer-1x"></div>
-              <div class="ion-text-center">
-                <ion-button expand="full" color="dark"
-                (click)="goHome()">
-                    Cancel
-                </ion-button>
-              </div>
+                <div class="ion-text-center">
+                    <ion-button style="color: rgb(255, 68, 68); --background: none; --box-shadow: none;"
+                    (click)="goHome()">
+                        Cancel
+                    </ion-button>
+                </div>
+                </div>
+              </ion-col>
+            </ion-row>
         </ion-col>
+
+        <ion-col id="login-background-art"
+        size-xs="12" size-sm="9" size-lg="7">
+        </ion-col>
+
     </ion-row>
   </ion-grid>
 
