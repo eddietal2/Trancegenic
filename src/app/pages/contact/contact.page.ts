@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./contact.page.scss'],
 })
 export class ContactPage implements OnInit {
-  contactForm: FormGroup;
+  contactForm: UntypedFormGroup;
   successModalOpen = false;
 
   validationMessasges = {
@@ -23,7 +23,7 @@ export class ContactPage implements OnInit {
   };
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private alertController: AlertController
     ) { }

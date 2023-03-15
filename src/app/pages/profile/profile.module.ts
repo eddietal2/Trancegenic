@@ -9,15 +9,14 @@ import { CustomComponentsModule } from 'src/app/components/custom-compontents.mo
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ReactiveFormsModule,
-    CustomComponentsModule,
-    ProfilePageRoutingModule
-  ],
-  declarations: [],
-  entryComponents: []
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ReactiveFormsModule,
+        CustomComponentsModule,
+        ProfilePageRoutingModule
+    ],
+    declarations: []
 })
 export class ProfilePageModule {}

@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import { SwiperOptions } from 'swiper';
   encapsulation: ViewEncapsulation.None,
 })
 export class LoginPage implements OnInit {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   forgotPasswordModal = false;
 
   config: SwiperOptions = {
@@ -39,9 +39,9 @@ export class LoginPage implements OnInit {
     ]
   };
   swiper: any;
-  enterEmailForm: FormGroup;
-  enterCodeForm: FormGroup;
-  newPasswordForm: FormGroup;
+  enterEmailForm: UntypedFormGroup;
+  enterCodeForm: UntypedFormGroup;
+  newPasswordForm: UntypedFormGroup;
   userStayLoggedIn: boolean;
   userEmail: string;
   code: string;
@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
   userEmailSub: Subscription;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private loginService: LoginService,
     private registerService: RegisterService,
     private profileService: ProfileService,

@@ -27,29 +27,30 @@ export function jwtOptionsFactory(storage) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    CustomComponentsModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    JwtModule.forRoot({
-      jwtOptionsProvider: {
-        provide: JWT_OPTIONS,
-        useFactory: jwtOptionsFactory,
-        deps: [Storage],
-      }
-    }),
-    IonicModule.forRoot(),
-    IonicStorageModule.forRoot(),
-    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
-    AppRoutingModule],
-  providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        CustomComponentsModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        JwtModule.forRoot({
+            jwtOptionsProvider: {
+                provide: JWT_OPTIONS,
+                useFactory: jwtOptionsFactory,
+                deps: [Storage],
+            }
+        }),
+        IonicModule.forRoot(),
+        IonicStorageModule.forRoot(),
+        // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
+        AppRoutingModule
+    ],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

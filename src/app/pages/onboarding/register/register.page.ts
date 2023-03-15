@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ interface RegisteredUSer {
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   registerSuccessModal = false;
   sendRegisterCodeSub: Subscription;
   code: string;
@@ -43,7 +43,7 @@ export class RegisterPage implements OnInit {
   registerSub: Subscription;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private registerService: RegisterService,
     private loadingController: LoadingController,
     private toastController: ToastController,

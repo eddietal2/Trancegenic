@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import Swiper, { SwiperOptions, Autoplay } from 'swiper';
 import {Howl, Howler} from 'howler';
 import { LandingService } from 'src/app/services/landing/landing.service';
@@ -82,7 +82,7 @@ export class LandingPage implements OnInit {
     private productsService: ProductsService,
     private loadingController: LoadingController,
     private toastController: ToastController,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router
   ) { 
   }
@@ -104,7 +104,7 @@ export class LandingPage implements OnInit {
   searchProducts = [];
   getFeaturedProductsForLandingSub: Subscription;
   getSearchProductsSub: Subscription;
-  membershipForm: FormGroup;
+  membershipForm: UntypedFormGroup;
 
   /**
    * 

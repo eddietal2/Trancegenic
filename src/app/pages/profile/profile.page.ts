@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile/profile.service';
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 export class ProfilePage implements OnInit {
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private profileService: ProfileService,
     public loginService: LoginService,
     private router: Router,
@@ -89,10 +89,10 @@ export class ProfilePage implements OnInit {
 
 
   // 
-  changeNameForm: FormGroup;
-  changePasswordForm: FormGroup;
-  changeEmailForm: FormGroup;
-  newsLetterForm: FormGroup;
+  changeNameForm: UntypedFormGroup;
+  changePasswordForm: UntypedFormGroup;
+  changeEmailForm: UntypedFormGroup;
+  newsLetterForm: UntypedFormGroup;
 
 
   validationMessasges = {
